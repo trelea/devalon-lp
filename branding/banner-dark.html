@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1584px; height: 396px; overflow: hidden; }
+  body {
+    position: relative;
+    background: #13161d;
+    font-family: "Inter", sans-serif;
+  }
+
+  /* soft brand-blue glows echoing the site hero */
+  .glow { position: absolute; border-radius: 50%; filter: blur(90px); }
+  .glow-1 { width: 700px; height: 520px; right: -120px; top: -220px; background: rgba(113,150,224,0.16); }
+  .glow-2 { width: 620px; height: 480px; left: 28%; bottom: -300px; background: rgba(113,150,224,0.10); }
+
+  /* faint grid */
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(234,240,235,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(234,240,235,0.035) 1px, transparent 1px);
+    background-size: 66px 66px;
+    mask-image: radial-gradient(85% 120% at 62% 40%, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(85% 120% at 62% 40%, black 30%, transparent 100%);
+  }
+
+  /* thin beam lines */
+  .beam {
+    position: absolute; height: 1px; width: 100%;
+    background: linear-gradient(90deg, transparent, rgba(113,150,224,0.35), transparent);
+  }
+  .beam-1 { top: 72px; }
+  .beam-2 { bottom: 64px; opacity: .6; }
+
+  /* oversized watermark mark on the right */
+  .watermark {
+    position: absolute;
+    right: -60px; top: 50%;
+    transform: translateY(-50%);
+    width: 460px; height: 460px;
+    opacity: 0.09;
+  }
+
+  .content {
+    position: absolute;
+    left: 480px; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; align-items: flex-start;
+  }
+
+  .wordmark { height: 96px; margin-left: -26px; }
+
+  h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+    letter-spacing: -0.02em;
+    color: rgba(234,240,235,0.96);
+    margin-top: 18px;
+  }
+  h1 .accent { color: #7196E0; }
+
+  .sub {
+    margin-top: 14px;
+    font-size: 19px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: rgba(234,240,235,0.55);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .sub .dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(113,150,224,0.8); }
+</style>
+</head>
+<body>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="grid"></div>
+  <div class="beam beam-1"></div>
+  <div class="beam beam-2"></div>
+  <img class="watermark" src="../public/devalon-logos/light.svg" alt="">
+
+  <div class="content">
+    <img class="wordmark" src="../public/devalon-logos/light-txt.svg" alt="devalon">
+    <h1>We turn ideas into <span class="accent">working software</span>.</h1>
+    <div class="sub">
+      <span>Software &amp; AI development</span><span class="dot"></span>
+      <span>Consulting</span><span class="dot"></span>
+      <span>Individuals, startups &amp; enterprises</span>
+    </div>
+  </div>
+</body>
+</html>
