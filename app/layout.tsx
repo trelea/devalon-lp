@@ -86,8 +86,7 @@ export default function RootLayout({
       className={`${appSans.variable} ${appHeading.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
-        <SmoothScroll />
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

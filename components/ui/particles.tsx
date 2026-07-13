@@ -3,37 +3,10 @@
 import React, {
   useEffect,
   useRef,
-  useState,
   type ComponentPropsWithoutRef,
 } from "react"
 
 import { cn } from "@/lib/utils"
-
-interface MousePosition {
-  x: number
-  y: number
-}
-
-function MousePosition(): MousePosition {
-  const [mousePosition, setMousePosition] = useState<MousePosition>({
-    x: 0,
-    y: 0,
-  })
-
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      setMousePosition({ x: event.clientX, y: event.clientY })
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-    }
-  }, [])
-
-  return mousePosition
-}
 
 interface ParticlesProps extends ComponentPropsWithoutRef<"div"> {
   className?: string
@@ -93,14 +66,13 @@ export const Particles: React.FC<ParticlesProps> = ({
   const canvasContainerRef = useRef<HTMLDivElement>(null)
   const context = useRef<CanvasRenderingContext2D | null>(null)
   const circles = useRef<Circle[]>([])
-  const mousePosition = MousePosition()
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 })
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1
   const rafID = useRef<number | null>(null)
   const resizeTimeout = useRef<NodeJS.Timeout | null>(null)
   const initCanvasRef = useRef<() => void>(() => {})
-  const onMouseMoveRef = useRef<() => void>(() => {})
+  const onMouseMoveRef = useRef<(event: MouseEvent) => void>(() => {})
   const animateRef = useRef<() => void>(() => {})
 
   useEffect(() => {
@@ -108,7 +80,40 @@ export const Particles: React.FC<ParticlesProps> = ({
       context.current = canvasRef.current.getContext("2d")
     }
     initCanvasRef.current()
-    animateRef.current()
+
+    const handleMouseMove = (event: MouseEvent) => {
+      onMouseMoveRef.current(event)
+    }
+
+    // Only animate (and track the mouse) while the canvas is on-screen —
+    // otherwise the rAF loop redraws a full-viewport canvas forever.
+    const start = () => {
+      if (rafID.current == null) {
+        rafID.current = window.requestAnimationFrame(animateRef.current)
+      }
+      window.addEventListener("mousemove", handleMouseMove)
+    }
+    const stop = () => {
+      if (rafID.current != null) {
+        window.cancelAnimationFrame(rafID.current)
+        rafID.current = null
+      }
+      window.removeEventListener("mousemove", handleMouseMove)
+    }
+
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          start()
+        } else {
+          stop()
+        }
+      },
+      { threshold: 0 }
+    )
+    if (canvasContainerRef.current) {
+      intersectionObserver.observe(canvasContainerRef.current)
+    }
 
     const handleResize = () => {
       if (resizeTimeout.current) {
@@ -122,19 +127,14 @@ export const Particles: React.FC<ParticlesProps> = ({
     window.addEventListener("resize", handleResize)
 
     return () => {
-      if (rafID.current != null) {
-        window.cancelAnimationFrame(rafID.current)
-      }
+      stop()
+      intersectionObserver.disconnect()
       if (resizeTimeout.current) {
         clearTimeout(resizeTimeout.current)
       }
       window.removeEventListener("resize", handleResize)
     }
   }, [color])
-
-  useEffect(() => {
-    onMouseMoveRef.current()
-  }, [mousePosition.x, mousePosition.y])
 
   useEffect(() => {
     initCanvasRef.current()
@@ -145,12 +145,12 @@ export const Particles: React.FC<ParticlesProps> = ({
     drawParticles()
   }
 
-  const onMouseMove = () => {
+  const onMouseMove = (event: MouseEvent) => {
     if (canvasRef.current) {
       const rect = canvasRef.current.getBoundingClientRect()
       const { w, h } = canvasSize.current
-      const x = mousePosition.x - rect.left - w / 2
-      const y = mousePosition.y - rect.top - h / 2
+      const x = event.clientX - rect.left - w / 2
+      const y = event.clientY - rect.top - h / 2
       const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2
       if (inside) {
         mouse.current.x = x

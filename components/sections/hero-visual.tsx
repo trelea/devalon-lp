@@ -12,6 +12,7 @@ import {
   Smartphone,
 } from "lucide-react"
 
+import { useAnimationGate } from "@/lib/use-animation-gate"
 import { cn } from "@/lib/utils"
 import { AnimatedBeam } from "@/components/ui/animated-beam"
 import { Terminal } from "@/components/ui/terminal"
@@ -46,6 +47,9 @@ const Node = forwardRef<
 Node.displayName = "Node"
 
 export function HeroVisual() {
+  const rootRef = useRef<HTMLDivElement>(null)
+  const inView = useAnimationGate(rootRef)
+  const beamRepeat = inView ? Infinity : 0
   const containerRef = useRef<HTMLDivElement>(null)
   const appRef = useRef<HTMLDivElement>(null)
   const webRef = useRef<HTMLDivElement>(null)
@@ -56,7 +60,7 @@ export function HeroVisual() {
   const cloudRef = useRef<HTMLDivElement>(null)
 
   return (
-    <div className="mx-auto w-full max-w-xl [perspective:1600px]">
+    <div ref={rootRef} className="mx-auto w-full max-w-xl [perspective:1600px]">
       <motion.div
         style={{
           rotateX: 7,
@@ -64,8 +68,12 @@ export function HeroVisual() {
           rotateZ: 2,
           transformStyle: "preserve-3d",
         }}
-        animate={{ y: [-10, 10, -10] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        animate={inView ? { y: [-10, 10, -10] } : { y: 0 }}
+        transition={
+          inView
+            ? { duration: 7, repeat: Infinity, ease: "easeInOut" }
+            : { duration: 0.3 }
+        }
       >
         <Terminal
           sequence={false}
@@ -124,6 +132,7 @@ export function HeroVisual() {
 
         <AnimatedBeam
           containerRef={containerRef}
+          repeat={beamRepeat}
           fromRef={appRef}
           toRef={hubRef}
           curvature={-75}
@@ -133,6 +142,7 @@ export function HeroVisual() {
         />
         <AnimatedBeam
           containerRef={containerRef}
+          repeat={beamRepeat}
           fromRef={webRef}
           toRef={hubRef}
           gradientStartColor={BRAND_BLUE}
@@ -140,6 +150,7 @@ export function HeroVisual() {
         />
         <AnimatedBeam
           containerRef={containerRef}
+          repeat={beamRepeat}
           fromRef={aiRef}
           toRef={hubRef}
           curvature={75}
@@ -149,6 +160,7 @@ export function HeroVisual() {
         />
         <AnimatedBeam
           containerRef={containerRef}
+          repeat={beamRepeat}
           fromRef={apiRef}
           toRef={hubRef}
           curvature={-75}
@@ -159,6 +171,7 @@ export function HeroVisual() {
         />
         <AnimatedBeam
           containerRef={containerRef}
+          repeat={beamRepeat}
           fromRef={dbRef}
           toRef={hubRef}
           reverse
@@ -167,6 +180,7 @@ export function HeroVisual() {
         />
         <AnimatedBeam
           containerRef={containerRef}
+          repeat={beamRepeat}
           fromRef={cloudRef}
           toRef={hubRef}
           curvature={75}

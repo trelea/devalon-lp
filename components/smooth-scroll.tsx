@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import Lenis from "lenis"
+import { MotionConfig } from "motion/react"
 import "lenis/dist/lenis.css"
 
 /**
@@ -10,8 +11,11 @@ import "lenis/dist/lenis.css"
  * - Skipped entirely for users who prefer reduced motion.
  * - Nested scrollers (contact dialog, country dropdown) opt out with
  *   `data-lenis-prevent`.
+ *
+ * Also wraps the app in MotionConfig so every `motion` animation respects
+ * the OS reduced-motion setting.
  */
-export function SmoothScroll() {
+export function SmoothScroll({ children }: { children?: React.ReactNode }) {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
 
@@ -25,5 +29,5 @@ export function SmoothScroll() {
     }
   }, [])
 
-  return null
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>
 }

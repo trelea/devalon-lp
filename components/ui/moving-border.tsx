@@ -7,7 +7,8 @@ import {
   useMotionValue,
   useTransform,
 } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useAnimationGate } from "@/lib/use-animation-gate";
 import { cn } from "@/lib/utils";
 
 export function Button({
@@ -82,11 +83,34 @@ export const MovingBorder = ({
   ry?: string;
   [key: string]: any;
 }) => {
+  const svgRef = useRef<SVGSVGElement>(null);
   const pathRef = useRef<any>(null);
   const progress = useMotionValue<number>(0);
 
+  // getTotalLength() forces layout work — measure once (and on resize)
+  // instead of every frame, and skip the frame loop entirely off-screen
+  const lengthRef = useRef<number | null>(null);
+  const inView = useAnimationGate(svgRef);
+  const inViewRef = useRef(inView);
+  useEffect(() => {
+    inViewRef.current = inView;
+  }, [inView]);
+
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    const measure = () => {
+      lengthRef.current = pathRef.current?.getTotalLength() ?? null;
+    };
+    measure();
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(svg);
+    return () => resizeObserver.disconnect();
+  }, []);
+
   useAnimationFrame((time) => {
-    const length = pathRef.current?.getTotalLength();
+    if (!inViewRef.current) return;
+    const length = lengthRef.current;
     if (length) {
       const pxPerMillisecond = length / duration;
       progress.set((time * pxPerMillisecond) % length);
@@ -107,6 +131,7 @@ export const MovingBorder = ({
   return (
     <>
       <svg
+        ref={svgRef}
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
         className="absolute h-full w-full"

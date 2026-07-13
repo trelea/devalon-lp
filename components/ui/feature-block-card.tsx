@@ -1,9 +1,10 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import type { LucideIcon } from "lucide-react"
 import { animate, motion } from "motion/react"
 
+import { useAnimationGate } from "@/lib/use-animation-gate"
 import { cn } from "@/lib/utils"
 
 export const FeatureCard = ({
@@ -113,30 +114,40 @@ const Sparkles = () => {
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
 
-  const randomMove = () => Math.random() * 2 - 1
-  const randomOpacity = () => Math.random()
-  const random = () => Math.random()
+  // positions stay fixed; the twinkle animates transform/opacity only
+  // (top/left animations force a layout pass per frame per star)
+  const [stars] = useState(() =>
+    Array.from({ length: 8 }, () => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      x: Math.random() * 4 - 2,
+      y: Math.random() * 4 - 2,
+      opacity: Math.random(),
+      duration: Math.random() * 2 + 4,
+    }))
+  )
+
   if (!mounted) return null
   return (
     <div className="absolute inset-0">
-      {[...Array(12)].map((_, i) => (
+      {stars.map((star, i) => (
         <motion.span
           key={`star-${i}`}
           animate={{
-            top: `calc(${random() * 100}% + ${randomMove()}px)`,
-            left: `calc(${random() * 100}% + ${randomMove()}px)`,
-            opacity: randomOpacity(),
+            x: star.x,
+            y: star.y,
+            opacity: star.opacity,
             scale: [1, 1.2, 0],
           }}
           transition={{
-            duration: random() * 2 + 4,
+            duration: star.duration,
             repeat: Infinity,
             ease: "linear",
           }}
           style={{
             position: "absolute",
-            top: `${random() * 100}%`,
-            left: `${random() * 100}%`,
+            top: star.top,
+            left: star.left,
             width: `2px`,
             height: `2px`,
             borderRadius: "50%",
@@ -167,6 +178,10 @@ export const FeatureCardSkeleton = ({
   // so multiple cards on one page need distinct class names
   scope: string
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const inView = useAnimationGate(containerRef)
+  const controlsRef = useRef<ReturnType<typeof animate> | null>(null)
+
   useEffect(() => {
     const scale = [1, 1.1, 1]
     const transform = [
@@ -182,11 +197,31 @@ export const FeatureCardSkeleton = ({
 
     // @ts-expect-error - motion sequence typing is looser than its runtime API
     const controls = animate(sequence, { repeat: Infinity, repeatDelay: 1 })
-    return () => controls.stop()
+    controlsRef.current = controls
+    return () => {
+      controls.stop()
+      controlsRef.current = null
+    }
   }, [icons, scope])
 
+  // pause the icon loop (and, via data-animation-paused, the CSS beam)
+  // while the card is off-screen
+  useEffect(() => {
+    const controls = controlsRef.current
+    if (!controls) return
+    if (inView) {
+      controls.play()
+    } else {
+      controls.pause()
+    }
+  }, [inView])
+
   return (
-    <div className="relative flex h-full items-center justify-center overflow-hidden p-8">
+    <div
+      ref={containerRef}
+      data-animation-paused={!inView || undefined}
+      className="relative flex h-full items-center justify-center overflow-hidden p-8"
+    >
       {/* gradient def for the icon strokes; id is scoped per card to stay unique */}
       <svg aria-hidden className="absolute h-0 w-0">
         <defs>
@@ -216,7 +251,7 @@ export const FeatureCardSkeleton = ({
 
       <div className="animate-move absolute top-16 z-40 m-auto h-32 w-px bg-gradient-to-b from-transparent via-primary to-transparent">
         <div className="absolute -left-10 top-1/2 h-32 w-10 -translate-y-1/2">
-          <Sparkles />
+          {inView && <Sparkles />}
         </div>
       </div>
     </div>

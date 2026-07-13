@@ -161,6 +161,27 @@
   --sidebar-ring: oklch(0.68 0.11 264);
 }
 
+/* AnimationGate: freeze decorative CSS animations while their section is
+   off-screen. Transitions (hover states) are unaffected. */
+[data-animation-paused],
+[data-animation-paused] * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-vertical,
+  .animate-glow-drift,
+  .animate-background-position-spin,
+  .animate-meteor,
+  .animate-shine,
+  .animate-orbit,
+  .animate-move {
+    animation-iteration-count: 1 !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

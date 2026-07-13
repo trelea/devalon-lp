@@ -1,11 +1,16 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import { motion } from "motion/react";
+import { useAnimationGate } from "@/lib/use-animation-gate";
 import { cn } from "@/lib/utils";
 
 export const BackgroundBeams = React.memo(
   ({ className }: { className?: string }) => {
-    const paths = [
+    // Every beam is drawn by the static full-density path below; this list
+    // only controls how many carry a traveling glint at once. A sample of
+    // every 3rd path keeps the spatial spread while cutting the number of
+    // concurrent infinite animations from 50 to 17.
+    const allPaths = [
       "M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875",
       "M-373 -197C-373 -197 -305 208 159 335C623 462 691 867 691 867",
       "M-366 -205C-366 -205 -298 200 166 327C630 454 698 859 698 859",
@@ -57,8 +62,14 @@ export const BackgroundBeams = React.memo(
       "M-44 -573C-44 -573 24 -168 488 -41C952 86 1020 491 1020 491",
       "M-37 -581C-37 -581 31 -176 495 -49C959 78 1027 483 1027 483",
     ];
+    const paths = allPaths.filter((_, index) => index % 3 === 0);
+
+    const containerRef = useRef<HTMLDivElement>(null);
+    const inView = useAnimationGate(containerRef);
+
     return (
       <div
+        ref={containerRef}
         className={cn(
           "absolute inset-0 flex h-full w-full items-center justify-center [mask-repeat:no-repeat] [mask-size:40px]",
           className,
@@ -79,45 +90,47 @@ export const BackgroundBeams = React.memo(
             strokeWidth="0.5"
           ></path>
 
-          {paths.map((path, index) => (
-            <motion.path
-              key={`path-` + index}
-              d={path}
-              stroke={`url(#linearGradient-${index})`}
-              strokeOpacity="0.4"
-              strokeWidth="0.5"
-            ></motion.path>
-          ))}
-          <defs>
-            {paths.map((path, index) => (
-              <motion.linearGradient
-                id={`linearGradient-${index}`}
-                key={`gradient-${index}`}
-                initial={{
-                  x1: "0%",
-                  x2: "0%",
-                  y1: "0%",
-                  y2: "0%",
-                }}
-                animate={{
-                  x1: ["0%", "100%"],
-                  x2: ["0%", "95%"],
-                  y1: ["0%", "100%"],
-                  y2: ["0%", `${93 + Math.random() * 8}%`],
-                }}
-                transition={{
-                  duration: Math.random() * 10 + 10,
-                  ease: "easeInOut",
-                  repeat: Infinity,
-                  delay: Math.random() * 10,
-                }}
-              >
-                <stop stopColor="#2563eb" stopOpacity="0"></stop>
-                <stop stopColor="#2563eb"></stop>
-                <stop offset="32.5%" stopColor="#1d4ed8"></stop>
-                <stop offset="100%" stopColor="#60a5fa" stopOpacity="0"></stop>
-              </motion.linearGradient>
+          {inView &&
+            paths.map((path, index) => (
+              <motion.path
+                key={`path-` + index}
+                d={path}
+                stroke={`url(#linearGradient-${index})`}
+                strokeOpacity="0.4"
+                strokeWidth="0.5"
+              ></motion.path>
             ))}
+          <defs>
+            {inView &&
+              paths.map((path, index) => (
+                <motion.linearGradient
+                  id={`linearGradient-${index}`}
+                  key={`gradient-${index}`}
+                  initial={{
+                    x1: "0%",
+                    x2: "0%",
+                    y1: "0%",
+                    y2: "0%",
+                  }}
+                  animate={{
+                    x1: ["0%", "100%"],
+                    x2: ["0%", "95%"],
+                    y1: ["0%", "100%"],
+                    y2: ["0%", `${93 + Math.random() * 8}%`],
+                  }}
+                  transition={{
+                    duration: Math.random() * 10 + 10,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                    delay: Math.random() * 10,
+                  }}
+                >
+                  <stop stopColor="#2563eb" stopOpacity="0"></stop>
+                  <stop stopColor="#2563eb"></stop>
+                  <stop offset="32.5%" stopColor="#1d4ed8"></stop>
+                  <stop offset="100%" stopColor="#60a5fa" stopOpacity="0"></stop>
+                </motion.linearGradient>
+              ))}
 
             <radialGradient
               id="paint0_radial_242_278"

@@ -1,39 +1,51 @@
 "use client";
-import React, { useState } from "react";
-import { motion } from "motion/react";
+import React from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useTransform,
+} from "motion/react";
 import { cn } from "@/lib/utils";
 
 export const WobbleCard = ({
   children,
   containerClassName,
   className,
+  noise = true,
 }: {
   children: React.ReactNode;
   containerClassName?: string;
   className?: string;
+  noise?: boolean;
 }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+  // motion values feed the inline styles directly, so mouse movement never
+  // re-renders the card (there can be ~30 of these mounted at once)
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const scale = useMotionValue(1);
+  const invX = useTransform(x, (v) => -v);
+  const invY = useTransform(y, (v) => -v);
+  const outerTransform = useMotionTemplate`translate3d(${x}px, ${y}px, 0) scale3d(1, 1, 1)`;
+  const innerTransform = useMotionTemplate`translate3d(${invX}px, ${invY}px, 0) scale3d(${scale}, ${scale}, 1)`;
 
   const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
     const { clientX, clientY } = event;
     const rect = event.currentTarget.getBoundingClientRect();
-    const x = (clientX - (rect.left + rect.width / 2)) / 20;
-    const y = (clientY - (rect.top + rect.height / 2)) / 20;
-    setMousePosition({ x, y });
+    x.set((clientX - (rect.left + rect.width / 2)) / 20);
+    y.set((clientY - (rect.top + rect.height / 2)) / 20);
   };
   return (
     <motion.section
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovering(true)}
+      onMouseEnter={() => scale.set(1.03)}
       onMouseLeave={() => {
-        setIsHovering(false);
-        setMousePosition({ x: 0, y: 0 });
+        x.set(0);
+        y.set(0);
+        scale.set(1);
       }}
       style={{
-        transform: isHovering
-          ? `translate3d(${mousePosition.x}px, ${mousePosition.y}px, 0) scale3d(1, 1, 1)`
-          : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
+        transform: outerTransform,
         transition: "transform 0.1s ease-out",
       }}
       className={cn(
@@ -50,14 +62,12 @@ export const WobbleCard = ({
       >
         <motion.div
           style={{
-            transform: isHovering
-              ? `translate3d(${-mousePosition.x}px, ${-mousePosition.y}px, 0) scale3d(1.03, 1.03, 1)`
-              : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
+            transform: innerTransform,
             transition: "transform 0.1s ease-out",
           }}
           className={cn("h-full px-4 py-20 sm:px-10", className)}
         >
-          <Noise />
+          {noise && <Noise />}
           {children}
         </motion.div>
       </div>

@@ -1,7 +1,9 @@
 "use client"
 
-import React from "react"
+import React, { useRef } from "react"
 import { motion } from "motion/react"
+
+import { useAnimationGate } from "@/lib/use-animation-gate"
 
 type SpotlightProps = {
   gradientFirst?: string
@@ -26,21 +28,28 @@ export const Spotlight = ({
   duration = 7,
   xOffset = 100,
 }: SpotlightProps = {}) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const inView = useAnimationGate(containerRef)
+  const sweep = inView
+    ? {
+        duration,
+        repeat: Infinity,
+        repeatType: "reverse" as const,
+        ease: "easeInOut" as const,
+      }
+    : { duration: 0.3 }
+
   return (
     <motion.div
+      ref={containerRef}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
       className="pointer-events-none absolute inset-0 h-full w-full"
     >
       <motion.div
-        animate={{ x: [0, xOffset, 0] }}
-        transition={{
-          duration,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
+        animate={inView ? { x: [0, xOffset, 0] } : { x: 0 }}
+        transition={sweep}
         className="pointer-events-none absolute top-0 left-0 z-0 h-screen w-screen"
       >
         <div
@@ -73,13 +82,8 @@ export const Spotlight = ({
       </motion.div>
 
       <motion.div
-        animate={{ x: [0, -xOffset, 0] }}
-        transition={{
-          duration,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
+        animate={inView ? { x: [0, -xOffset, 0] } : { x: 0 }}
+        transition={sweep}
         className="pointer-events-none absolute top-0 right-0 z-0 h-screen w-screen"
       >
         <div

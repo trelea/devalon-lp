@@ -4,6 +4,7 @@ import { join } from "node:path"
 import { ArrowUpRight, Mail, Phone, Star } from "lucide-react"
 
 import { ContactForm } from "@/components/contact-form"
+import { AnimationGate } from "@/components/ui/animation-gate"
 import { AvatarCircles } from "@/components/ui/avatar-circles"
 import { DotPattern } from "@/components/ui/dot-pattern"
 import { GridPattern } from "@/components/ui/grid-pattern"
@@ -161,7 +162,7 @@ function PlaceholderFrame({
 
 function SlideBackdrop({ flipped }: { flipped: boolean }) {
   return (
-    <>
+    <AnimationGate className="absolute inset-0">
       <div
         aria-hidden
         className={`pointer-events-none absolute top-1/4 size-96 rounded-full bg-primary/10 blur-3xl animate-glow-drift ${
@@ -179,7 +180,7 @@ function SlideBackdrop({ flipped }: { flipped: boolean }) {
             : "[mask-image:radial-gradient(620px_circle_at_30%_45%,white,transparent)]"
         }
       />
-    </>
+    </AnimationGate>
   )
 }
 
@@ -245,6 +246,7 @@ function WorkGallery({
       {shots.map((shot, index) => (
         <WobbleCard
           key={shot.src}
+          noise={false}
           containerClassName={cn(
             "min-h-0 bg-secondary/40 shadow-[0_10px_22px_-10px] shadow-primary/30",
             work.shotSpans?.[index] ?? shotSpan(shots.length, index, workIndex)
@@ -347,7 +349,7 @@ const ctaAvatars = [
     profileUrl: "https://dialogimobil.md",
   },
   {
-    imageUrl: "https://avatars.githubusercontent.com/u/59442788",
+    imageUrl: "/recommendations/redcore.jpg",
     profileUrl: "https://redcoreconcrete.com",
   },
   {

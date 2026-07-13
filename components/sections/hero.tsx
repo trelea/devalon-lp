@@ -20,7 +20,7 @@ export function Hero() {
       <BackgroundBeams className="pointer-events-none -z-10 opacity-70" />
       <Particles
         className="absolute inset-0 -z-10"
-        quantity={90}
+        quantity={45}
         staticity={50}
         ease={70}
         size={0.5}
