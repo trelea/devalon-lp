@@ -329,32 +329,40 @@ function WorkSlide({ work, index }: { work: Work; index: number }) {
   )
 }
 
-// TODO: replace placeholder avatars with real client photos; each links to
-// the client's live site from the works above
+// the same clients and people as the recommendations section; each links to
+// their live site
 const ctaAvatars = [
   {
-    imageUrl: "https://avatars.githubusercontent.com/u/16860528",
+    imageUrl: "/recommendations/2marketing.jpg",
     profileUrl: "https://2marketing.ai",
+    name: "2Marketing.ai",
   },
   {
-    imageUrl: "https://avatars.githubusercontent.com/u/20110627",
-    profileUrl: "https://app.wynnehomemanager.com/",
+    imageUrl: "/recommendations/thomas-bach-petersen.jpg",
+    profileUrl: "https://2ai.dk",
+    name: "Thomas Bach Petersen — 2ai",
   },
   {
-    imageUrl: "https://avatars.githubusercontent.com/u/106103625",
-    profileUrl: "https://www.megawind.md",
+    imageUrl: "/recommendations/dimitry-bizga.jpg",
+    profileUrl: "https://synthax.codes",
+    name: "Dimitry Bizga — Synthax Codes",
   },
   {
-    imageUrl: "https://avatars.githubusercontent.com/u/59228569",
-    profileUrl: "https://dialogimobil.md",
+    imageUrl: "/recommendations/vasile-borogan.jpg",
+    profileUrl: "https://primeinvest.md",
+    name: "Vasile Borogan — Premier Invest",
   },
   {
     imageUrl: "/recommendations/redcore.jpg",
     profileUrl: "https://redcoreconcrete.com",
+    name: "Red Core Concrete",
   },
   {
-    imageUrl: "https://avatars.githubusercontent.com/u/89768406",
+    imageUrl: "/recommendations/palazzo-aesthetics.svg",
     profileUrl: "https://palazzoaesthetics.md/",
+    name: "Palazzo Aesthetics",
+    // logo is dark green on a transparent background
+    className: "bg-[#f2eee4]",
   },
 ]
 

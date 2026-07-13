@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils"
 interface Avatar {
   imageUrl: string
   profileUrl: string
+  name?: string
+  className?: string
 }
 interface AvatarCirclesProps {
   className?: string
@@ -31,13 +33,14 @@ export const AvatarCircles = ({
           <img
             key={index}
             className={cn(
-              "h-10 w-10 rounded-full border-2 border-white dark:border-gray-800",
-              avatarClassName
+              "h-10 w-10 rounded-full border-2 border-white object-cover dark:border-gray-800",
+              avatarClassName,
+              url.className
             )}
             src={url.imageUrl}
             width={40}
             height={40}
-            alt={`Avatar ${index + 1}`}
+            alt={url.name ?? `Avatar ${index + 1}`}
           />
         </a>
       ))}
