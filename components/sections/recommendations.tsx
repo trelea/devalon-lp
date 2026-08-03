@@ -6,14 +6,16 @@ import { AnimationGate } from "@/components/ui/animation-gate"
 import { Marquee } from "@/components/ui/marquee"
 import { cn } from "@/lib/utils"
 
-// TODO: Thomas (2ai), 2Marketing.ai and Palazzo Aesthetics still need their
-// real quote texts.
+// TODO: Thomas (2ai), 2Marketing.ai, Palazzo Aesthetics and Inesa Dita still
+// need their real quote texts.
 // - `name` is the customer: a company name or a real human name
 // - `role` goes under it: the person's role, or the company's theme/industry
 // - kind: "person"  → round initials avatar (or photo via `avatar`)
 // - kind: "company" → round logo tile (via `avatar`) or building icon
 // `avatar` is an optional image path in /public.
 // `avatarClassName` overrides the tile background for logos that need it.
+// `href` is optional — when set, the whole card links to the real source
+// (LinkedIn recommendation, Google review, client site, …) in a new tab.
 type Recommendation = {
   kind: "person" | "company"
   name: string
@@ -21,6 +23,7 @@ type Recommendation = {
   quote: string
   avatar?: string
   avatarClassName?: string
+  href?: string
 }
 
 const recommendations: Recommendation[] = [
@@ -31,6 +34,7 @@ const recommendations: Recommendation[] = [
     quote:
       "Having worked closely with Marius on multiple projects in the same group, I can confidently say he is an outstanding Software Engineer. He took full ownership of our core backend systems, built stable architectures from scratch, and resolved complex infrastructure bottlenecks with great efficiency. Marius stands out because he delivers exactly what the project requires, turning complex requirements into rock-solid, durable, and highly optimized software that runs flawlessly in production.",
     avatar: "/recommendations/dimitry-bizga.jpg",
+    href: "https://www.linkedin.com/in/dimitry-bizga/",
   },
   {
     kind: "company",
@@ -39,6 +43,7 @@ const recommendations: Recommendation[] = [
     quote:
       "I've worked with Marius Trelea on multiple projects, and every experience has been excellent. He built our company website exactly the way we wanted and was always responsive, professional, and easy to communicate with throughout the process. Everything was completed on time, and the final result exceeded our expectations.",
     avatar: "/recommendations/redcore.jpg",
+    href: "https://redcoreconcrete.com/",
   },
   {
     kind: "person",
@@ -46,6 +51,7 @@ const recommendations: Recommendation[] = [
     role: "Co-Founder & CTO @ 2ai",
     quote: "Placeholder — Thomas's recommendation text coming soon.",
     avatar: "/recommendations/thomas-bach-petersen.jpg",
+    href: "https://www.linkedin.com/in/thomasbach/",
   },
   {
     kind: "company",
@@ -53,6 +59,16 @@ const recommendations: Recommendation[] = [
     role: "Marketing & AI SaaS · Denmark",
     quote: "Placeholder — 2Marketing's recommendation text coming soon.",
     avatar: "/recommendations/2marketing.jpg",
+    href: "https://2marketing.ai/",
+  },
+  {
+    kind: "person",
+    name: "Inesa Dita",
+    role: "Real Estate Agent & Coach for Women · USA",
+    quote:
+      "Working with Marius was effortless from day one. He understood what I needed before I could fully explain it, kept me in the loop at every step, and delivered a result far more polished than I expected. I'd trust him with any project.",
+    avatar: "/recommendations/inesa-dita.webp",
+    href: "https://www.compass.com/agents/inesa-dita/",
   },
   {
     kind: "person",
@@ -61,6 +77,7 @@ const recommendations: Recommendation[] = [
     quote:
       "I highly recommend Marius as a Software Engineer. We collaborated on our internal applications, and he successfully managed both front-end and back-end aspects, handling all engineering challenges with great efficiency. What makes Marius stand out is his strong technical expertise combined with a client-first mindset—he has a remarkable ability to understand exactly what the client wants and translate it into rock-solid, durable, and highly optimized software.",
     avatar: "/recommendations/vasile-borogan.jpg",
+    href: "https://www.linkedin.com/in/vasile-borogan-bb1638114/",
   },
   {
     kind: "company",
@@ -70,6 +87,7 @@ const recommendations: Recommendation[] = [
     avatar: "/recommendations/palazzo-aesthetics.svg",
     // logo is dark green on a transparent background
     avatarClassName: "bg-[#f2eee4]",
+    href: "https://palazzoaesthetics.md",
   },
 ]
 
@@ -89,8 +107,9 @@ function RecommendationCard({
   quote,
   avatar,
   avatarClassName,
+  href,
 }: Recommendation) {
-  return (
+  const card = (
     <figure className="dark relative isolate flex flex-col overflow-hidden rounded-2xl border border-border bg-[linear-gradient(115deg,oklch(0.22_0.014_258),oklch(0.25_0.05_262),oklch(0.22_0.014_258))] bg-[length:200%_200%] p-3.5 text-foreground transition-colors [--duration:18s] motion-safe:animate-shine hover:border-primary/40 sm:p-5">
       <div
         aria-hidden
@@ -133,12 +152,25 @@ function RecommendationCard({
       </blockquote>
     </figure>
   )
+
+  if (!href) return card
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block"
+    >
+      {card}
+    </a>
+  )
 }
 
 const columns = [
   { items: recommendations.slice(0, 2), duration: "45s", reverse: false },
-  { items: recommendations.slice(2, 4), duration: "60s", reverse: true },
-  { items: recommendations.slice(4, 6), duration: "50s", reverse: false },
+  { items: recommendations.slice(2, 5), duration: "60s", reverse: true },
+  { items: recommendations.slice(5, 7), duration: "50s", reverse: false },
 ]
 
 export function Recommendations() {
@@ -170,6 +202,23 @@ export function Recommendations() {
               "linear-gradient(to bottom, transparent, rgba(0,0,0,0.35) 3%, rgba(0,0,0,0.75) 6%, black 10%, black 90%, rgba(0,0,0,0.75) 94%, rgba(0,0,0,0.35) 97%, transparent)",
           }}
         >
+          {/* mobile: a single column cycling through every card */}
+          <Marquee
+            vertical
+            pauseOnHover
+            repeat={2}
+            className="h-[calc(100svh-11rem)] min-h-[26rem] p-0 sm:hidden"
+            style={
+              {
+                "--duration": "150s",
+                "--gap": "1.25rem",
+              } as React.CSSProperties
+            }
+          >
+            {recommendations.map((rec) => (
+              <RecommendationCard key={rec.name} {...rec} />
+            ))}
+          </Marquee>
           {columns.map((column, index) => (
             <Marquee
               key={index}
@@ -179,7 +228,7 @@ export function Recommendations() {
               reverse={column.reverse}
               className={
                 index === 0
-                  ? "h-[calc(100svh-11rem)] min-h-[26rem] p-0 sm:h-[min(50rem,calc(100svh-14rem))] sm:min-h-0"
+                  ? "hidden h-[calc(100svh-11rem)] min-h-[26rem] p-0 sm:flex sm:h-[min(50rem,calc(100svh-14rem))] sm:min-h-0"
                   : index === 1
                     ? "hidden h-[calc(100svh-11rem)] min-h-[26rem] p-0 sm:flex sm:h-[min(50rem,calc(100svh-14rem))] sm:min-h-0"
                     : "hidden h-[calc(100svh-11rem)] min-h-[26rem] p-0 sm:h-[min(50rem,calc(100svh-14rem))] sm:min-h-0 lg:flex"

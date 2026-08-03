@@ -364,6 +364,11 @@ const ctaAvatars = [
     // logo is dark green on a transparent background
     className: "bg-[#f2eee4]",
   },
+  {
+    imageUrl: "/recommendations/inesa-dita.webp",
+    profileUrl: "https://www.compass.com/agents/inesa-dita/",
+    name: "Inesa Dita — Real Estate Agent",
+  },
 ]
 
 function CtaSlide({ flipped }: { flipped: boolean }) {
@@ -389,7 +394,7 @@ function CtaSlide({ flipped }: { flipped: boolean }) {
           <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
             <AvatarCircles
               avatarUrls={ctaAvatars}
-              className="-space-x-2"
+              className="-space-x-4"
               avatarClassName="size-12"
             />
             <div className="flex items-center gap-1" aria-label="Rated 5 out of 5 by our clients">
