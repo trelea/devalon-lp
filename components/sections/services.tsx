@@ -58,8 +58,8 @@ export function Services() {
           Our services
         </h2>
         <p className="mt-3 max-w-xl text-lg leading-relaxed text-muted-foreground">
-          Whatever stage your idea is at — we help you think it through, then
-          build it, ship it, and keep it running.
+          No matter where your idea is right now, we&rsquo;ll help you shape
+          it, build it, launch it, and keep it running.
         </p>
 
         <div className="mt-8 grid gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4">
