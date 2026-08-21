@@ -3,7 +3,7 @@ import { join } from "node:path"
 import { ImageResponse } from "next/og"
 
 export const alt =
-  "Devalon — Software & AI development and consulting. We turn ideas into working software."
+  "Devalon — Software & AI development and consulting. From concept to production, shipped fast."
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
@@ -49,7 +49,8 @@ export default function OpengraphImage() {
             textAlign: "center",
           }}
         >
-          Software, tech &amp; AI — we turn ideas into working software
+          From concept to production — web apps, AI integrations, scalable
+          backends
         </div>
         <div
           style={{

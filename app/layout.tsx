@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     title: "Devalon — Build your digital dreams",
     description:
-      "Software & AI development and consulting for individuals, startups, and enterprises. We turn ideas into working software.",
+      "Software & AI development and consulting for individuals, startups, and enterprises. From concept to production, shipped fast.",
   },
   twitter: {
     card: "summary_large_image",

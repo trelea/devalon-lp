@@ -9,4 +9,4 @@ export const siteName = "Devalon"
 export const siteTitle = "Devalon — Software & AI development and consulting"
 
 export const siteDescription =
-  "Devalon turns ideas into working software for individuals, startups, and enterprises — custom development, AI automation, maintenance, and scaling. Honest scope, real ballparks, no pressure."
+  "Devalon takes products from concept to production — custom web apps, AI integrations, and scalable backends for individuals, startups, and enterprises. Honest scope, real ballparks, no pressure."

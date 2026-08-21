@@ -60,8 +60,8 @@ export default function Footer() {
               />
             </Link>
             <p className="mt-5 max-w-sm text-base leading-relaxed text-muted-foreground">
-              Software, tech &amp; AI development and consulting. We turn ideas
-              into working software for individuals, startups, and enterprises.
+              Software, tech &amp; AI development and consulting. From concept
+              to production — for individuals, startups, and enterprises.
             </p>
             <div className="mt-5 flex items-center gap-2.5">
               {socials.map((social) => (

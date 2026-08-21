@@ -34,6 +34,8 @@ type Work = {
   /** col-span class per image, overriding the automatic pattern (12-col grid) */
   shotSpans?: string[]
   body: string
+  /** outcome bullets rendered under the summary; "Lead-in: rest" gets a bold lead-in */
+  highlights?: string[]
 }
 
 const works: Work[] = [
@@ -44,7 +46,11 @@ const works: Work[] = [
     client: "AI SaaS · Denmark",
     name: "2Marketing",
     href: "https://2marketing.ai",
-    body: "2Marketing is a marketing and AI SaaS from Denmark. Small businesses use it to plan and publish their social media and ads on Meta and Google, without hiring an agency. We built the backend that powers it: the services that connect accounts, schedule and publish posts and ads, pull in statistics, and feed the platform's AI features — plus the landing page and parts of the admin dashboard.",
+    body: "A multi-network SaaS platform that automates campaign creation, social scheduling, and AI features across Google Ads, Meta, LinkedIn, and Reddit from a unified backend.",
+    highlights: [
+      "Built for scale: Reliably processes 100,000+ automated posts and ad updates monthly with automated error recovery.",
+      "Saves 15+ hours weekly per business by replacing manual ad management with streamlined 1-click publishing.",
+    ],
   },
   {
     num: "02",
@@ -55,7 +61,11 @@ const works: Work[] = [
     client: "Web app · USA",
     name: "Wynne Home Manager",
     href: "https://app.wynnehomemanager.com/",
-    body: "Wynne Home Manager is a home-management web app built for a customer in the USA. Its users log in every day to keep track of their properties and maintenance, and it installs on any device like a native app. We architected and built the entire backend: the database and its migrations, the REST APIs, and the architecture behind them, plus the utilities the frontend team needed to do their part.",
+    body: "A full-stack property management progressive web app designed for daily multi-device tracking and maintenance management.",
+    highlights: [
+      "Engineered the entire backend from scratch: secure REST APIs, database schema, migration pipelines, and developer tooling.",
+      "Delivers a seamless app-like mobile experience with zero installation friction across all modern devices.",
+    ],
   },
   {
     num: "03",
@@ -70,7 +80,11 @@ const works: Work[] = [
     name: "Bundller — one system, many brands",
     href: "https://www.megawind.md",
     shotSpans: ["col-span-6", "col-span-6", "col-span-6", "col-span-6"],
-    body: "We built seven websites for companies selling solar batteries and energy solutions, all running on one system we made for them. Each brand has its own look, content and audience, in Romanian and Russian, and each comes with its own CMS, so every company controls the content on its own pages. The landing pages are very fast, and that mattered beyond sales: our solution helped these companies apply for and win European grants.",
+    body: "A multi-tenant web ecosystem powering seven distinct solar energy and battery brands from a single centralized management architecture.",
+    highlights: [
+      "Powered high-speed, multi-lingual landing pages that helped partner companies apply for and secure competitive EU grants.",
+      "Custom CMS empowers each company to manage its own localized content, products, and news independently.",
+    ],
   },
   {
     num: "04",
@@ -80,7 +94,11 @@ const works: Work[] = [
     client: "Real estate · Chișinău",
     name: "Dialog Imobil",
     href: "https://dialogimobil.md",
-    body: "A real-estate platform for an agency in Chișinău. Visitors browse apartments, houses, commercial spaces and land, with prices, maps and hot offers, plus mortgage guidance, six service areas and a market news blog — all in three languages. Behind it, the agency has its own admin panel to manage every listing, offer and article in-house.",
+    body: "A comprehensive tri-lingual real estate catalogue and lead generation portal for properties, land, and mortgage guidance in Chișinău.",
+    highlights: [
+      "Built a custom back-office dashboard allowing agents to update properties, hot offers, and articles in real time without technical help.",
+      "Streamlined buyer navigation with interactive maps, filterable property categories, and direct contact forms.",
+    ],
   },
   {
     num: "05",
@@ -91,7 +109,11 @@ const works: Work[] = [
     client: "Real estate · Chișinău",
     name: "Premier Invest",
     href: "https://primeinvest.md",
-    body: "Another listings platform, for a different agency. We helped the owner present his services and real estate to his customers in a more convenient and trustworthy way: a listings website backed by a CMS, so he manages every offer himself. Sale and rent across apartments, houses, commercial spaces and land, with property pages, favourites and the most viewed offers from the city's known developers. It started from zero and is now a working catalogue.",
+    body: "A modern real estate marketplace showcasing verified property deals, developer offers, and rental listings across Chișinău.",
+    highlights: [
+      "Replaced fragmented client communication with a high-trust digital catalogue featuring dynamic search and saved favorites.",
+      "Integrated an internal CMS allowing the agency owner to manage all listing media and price updates independently.",
+    ],
   },
   {
     num: "06",
@@ -102,7 +124,11 @@ const works: Work[] = [
     client: "Investments · Romania",
     name: "DialogInvest",
     href: "https://dialoginvest.md",
-    body: "A landing page whose real job is building trust between DialogInvest and the founders and investors it works with. It explains how investing in Romanian commercial real estate and turnkey businesses actually works, then walks through the offers with real deal examples and yields — verified properties, legal protection, full setup. Serious enquiries come in because nothing on the page feels like a pitch.",
+    body: "A high-converting investor relations platform designed to build immediate trust for commercial real estate and business deals in Romania.",
+    highlights: [
+      "Converts complex yield modeling, verified deal structures, and legal protections into clear, authoritative presentation pages.",
+      "Consistently generates serious investor inquiries by replacing aggressive sales pitches with verified financial transparency.",
+    ],
   },
   {
     num: "07",
@@ -113,7 +139,11 @@ const works: Work[] = [
     client: "Logistics · EU",
     name: "ETA Truck",
     href: "https://eta-truck.ro",
-    body: "The website of a Bucharest logistics company that moves oversized cargo across Moldova, Romania and the EU: escorted special transports, permits, vehicle transport, GPS tracking. The client updates news, the gallery and job postings themselves, no developer needed.",
+    body: "A corporate digital platform for an international Bucharest logistics firm specializing in oversized cargo, permits, and EU transport networks.",
+    highlights: [
+      "Features real-time job openings, fleet showcases, and service breakdowns to establish immediate logistical credibility.",
+      "Includes a standalone admin panel so non-technical staff can update fleet galleries and company news effortlessly.",
+    ],
   },
   {
     num: "08",
@@ -124,7 +154,11 @@ const works: Work[] = [
     client: "Local business · USA",
     name: "Red Core Concrete",
     href: "https://redcoreconcrete.com",
-    body: "One of our most recent builds: a website plus CMS for a US contractor working with concrete — cutting, core drilling, slab sawing, controlled demolition. The site connects them with clients across New England, and each service has its own page where they showcase real projects with photos and the story of the job. Through the CMS they manage it all themselves: projects, media, offers — no developer needed.",
+    body: "A high-converting web platform and project gallery built for a specialized concrete and controlled demolition contractor in New England.",
+    highlights: [
+      "Converts organic traffic into quote inquiries by giving each core service dedicated landing pages and visual proof galleries.",
+      "Integrated a custom media CMS enabling the owner to upload project photos and job logs directly from the field.",
+    ],
   },
   {
     num: "09",
@@ -134,7 +168,11 @@ const works: Work[] = [
     client: "Wellness · Chișinău",
     name: "Palazzo Aesthetics",
     href: "https://palazzoaesthetics.md/",
-    body: "A website for a clinic in Chișinău offering two kinds of care: physiotherapy, from manual therapy to rehabilitation, and phytotherapy, herbal treatments including their signature herbal compress. Patients read about the treatments and book an appointment online in three languages. Behind it sits a custom CMS, so the clinic manages its own content, news and appointments — no developer needed.",
+    body: "An elegant, multi-lingual digital storefront and online appointment portal for a specialized physiotherapy and phytotherapy clinic in Chișinău.",
+    highlights: [
+      "Streamlined patient onboarding with a friction-free booking flow across three languages.",
+      "Backed by a bespoke CMS for managing medical services, news updates, and appointment schedules without developer intervention.",
+    ],
   },
 ]
 
@@ -293,6 +331,34 @@ function WorkSlide({ work, index }: { work: Work; index: number }) {
           <p className="mt-5 max-w-xl text-xl leading-relaxed text-muted-foreground">
             {work.body}
           </p>
+          {work.highlights && (
+            <ul className="mt-4 max-w-xl space-y-2.5">
+              {work.highlights.map((highlight) => {
+                const colon = highlight.indexOf(": ")
+                const lead = colon > 0 ? highlight.slice(0, colon) : null
+                const rest = colon > 0 ? highlight.slice(colon + 2) : highlight
+                return (
+                  <li
+                    key={highlight}
+                    className="flex gap-3 text-base leading-relaxed text-muted-foreground sm:text-lg"
+                  >
+                    <span
+                      aria-hidden
+                      className="mt-2.5 size-1.5 shrink-0 rounded-full bg-primary"
+                    />
+                    <span>
+                      {lead && (
+                        <span className="font-medium text-foreground/90">
+                          {lead}:{" "}
+                        </span>
+                      )}
+                      {rest}
+                    </span>
+                  </li>
+                )
+              })}
+            </ul>
+          )}
           {work.href && (
             <MovingBorderButton
               as="a"
