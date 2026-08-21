@@ -40,6 +40,15 @@ const recommendations: Recommendation[] = [
     href: "https://www.linkedin.com/in/dimitry-bizga/",
   },
   {
+    kind: "person",
+    name: "Inesa Dita",
+    role: "Real Estate Agent & Coach for Women · USA",
+    quote:
+      "Working with Marius was effortless from day one. He understood what I needed before I could fully explain it, kept me in the loop at every step, and delivered a result far more polished than I expected. I'd trust him with any project.",
+    avatar: "/recommendations/inesa-dita.webp",
+    href: "https://www.compass.com/agents/inesa-dita/",
+  },
+  {
     kind: "company",
     name: "Red Core Concrete",
     role: "Concrete contractor · New England, USA",
@@ -52,28 +61,17 @@ const recommendations: Recommendation[] = [
     kind: "person",
     name: "Thomas Bach Petersen",
     role: "Co-Founder & CTO @ 2ai",
-    quote: "Placeholder — Thomas's recommendation text coming soon.",
+    quote: "Add here later — placeholder.",
     avatar: "/recommendations/thomas-bach-petersen.jpg",
     href: "https://www.linkedin.com/in/thomasbach/",
-    draft: true,
   },
   {
     kind: "company",
     name: "2Marketing.ai",
     role: "Marketing & AI SaaS · Denmark",
-    quote: "Placeholder — 2Marketing's recommendation text coming soon.",
+    quote: "Add here later — placeholder.",
     avatar: "/recommendations/2marketing.jpg",
     href: "https://2marketing.ai/",
-    draft: true,
-  },
-  {
-    kind: "person",
-    name: "Inesa Dita",
-    role: "Real Estate Agent & Coach for Women · USA",
-    quote:
-      "Working with Marius was effortless from day one. He understood what I needed before I could fully explain it, kept me in the loop at every step, and delivered a result far more polished than I expected. I'd trust him with any project.",
-    avatar: "/recommendations/inesa-dita.webp",
-    href: "https://www.compass.com/agents/inesa-dita/",
   },
   {
     kind: "person",
@@ -168,14 +166,15 @@ function RecommendationCard({
   );
 }
 
-// only cards with real quotes render; columns are split evenly so adding or
-// removing entries never unbalances the marquee
+// only cards with real quotes render (mark an entry `draft: true` to hide it).
+// Columns are hand-arranged: left = Dimitry + Inesa, middle = Red Core (top) +
+// Thomas + 2Marketing, right = Vasile + Palazzo — adjust the slice bounds if
+// entries are added or reordered.
 const live = recommendations.filter((rec) => !rec.draft);
-const chunk = Math.ceil(live.length / 3);
 const columns = [
-  { items: live.slice(0, chunk), duration: "45s", reverse: false },
-  { items: live.slice(chunk, chunk * 2), duration: "60s", reverse: true },
-  { items: live.slice(chunk * 2), duration: "50s", reverse: false },
+  { items: live.slice(0, 2), duration: "45s", reverse: false },
+  { items: live.slice(2, 5), duration: "60s", reverse: true },
+  { items: live.slice(5), duration: "50s", reverse: false },
 ];
 
 export function Recommendations() {

@@ -7,8 +7,7 @@ import { Particles } from "@/components/ui/particles"
 import { Reveal, WordReveal } from "@/components/ui/reveal"
 import { HeroVisual } from "@/components/sections/hero-visual"
 
-const headline =
-  "From concept to production: custom web apps, AI integrations, and scalable backends shipped fast."
+const headline = "We turn ideas into working software."
 
 export function Hero() {
   return (
@@ -36,7 +35,7 @@ export function Hero() {
         {/* left: copy */}
         <div className="flex flex-col items-start text-left">
           <h1 className="relative z-10 max-w-2xl text-3xl font-bold tracking-tight text-foreground/95 sm:text-5xl xl:text-6xl xl:leading-[1.08]">
-            <WordReveal text={headline} accentFrom={12} />
+            <WordReveal text={headline} accentFrom={4} />
           </h1>
 
           <Reveal delay={0.9}>
