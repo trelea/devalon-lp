@@ -1,4 +1,4 @@
-import { Cloud, ShieldCheck, TrendingUp, Unlock } from "lucide-react"
+import { Cloud, ShieldCheck, Sparkles, TrendingUp, Unlock } from "lucide-react"
 import {
   siAnthropic,
   siDocker,
@@ -68,6 +68,11 @@ const proofPoints = [
     title: "No lock-in",
     text: "Any developer can take over.",
   },
+  {
+    icon: Sparkles,
+    title: "AI in production",
+    text: "LLM features that ship, not demos.",
+  },
 ]
 
 export function TechStack() {
@@ -94,6 +99,8 @@ export function TechStack() {
             production by companies worldwide — so your product ships on
             schedule, scales reliably, and stays maintainable by any
             engineering team. No experimental dependencies, no vendor lock-in.
+            And when your product needs AI, we hold it to the same standard:
+            production-grade features on OpenAI and Anthropic, not demos.
           </p>
 
           <div className="mt-8 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
@@ -114,7 +121,7 @@ export function TechStack() {
             ))}
           </div>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {proofPoints.map((point) => (
               <div key={point.title} className="flex items-start gap-3">
                 <point.icon

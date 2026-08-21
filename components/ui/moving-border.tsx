@@ -1,13 +1,6 @@
 "use client";
-import React from "react";
-import {
-  motion,
-  useAnimationFrame,
-  useMotionTemplate,
-  useMotionValue,
-  useTransform,
-} from "motion/react";
-import { useEffect, useRef } from "react";
+import React, { useRef } from "react";
+import { motion } from "motion/react";
 import { useAnimationGate } from "@/lib/use-animation-gate";
 import { cn } from "@/lib/utils";
 
@@ -45,7 +38,10 @@ export function Button({
         className="absolute inset-0"
         style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
       >
-        <MovingBorder duration={duration} rx="30%" ry="30%">
+        <MovingBorder
+          duration={duration}
+          borderRadius={`calc(${borderRadius} * 0.96)`}
+        >
           <div
             className={cn(
               "h-20 w-20 bg-[radial-gradient(#0ea5e9_40%,transparent_60%)] opacity-[0.8]",
@@ -57,7 +53,7 @@ export function Button({
 
       <div
         className={cn(
-          "relative flex h-full w-full items-center justify-center border border-slate-800 bg-slate-900/[0.8] text-sm text-white antialiased backdrop-blur-xl",
+          "relative flex h-full w-full items-center justify-center border border-slate-800 bg-slate-900/[0.8] text-sm text-white antialiased",
           className,
         )}
         style={{
@@ -70,95 +66,45 @@ export function Button({
   );
 }
 
+/**
+ * Traces the border with CSS `offset-path: rect(...)` (same technique as
+ * border-beam.tsx). The previous SVG version called getPointAtLength() twice
+ * per frame per button — forced geometry work Firefox handles poorly with
+ * several buttons animating at once.
+ */
 export const MovingBorder = ({
   children,
   duration = 3000,
-  rx,
-  ry,
+  borderRadius = "30%",
   ...otherProps
 }: {
   children: React.ReactNode;
   duration?: number;
-  rx?: string;
-  ry?: string;
+  borderRadius?: string;
   [key: string]: any;
 }) => {
-  const svgRef = useRef<SVGSVGElement>(null);
-  const pathRef = useRef<any>(null);
-  const progress = useMotionValue<number>(0);
-
-  // getTotalLength() forces layout work — measure once (and on resize)
-  // instead of every frame, and skip the frame loop entirely off-screen
-  const lengthRef = useRef<number | null>(null);
-  const inView = useAnimationGate(svgRef);
-  const inViewRef = useRef(inView);
-  useEffect(() => {
-    inViewRef.current = inView;
-  }, [inView]);
-
-  useEffect(() => {
-    const svg = svgRef.current;
-    if (!svg) return;
-    const measure = () => {
-      lengthRef.current = pathRef.current?.getTotalLength() ?? null;
-    };
-    measure();
-    const resizeObserver = new ResizeObserver(measure);
-    resizeObserver.observe(svg);
-    return () => resizeObserver.disconnect();
-  }, []);
-
-  useAnimationFrame((time) => {
-    if (!inViewRef.current) return;
-    const length = lengthRef.current;
-    if (length) {
-      const pxPerMillisecond = length / duration;
-      progress.set((time * pxPerMillisecond) % length);
-    }
-  });
-
-  const x = useTransform(
-    progress,
-    (val) => pathRef.current?.getPointAtLength(val).x,
-  );
-  const y = useTransform(
-    progress,
-    (val) => pathRef.current?.getPointAtLength(val).y,
-  );
-
-  const transform = useMotionTemplate`translateX(${x}px) translateY(${y}px) translateX(-50%) translateY(-50%)`;
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useAnimationGate(ref);
 
   return (
-    <>
-      <svg
-        ref={svgRef}
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none"
-        className="absolute h-full w-full"
-        width="100%"
-        height="100%"
-        {...otherProps}
-      >
-        <rect
-          fill="none"
-          width="100%"
-          height="100%"
-          rx={rx}
-          ry={ry}
-          ref={pathRef}
-        />
-      </svg>
-      <motion.div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          display: "inline-block",
-          transform,
-        }}
-      >
-        {children}
-      </motion.div>
-    </>
+    <div ref={ref} className="absolute inset-0" {...otherProps}>
+      {inView && (
+        <motion.div
+          className="absolute top-0 left-0 inline-block"
+          style={{
+            offsetPath: `rect(0 auto auto 0 round ${borderRadius})`,
+          }}
+          initial={{ offsetDistance: "0%" }}
+          animate={{ offsetDistance: "100%" }}
+          transition={{
+            repeat: Infinity,
+            ease: "linear",
+            duration: duration / 1000,
+          }}
+        >
+          {children}
+        </motion.div>
+      )}
+    </div>
   );
 };

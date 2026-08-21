@@ -37,7 +37,6 @@ export function ContactModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
-        data-lenis-prevent
         overlayClassName="z-[60] bg-black/60 supports-backdrop-filter:backdrop-blur-sm"
         className="dark z-[70] block max-h-[calc(100svh-2rem)] w-[calc(100vw-2rem)] max-w-xl overflow-y-auto rounded-2xl border border-border bg-card p-6 text-base text-foreground shadow-2xl shadow-black/40 ring-0 sm:max-w-xl sm:p-8"
       >

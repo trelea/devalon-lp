@@ -157,9 +157,8 @@ export function PhoneNumberInput({
             />
           </Button>
         </PopoverTrigger>
-        {/* z-[80] keeps the list above the contact dialog (overlay z-60, content z-70);
-            data-lenis-prevent keeps smooth-scroll from hijacking the list's wheel events */}
-        <PopoverContent className="z-[80] w-72 p-0" align="start" data-lenis-prevent>
+        {/* z-[80] keeps the list above the contact dialog (overlay z-60, content z-70) */}
+        <PopoverContent className="z-[80] w-72 p-0" align="start">
           <Command>
             <CommandInput placeholder="Find your country..." />
             <CommandList>

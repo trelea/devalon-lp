@@ -1,33 +1,12 @@
 "use client"
 
-import { useEffect } from "react"
-import Lenis from "lenis"
 import { MotionConfig } from "motion/react"
-import "lenis/dist/lenis.css"
 
 /**
- * Buttery page scrolling via Lenis. Mounted once in the root layout.
- * - `anchors: true` makes the in-page #section links glide too.
- * - Skipped entirely for users who prefer reduced motion.
- * - Nested scrollers (contact dialog, country dropdown) opt out with
- *   `data-lenis-prevent`.
- *
- * Also wraps the app in MotionConfig so every `motion` animation respects
- * the OS reduced-motion setting.
+ * Wraps the app in MotionConfig so every `motion` animation respects the OS
+ * reduced-motion setting. Page scrolling is native; in-page #section links
+ * glide via CSS `scroll-behavior: smooth` (see globals.css).
  */
 export function SmoothScroll({ children }: { children?: React.ReactNode }) {
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
-
-    const lenis = new Lenis({
-      anchors: true,
-      autoRaf: true,
-    })
-
-    return () => {
-      lenis.destroy()
-    }
-  }, [])
-
   return <MotionConfig reducedMotion="user">{children}</MotionConfig>
 }

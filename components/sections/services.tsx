@@ -58,11 +58,11 @@ export function Services() {
           Our services
         </h2>
         <p className="mt-3 max-w-xl text-lg leading-relaxed text-muted-foreground">
-          Whatever stage your idea is at — we build it, ship it, and keep it
-          running.
+          Whatever stage your idea is at — we help you think it through, then
+          build it, ship it, and keep it running.
         </p>
 
-        <div className="mt-8 grid gap-3 sm:mt-14 sm:grid-cols-2 sm:grid-rows-2 sm:gap-4">
+        <div className="mt-8 grid gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4">
           {services.map((service) => (
             <WobbleCard
               key={service.title}

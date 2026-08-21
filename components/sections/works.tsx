@@ -44,7 +44,7 @@ const works: Work[] = [
     client: "AI SaaS · Denmark",
     name: "2Marketing",
     href: "https://2marketing.ai",
-    body: "2Marketing is a marketing and AI SaaS from Denmark. Small businesses use it to plan and publish their social media and ads on Meta and Google, without hiring an agency. We provided the tech solutions behind it and helped them build out the digital side: the backend services that connect accounts, schedule and publish posts and ads, and pull in statistics, plus the landing page and parts of the admin dashboard.",
+    body: "2Marketing is a marketing and AI SaaS from Denmark. Small businesses use it to plan and publish their social media and ads on Meta and Google, without hiring an agency. We built the backend that powers it: the services that connect accounts, schedule and publish posts and ads, pull in statistics, and feed the platform's AI features — plus the landing page and parts of the admin dashboard.",
   },
   {
     num: "02",
@@ -163,10 +163,12 @@ function PlaceholderFrame({
 function SlideBackdrop({ flipped }: { flipped: boolean }) {
   return (
     <AnimationGate className="absolute inset-0">
+      {/* pre-faded gradient, not blur-3xl: animating a blurred layer re-runs
+          the Gaussian blur every frame in Firefox */}
       <div
         aria-hidden
-        className={`pointer-events-none absolute top-1/4 size-96 rounded-full bg-primary/10 blur-3xl animate-glow-drift ${
-          flipped ? "-right-24" : "-left-24"
+        className={`pointer-events-none absolute top-[calc(25%-3rem)] size-[30rem] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--color-primary)_12%,transparent),transparent)] animate-glow-drift ${
+          flipped ? "-right-36" : "-left-36"
         }`}
       />
       <InteractiveGridPattern

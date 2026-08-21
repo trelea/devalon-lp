@@ -1,13 +1,14 @@
-import Image from "next/image"
-import { Building2 } from "lucide-react"
+import Image from "next/image";
+import { Building2 } from "lucide-react";
 
-import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern"
-import { AnimationGate } from "@/components/ui/animation-gate"
-import { Marquee } from "@/components/ui/marquee"
-import { cn } from "@/lib/utils"
+import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
+import { AnimationGate } from "@/components/ui/animation-gate";
+import { Marquee } from "@/components/ui/marquee";
+import { cn } from "@/lib/utils";
 
-// TODO: Thomas (2ai), 2Marketing.ai, Palazzo Aesthetics and Inesa Dita still
-// need their real quote texts.
+// TODO: Thomas (2ai), 2Marketing.ai and Inesa Dita still need their real
+// quote texts. Palazzo Aesthetics' quote is a Devalon-written draft — get the
+// client's sign-off (or their edited version) before deploying.
 // - `name` is the customer: a company name or a real human name
 // - `role` goes under it: the person's role, or the company's theme/industry
 // - kind: "person"  → round initials avatar (or photo via `avatar`)
@@ -17,14 +18,16 @@ import { cn } from "@/lib/utils"
 // `href` is optional — when set, the whole card links to the real source
 // (LinkedIn recommendation, Google review, client site, …) in a new tab.
 type Recommendation = {
-  kind: "person" | "company"
-  name: string
-  role: string
-  quote: string
-  avatar?: string
-  avatarClassName?: string
-  href?: string
-}
+  kind: "person" | "company";
+  name: string;
+  role: string;
+  quote: string;
+  avatar?: string;
+  avatarClassName?: string;
+  href?: string;
+  /** still waiting on the real quote — kept in data but not rendered */
+  draft?: boolean;
+};
 
 const recommendations: Recommendation[] = [
   {
@@ -52,6 +55,7 @@ const recommendations: Recommendation[] = [
     quote: "Placeholder — Thomas's recommendation text coming soon.",
     avatar: "/recommendations/thomas-bach-petersen.jpg",
     href: "https://www.linkedin.com/in/thomasbach/",
+    draft: true,
   },
   {
     kind: "company",
@@ -60,6 +64,7 @@ const recommendations: Recommendation[] = [
     quote: "Placeholder — 2Marketing's recommendation text coming soon.",
     avatar: "/recommendations/2marketing.jpg",
     href: "https://2marketing.ai/",
+    draft: true,
   },
   {
     kind: "person",
@@ -83,13 +88,14 @@ const recommendations: Recommendation[] = [
     kind: "company",
     name: "Palazzo Aesthetics",
     role: "Phytoaesthetics & phytotherapy clinic · Chișinău, Moldova",
-    quote: "Placeholder — Palazzo Aesthetics' recommendation text coming soon.",
+    quote:
+      "I had a great experience working with Marius Trelea on our clinic’s website. From the beginning, he was easy to communicate with, understood what we were looking for, and brought our ideas to life better than we expected. He was reliable throughout the project, quick to make adjustments when needed, and kept everything moving without any unnecessary back and forth. The website turned out great, and we’ve been very happy with the result. I’d definitely recommend working with Marius.",
     avatar: "/recommendations/palazzo-aesthetics.svg",
     // logo is dark green on a transparent background
     avatarClassName: "bg-[#f2eee4]",
     href: "https://palazzoaesthetics.md",
   },
-]
+];
 
 function initials(name: string) {
   return name
@@ -97,7 +103,7 @@ function initials(name: string) {
     .map((part) => part[0])
     .slice(0, 2)
     .join("")
-    .toUpperCase()
+    .toUpperCase();
 }
 
 function RecommendationCard({
@@ -121,7 +127,7 @@ function RecommendationCard({
             kind === "company"
               ? "flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-secondary text-primary sm:size-11"
               : "flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-secondary text-xs font-semibold text-primary sm:size-11 sm:text-sm",
-            avatarClassName
+            avatarClassName,
           )}
         >
           {avatar ? (
@@ -139,7 +145,7 @@ function RecommendationCard({
           )}
         </span>
         <span className="leading-snug">
-          <span className="block text-sm font-semibold text-foreground sm:text-[15px]">
+          <span className="block text-[15px] font-semibold tracking-tight text-foreground sm:text-lg">
             {name}
           </span>
           <span className="block text-xs text-muted-foreground sm:text-[13px]">
@@ -151,27 +157,26 @@ function RecommendationCard({
         &ldquo;{quote}&rdquo;
       </blockquote>
     </figure>
-  )
+  );
 
-  if (!href) return card
+  if (!href) return card;
 
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block"
-    >
+    <a href={href} target="_blank" rel="noopener noreferrer" className="block">
       {card}
     </a>
-  )
+  );
 }
 
+// only cards with real quotes render; columns are split evenly so adding or
+// removing entries never unbalances the marquee
+const live = recommendations.filter((rec) => !rec.draft);
+const chunk = Math.ceil(live.length / 3);
 const columns = [
-  { items: recommendations.slice(0, 2), duration: "45s", reverse: false },
-  { items: recommendations.slice(2, 5), duration: "60s", reverse: true },
-  { items: recommendations.slice(5, 7), duration: "50s", reverse: false },
-]
+  { items: live.slice(0, chunk), duration: "45s", reverse: false },
+  { items: live.slice(chunk, chunk * 2), duration: "60s", reverse: true },
+  { items: live.slice(chunk * 2), duration: "50s", reverse: false },
+];
 
 export function Recommendations() {
   return (
@@ -215,7 +220,7 @@ export function Recommendations() {
               } as React.CSSProperties
             }
           >
-            {recommendations.map((rec) => (
+            {live.map((rec) => (
               <RecommendationCard key={rec.name} {...rec} />
             ))}
           </Marquee>
@@ -248,5 +253,5 @@ export function Recommendations() {
         </AnimationGate>
       </div>
     </section>
-  )
+  );
 }

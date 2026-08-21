@@ -54,7 +54,7 @@ const FloatingDockMobile = ({
   return (
     <div
       className={cn(
-        "flex items-center gap-1 rounded-full border border-border bg-background/80 px-3 py-1.5 shadow-lg shadow-black/30 backdrop-blur-xl md:hidden",
+        "flex items-center gap-1 rounded-full border border-border bg-background/90 px-3 py-1.5 shadow-lg shadow-black/30 backdrop-blur-sm md:hidden",
         className,
       )}
     >
@@ -94,7 +94,7 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto hidden h-16 items-start gap-4 rounded-2xl border border-border bg-background/70 px-4 pt-3 shadow-lg shadow-black/30 backdrop-blur-xl md:flex",
+        "mx-auto hidden h-16 items-start gap-4 rounded-2xl border border-border bg-background/90 px-4 pt-3 shadow-lg shadow-black/30 backdrop-blur-sm md:flex",
         className,
       )}
     >

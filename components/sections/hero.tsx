@@ -1,11 +1,10 @@
 import Link from "next/link"
 import { ArrowDown, ArrowUpRight } from "lucide-react"
 
-import { BackgroundBeams } from "@/components/ui/background-beams"
+import { AnimationGate } from "@/components/ui/animation-gate"
 import { Button } from "@/components/ui/button"
 import { Particles } from "@/components/ui/particles"
 import { Reveal, WordReveal } from "@/components/ui/reveal"
-import { Spotlight } from "@/components/ui/spotlight"
 import { HeroVisual } from "@/components/sections/hero-visual"
 
 const headline = "We turn ideas into working software."
@@ -17,7 +16,12 @@ export function Hero() {
       className="relative isolate w-screen max-w-full overflow-hidden border-b border-border"
     >
       <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(120%_120%_at_50%_0%,oklch(0.955_0.018_254),oklch(0.984_0.003_248))]" />
-      <BackgroundBeams className="pointer-events-none -z-10 opacity-70" />
+      {/* aurora: pre-faded gradients drifting on transform only — replaces the
+          BackgroundBeams/Spotlight stack, which Firefox couldn't keep at 60fps */}
+      <AnimationGate className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="animate-aurora-drift absolute -top-1/4 -left-1/4 h-[80%] w-[90%] bg-[radial-gradient(closest-side,hsla(221,83%,45%,0.08),transparent)]" />
+        <div className="animate-aurora-drift absolute top-1/6 -right-1/5 h-[70%] w-[75%] bg-[radial-gradient(closest-side,hsla(221,80%,55%,0.06),transparent)] [animation-delay:-14s] [animation-duration:34s]" />
+      </AnimationGate>
       <Particles
         className="absolute inset-0 -z-10"
         quantity={45}
@@ -25,11 +29,6 @@ export function Hero() {
         ease={70}
         size={0.5}
         color="#1d4ed8"
-      />
-      <Spotlight
-        gradientFirst="radial-gradient(68.54% 68.72% at 55.02% 31.46%, hsla(221, 83%, 45%, .10) 0, hsla(221, 80%, 50%, .04) 50%, transparent 80%)"
-        gradientSecond="radial-gradient(50% 50% at 50% 50%, hsla(221, 83%, 45%, .07) 0, hsla(221, 80%, 50%, .03) 80%, transparent 100%)"
-        gradientThird="radial-gradient(50% 50% at 50% 50%, hsla(221, 83%, 45%, .05) 0, hsla(221, 80%, 50%, .02) 80%, transparent 100%)"
       />
 
       <div className="relative mx-auto grid min-h-svh w-full max-w-7xl items-center gap-6 px-6 pt-24 pb-8 sm:gap-12 sm:px-8 sm:pt-28 sm:pb-16 lg:grid-cols-2 lg:gap-8 xl:max-w-[88rem]">
@@ -41,10 +40,14 @@ export function Hero() {
 
           <Reveal delay={0.9}>
             <p className="relative z-10 mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground sm:mt-6 sm:text-2xl">
-              Devalon builds, maintains, and scales software for individuals,
-              startups, and enterprises. Bring us the idea — good or bad, real
-              or delusional — and we&apos;ll tell you honestly how to make it
-              real.
+              Devalon is a development and consulting studio. We build,
+              maintain, and scale software and AI solutions for individuals,
+              startups, and enterprises.
+            </p>
+            <p className="relative z-10 mt-3 max-w-xl text-lg leading-relaxed text-muted-foreground sm:mt-4 sm:text-2xl">
+              Got an idea? Whether it&rsquo;s great, rough around the edges, or
+              completely out there, bring it to us. We&rsquo;ll give you an
+              honest take on what it would take to make it real.
             </p>
           </Reveal>
 
