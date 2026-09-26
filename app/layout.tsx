@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk, Geist_Mono } from "next/font/google";
+import {
+  Inter,
+  Space_Grotesk,
+  Geist_Mono,
+  IBM_Plex_Sans,
+} from "next/font/google";
 import "./globals.css";
 
 import { SmoothScroll } from "@/components/smooth-scroll";
@@ -20,6 +25,13 @@ const appHeading = Space_Grotesk({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const appNav = IBM_Plex_Sans({
+  variable: "--font-app-nav",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -83,9 +95,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${appSans.variable} ${appHeading.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${appSans.variable} ${appHeading.variable} ${geistMono.variable} ${appNav.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col overflow-x-hidden">
+      <body className="min-h-full flex flex-col overflow-x-hidden bg-gray-100">
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

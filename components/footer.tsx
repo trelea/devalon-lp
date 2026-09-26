@@ -1,18 +1,18 @@
 import Image from "next/image"
 import Link from "next/link"
 import {
-  Code2,
-  FolderOpen,
+  Blocks,
+  FolderGit2,
   Laptop,
-  Layers,
   Mail,
+  MessageSquareQuote,
   Phone,
-  Quote,
   Users,
 } from "lucide-react"
 import { siFacebook, siInstagram, siX } from "simple-icons"
 
 import { NeonHalfCircle } from "@/components/ui/neon-half-circle"
+import { NavLink } from "@/components/nav-link"
 
 // LinkedIn was removed from simple-icons; inline its official mark.
 const linkedin = {
@@ -21,11 +21,10 @@ const linkedin = {
 }
 
 const sections = [
-  { label: "Our services", href: "#services", icon: Code2 },
-  { label: "Who we work with", href: "#who-we-serve", icon: Users },
-  { label: "Recommendations", href: "#recommendations", icon: Quote },
-  { label: "Tech stack", href: "#stack", icon: Layers },
-  { label: "Works & projects", href: "#work", icon: FolderOpen },
+  { label: "Services", href: "#services", icon: Blocks },
+  { label: "Recommendations", href: "#recommendations", icon: MessageSquareQuote },
+  { label: "How we work", href: "#how-we-work", icon: Users },
+  { label: "Projects", href: "#work", icon: FolderGit2 },
 ]
 
 const socials = [
@@ -46,7 +45,7 @@ export default function Footer() {
       <div className="mx-auto w-full max-w-7xl px-6 pt-14 pb-8 sm:px-8 xl:max-w-[88rem]">
         <div className="flex flex-col items-start justify-between gap-10 sm:flex-row">
           <div>
-            <Link
+            <NavLink
               href="#top"
               className="inline-flex items-center"
               aria-label="Devalon home"
@@ -58,10 +57,10 @@ export default function Footer() {
                 height={66}
                 className="h-14 w-auto sm:h-16"
               />
-            </Link>
+            </NavLink>
             <p className="mt-5 max-w-sm text-base leading-relaxed text-muted-foreground">
-              Software, tech &amp; AI development and consulting. From concept
-              to production — for individuals, startups, and enterprises.
+              Building, scaling, and maintaining AI software for startups and
+              enterprises.
             </p>
             <div className="mt-5 flex items-center gap-2.5">
               {socials.map((social) => (
@@ -91,7 +90,7 @@ export default function Footer() {
             <ul className="mt-3 space-y-2">
               {sections.map((section) => (
                 <li key={section.href}>
-                  <Link
+                  <NavLink
                     href={section.href}
                     className="flex items-center gap-2.5 text-base text-muted-foreground transition-colors hover:text-foreground"
                   >
@@ -101,7 +100,7 @@ export default function Footer() {
                       aria-hidden
                     />
                     {section.label}
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
             </ul>

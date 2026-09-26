@@ -1,44 +1,94 @@
-import { existsSync, readdirSync } from "node:fs"
-import { join } from "node:path"
+import { existsSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 
-import { ArrowUpRight, Mail, Phone, Star } from "lucide-react"
+import { Mail, Phone, Star } from "lucide-react";
 
-import { ContactForm } from "@/components/contact-form"
-import { AnimationGate } from "@/components/ui/animation-gate"
-import { AvatarCircles } from "@/components/ui/avatar-circles"
-import { DotPattern } from "@/components/ui/dot-pattern"
-import { GridPattern } from "@/components/ui/grid-pattern"
-import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern"
-import { Meteors } from "@/components/ui/meteors"
-import { Button as MovingBorderButton } from "@/components/ui/moving-border"
-import { WobbleCard } from "@/components/ui/wobble-card"
-import { cn } from "@/lib/utils"
+import { ContactForm } from "@/components/contact-form";
+import {
+  ProjectsGrid,
+  type ProjectWithSrc,
+} from "@/components/sections/projects-grid";
+import { AvatarCircles } from "@/components/ui/avatar-circles";
+import { DotPattern } from "@/components/ui/dot-pattern";
 
 type Shot = {
-  src: string
-  label: string
-  position?: string
-}
+  src: string;
+  label: string;
+};
 
 type Work = {
-  num: string
-  client: string
-  name: string
-  href?: string
-  /** folder under public/works/ holding this project's media */
-  slug?: string
-  /** labels for the folder's media, matched by sorted file order */
-  shotLabels?: string[]
-  /** object-position class per image (defaults to object-top) */
-  shotPositions?: string[]
-  /** col-span class per image, overriding the automatic pattern (12-col grid) */
-  shotSpans?: string[]
-  body: string
-  /** outcome bullets rendered under the summary; "Lead-in: rest" gets a bold lead-in */
-  highlights?: string[]
-}
+  num: string;
+  client: string;
+  name: string;
+  href?: string;
+  slug?: string;
+  shotLabels?: string[];
+  body: string;
+  challenge?: string;
+  solution?: string;
+  highlights?: string[];
+  metrics?: { value: string; label: string }[];
+};
 
+// 3 big squares remain 2Marketing (big right top idx2), WHM (big left middle idx3), Palazzo (big right bottom idx8)
+// 6 small reordered as requested: Red Core → Dialog Imobil → Premier Invest → Dialog Invest → Bundller → Eta
+// flat order: [redcore, dialogimobil, 2marketing, wynne, premierinvest, dialoginvest, megawind, etatruck, palazzo]
+// chunk0: [redcore, dialogimobil, 2marketing] → tall=2marketing
+// chunk1: [wynne, premierinvest, dialoginvest] → tall=wynne
+// chunk2: [megawind, etatruck, palazzo] → tall=palazzo
 const works: Work[] = [
+  {
+    num: "08",
+    slug: "redcore",
+    shotLabels: [
+      "Lead-gen site",
+      "CMS — project media",
+      "Mobile — service pages",
+    ],
+    client: "Local business · USA",
+    name: "Red Core Concrete",
+    href: "https://redcoreconcrete.com",
+    body: "Red Core is a Massachusetts-based concrete cutting expert helping contractors, developers, and property owners get precise, clean, and reliable results across core drilling, slab cutting, wall sawing, demolition, and concrete restoration, delivering a modern, conversion-focused digital experience that turns everyday website visitors into qualified leads and booked jobs while building long-term trust through transparent pricing, proven project results, and always-available service.",
+    challenge:
+      "Before the transformation, the business was losing valuable opportunities due to a fragmented customer journey, slow and cumbersome quote requests, limited visibility of services and special offers, inconsistent presentation of past work, and a poor mobile experience that frustrated busy decision-makers, leading to missed inquiries, low conversion rates, manual follow-up overhead, and difficulty standing out in a competitive local market despite strong field expertise and reputation.",
+    solution:
+      "The new solution created a seamless, customer-first experience that makes it effortless to discover services, explore real project examples, view compelling offers, and request a same-day quote in seconds with photo uploads and flexible callback scheduling, ensuring every inquiry is captured instantly across desktop and mobile, guiding prospects smoothly from interest to action, strengthening credibility, and freeing the team to focus on delivering exceptional work rather than chasing leads.",
+    highlights: [
+      "Converts organic traffic into quote inquiries by giving each core service dedicated landing pages and visual proof galleries.",
+      "Integrated a custom media CMS enabling the owner to upload project photos and job logs directly from the field.",
+    ],
+    metrics: [
+      { value: "x3", label: "increase in\nqualified leads" },
+      { value: "+68%", label: "faster quote\nturnaround" },
+      { value: "+45%", label: "higher conversion\nrate" },
+      { value: "+70%", label: "growth in mobile\nengagement" },
+      { value: "-95%", label: "reduction in missed\ninquiries" },
+    ],
+  },
+  {
+    num: "04",
+    slug: "dialogimobil",
+    shotLabels: ["Listings platform", "Mobile property page", "Admin login"],
+    client: "Real estate · Chișinău",
+    name: "Dialog Imobil",
+    href: "https://dialogimobil.md",
+    body: "Dialog Imobil is a high-converting real estate platform that turns every property into a lead-generating opportunity, seamlessly connecting a full portfolio of apartments, houses, commercial spaces, land and garages with serious buyers and tenants through a beautifully curated, multilingual showcase and an integrated client engagement engine, delivering sustained growth, stronger brand authority and measurable commercial success for a forward-thinking agency operating in a highly competitive property market.",
+    challenge:
+      "The agency was held back by fragmented and manual property operations, slow and inconsistent listing updates across multiple property types, limited visibility for high-value offers, frustrating search experiences for buyers unable to filter by real needs, lack of control over who could manage and publish sensitive listings, and no unified way to nurture inquiries, build trust through team and service storytelling, or convert casual browsing into qualified leads at scale.",
+    solution:
+      "Dialog Imobil delivered a unified business solution that centralizes all portfolio management in one intuitive hub while empowering buyers with a fast, elegant, and highly personalized discovery experience featuring smart filters, interactive location exploration, hot offers, mortgage guidance and rich storytelling around services, team expertise and trust, supported by secure agent workflows, private and public listing controls, effortless multilingual content management and optimized media delivery that makes publishing effortless, keeps every listing accurate and on-brand, and guides every visitor naturally from interest to inquiry to closed deal.",
+    highlights: [
+      "Built a custom back-office dashboard allowing agents to update properties, hot offers, and articles in real time without technical help.",
+      "Streamlined buyer navigation with interactive maps, filterable property categories, and direct contact forms.",
+    ],
+    metrics: [
+      { value: "+70%", label: "faster property\npublishing" },
+      { value: "x3", label: "increase in\nqualified leads" },
+      { value: "-60%", label: "reduction in admin\nworkload" },
+      { value: "+45%", label: "higher buyer\nengagement" },
+      { value: "+85%", label: "faster browsing\nexperience" },
+    ],
+  },
   {
     num: "01",
     slug: "2marketing",
@@ -46,359 +96,204 @@ const works: Work[] = [
     client: "AI SaaS · Denmark",
     name: "2Marketing",
     href: "https://2marketing.ai",
-    body: "A multi-network SaaS platform that automates campaign creation, social scheduling, and AI features across Google Ads, Meta, LinkedIn, and Reddit from a unified backend.",
+    body: "2Marketing is the complete AI-powered marketing operating system that transforms how small and medium businesses grow, unifying automated content creation, intelligent media management, high-converting landing pages and reliable cross-platform publishing into one seamless platform that delivers agency-quality marketing at a fraction of the cost, time and effort while helping customers cut costs in half, double conversions and stay perfectly on brand across every channel.",
+    challenge:
+      "Growing businesses were trapped in a fragmented and expensive marketing reality, juggling disconnected tools for ideas, assets, campaigns and publishing, relying on costly agencies or endless manual work, struggling with untagged media libraries, inconsistent branding, missed schedules, failed uploads and weak landing page copy that wasted budget, drained teams and made predictable growth impossible to achieve or scale.",
+    solution:
+      "2Marketing replaces the chaos with one intelligent, always-on platform that automatically creates a full month of on-brand ideas from each customer's own content, instantly organizes and perfects thousands of images and videos with AI that preserves faces and messaging, crafts landing page copy that rivals human experts, validates and publishes flawlessly across Meta, Instagram, Facebook, LinkedIn, Google and Reddit with built-in recovery and synchronization, and is orchestrated through a single command center with an always-on AI teammate that remembers every customer and handles the heavy lifting so businesses market faster, smarter and with total confidence.",
     highlights: [
       "Built for scale: Reliably processes 100,000+ automated posts and ad updates monthly with automated error recovery.",
       "Saves 15+ hours weekly per business by replacing manual ad management with streamlined 1-click publishing.",
+    ],
+    metrics: [
+      { value: "+50%", label: "marketing cost\nsavings" },
+      { value: "x2", label: "higher conversion\nrates" },
+      { value: "+90%", label: "time saved on\nmarketing" },
+      { value: "+95%", label: "publishing and\ncampaign success" },
+      { value: "+99.9%", label: "reliable automated\ndelivery" },
     ],
   },
   {
     num: "02",
     slug: "wynne",
-    shotLabels: ["Home manager app", "Admin dashboard", "Client dashboard"],
-    shotPositions: ["object-right", "object-left"],
-    shotSpans: ["col-span-6", "col-span-6", "col-span-12"],
     client: "Web app · USA",
     name: "Wynne Home Manager",
     href: "https://app.wynnehomemanager.com/",
-    body: "A full-stack property management progressive web app designed for daily multi-device tracking and maintenance management.",
+    body: "Wynne Home Manager is a premium membership-based home management platform designed for discerning homeowners to protect, preserve, and enhance the long-term value of their properties through personalized maintenance plans, dedicated advisor guidance, and proactive property care, delivering complete peace of mind, preventing costly repairs, and transforming homeownership from reactive upkeep into strategic asset management while driving exceptional client satisfaction, loyalty, and recurring revenue growth.",
+    challenge:
+      "Before Wynne, homeowners and advisors faced constant friction from fragmented and manual property care, with missed seasonal maintenance leading to expensive emergency repairs, inconsistent communication and scheduling causing delays and confusion, complex and opaque onboarding and pricing frustrating new clients and slowing conversion, and no centralized visibility into home health, upcoming tasks, or property history making it impossible to stay proactive, protect investment value, or deliver scalable white-glove service efficiently.",
+    solution:
+      "Wynne Home Manager eliminates this friction with a seamless, guided experience that starts with an intuitive property survey and square-footage-based membership plan, moves effortlessly through integrated walkthrough scheduling and expert advisor matching, and sustains value through a centralized home health dashboard, automated personalized maintenance calendars, proactive reminders, overdue alerts and weather safeguards, and streamlined payments and document management, empowering clients to manage their entire property effortlessly while enabling advisors to deliver exceptional service at scale, deepen relationships, and accelerate business growth with ease and efficiency.",
     highlights: [
-      "Engineered the entire backend from scratch: secure REST APIs, database schema, migration pipelines, and developer tooling.",
-      "Delivers a seamless app-like mobile experience with zero installation friction across all modern devices.",
+      "Intuitive property survey and square-footage-based membership with integrated walkthrough scheduling and expert advisor matching.",
+      "Centralized home health dashboard with automated maintenance calendars, proactive reminders, weather safeguards, payments and document management.",
     ],
-  },
-  {
-    num: "03",
-    slug: "megawind",
-    shotLabels: [
-      "MorePower — one of the 7 brands",
-      "Importex-Trans — another brand",
-      "News & contact",
-      "Solar news & call-to-action",
-    ],
-    client: "Energy · 7 brands",
-    name: "Bundller — one system, many brands",
-    href: "https://www.megawind.md",
-    shotSpans: ["col-span-6", "col-span-6", "col-span-6", "col-span-6"],
-    body: "A multi-tenant web ecosystem powering seven distinct solar energy and battery brands from a single centralized management architecture.",
-    highlights: [
-      "Powered high-speed, multi-lingual landing pages that helped partner companies apply for and secure competitive EU grants.",
-      "Custom CMS empowers each company to manage its own localized content, products, and news independently.",
-    ],
-  },
-  {
-    num: "04",
-    slug: "dialogimobil",
-    shotLabels: ["Listings platform", "Mobile property page", "Admin login"],
-    shotPositions: ["object-top", "object-top", "object-center"],
-    client: "Real estate · Chișinău",
-    name: "Dialog Imobil",
-    href: "https://dialogimobil.md",
-    body: "A comprehensive tri-lingual real estate catalogue and lead generation portal for properties, land, and mortgage guidance in Chișinău.",
-    highlights: [
-      "Built a custom back-office dashboard allowing agents to update properties, hot offers, and articles in real time without technical help.",
-      "Streamlined buyer navigation with interactive maps, filterable property categories, and direct contact forms.",
+    metrics: [
+      { value: "-70%", label: "onboarding\ntime" },
+      { value: "+95%", label: "on-time\ncompletion" },
+      { value: "-60%", label: "operational\ncosts" },
+      { value: "x3", label: "advisor\nproductivity" },
+      { value: "+85%", label: "client\nretention" },
     ],
   },
   {
     num: "05",
     slug: "premierinvest",
     shotLabels: ["Listings platform", "Property page", "Mobile search"],
-    shotPositions: ["object-top", "object-top", "object-center"],
-    shotSpans: ["col-span-12", "col-span-8", "col-span-4"],
     client: "Real estate · Chișinău",
     name: "Premier Invest",
     href: "https://primeinvest.md",
-    body: "A modern real estate marketplace showcasing verified property deals, developer offers, and rental listings across Chișinău.",
+    body: "Premier Imobil is Chisinau's leading all-in-one real estate marketplace that brings together apartments, houses, commercial spaces and land for sale and rent in a single trusted destination, empowering buyers, sellers and renters to discover, compare and connect with confidence through an engaging multilingual experience designed to turn high-intent browsing into booked viewings, accelerate transactions and establish the brand as the go-to authority for property in Moldova while driving sustained growth in leads, listings and customer loyalty.",
+    challenge:
+      "Before the transformation Premier Imobil struggled with fragmented property visibility, slow manual listing workflows, overwhelming and unfocused search experiences, language barriers for a diverse local and international audience and disconnected communication between clients and agents, leading to frustrated buyers unable to find relevant properties quickly, missed high-value inquiries, prolonged time on market, heavy administrative burden on the team and an inconsistent customer journey that limited lead generation, conversion and competitive differentiation in a crowded market.",
+    solution:
+      "We created a unified, customer-centric marketplace that makes property discovery effortless and action-oriented, offering intuitive category navigation, powerful smart filtering, interactive map-based location discovery, personalized favourites and instant direct connection to dedicated agents, all fully optimized for mobile and seamlessly available in Romanian, Russian and English, enabling Premier Imobil to publish new opportunities faster, keep buyers engaged longer, capture significantly more qualified inquiries and guide every client smoothly from first search to final viewing while drastically reducing operational effort and elevating brand trust and perceived value.",
     highlights: [
-      "Replaced fragmented client communication with a high-trust digital catalogue featuring dynamic search and saved favorites.",
-      "Integrated an internal CMS allowing the agency owner to manage all listing media and price updates independently.",
+      "Intuitive category navigation with smart filtering, map-based discovery, favourites and instant direct agent connection.",
+      "Fully optimized for mobile and trilingual RO/RU/EN with faster publishing and longer buyer engagement.",
+    ],
+    metrics: [
+      { value: "+180%", label: "qualified buyer\ninquiries" },
+      { value: "+65%", label: "property listing\nengagement" },
+      { value: "-55%", label: "avg property\nsearch time" },
+      { value: "-70%", label: "manual listing\nmanagement effort" },
+      { value: "x3", label: "inquiry-to-viewing\nconversion speed" },
     ],
   },
   {
     num: "06",
     slug: "dialoginvest",
     shotLabels: ["Investor landing", "Key advantages", "Mobile offers"],
-    shotPositions: ["object-top", "object-top", "object-center"],
-    shotSpans: ["col-span-12", "col-span-8", "col-span-4"],
     client: "Investments · Romania",
-    name: "DialogInvest",
+    name: "Dialog Invest",
     href: "https://dialoginvest.md",
-    body: "A high-converting investor relations platform designed to build immediate trust for commercial real estate and business deals in Romania.",
+    body: "Dialog Invest is Romania's exclusive gateway for international investors seeking secure, high-yield entry into the European Union market through verified off-market commercial real estate and turnkey profitable businesses, delivering immediate passive income, strategic capital growth and fully managed ownership without the risks of public listings, empowering clients to build stable euro-denominated portfolios with trusted local expertise, transparent transactions and long-term partnership at every step.",
+    challenge:
+      "International investors eager to enter the EU market were held back by inflated Western European prices, overcrowded and unreliable public listings, complex legal and tax requirements, language barriers and a complete lack of trusted on-the-ground partners, leaving them exposed to risky deals, endless due diligence, slow and stressful market entry, uncertain profitability and missed opportunities for stable long-term growth.",
+    solution:
+      "Dialog Invest removes every barrier by providing exclusive access to vetted off-market properties and operating businesses precisely tailored to each investor's budget and strategy, combining deep financial analytics, risk assessment and ROI forecasting with full legal protection from licensed Romanian lawyers, transparent transaction support and complete business setup including company registration, banking and tax consulting plus optional remote management, turning a complex cross-border investment into a fast, secure and effortlessly profitable experience that generates returns from day one.",
     highlights: [
-      "Converts complex yield modeling, verified deal structures, and legal protections into clear, authoritative presentation pages.",
-      "Consistently generates serious investor inquiries by replacing aggressive sales pitches with verified financial transparency.",
+      "Exclusive access to vetted off-market properties and turnkey businesses tailored to each investor's budget and strategy.",
+      "Deep analytics, risk assessment and ROI forecasting with full legal protection, business setup and optional remote management.",
+    ],
+    metrics: [
+      { value: "+7.6%", label: "annual passive\nyield in euros" },
+      { value: "+30%", label: "capital growth\nin 12-24 months" },
+      { value: "x3", label: "lower acquisition\ncosts vs W. Europe" },
+      { value: "+48%", label: "net profit on resale\nin 14 months" },
+      { value: "-70%", label: "faster time to\nverified EU asset" },
+    ],
+  },
+  {
+    num: "03",
+    slug: "megawind",
+    shotLabels: [
+      "Solo Trans Energy — solar B2B grid",
+      "Eximius — hybrid solar + wind PPA",
+      "Megawind — wind parks & ESG",
+      "Importex Energy — logistics → wind",
+    ],
+    client: "Green Tech · EU",
+    name: "Solar Grants Hub — 7 Brands, One System",
+    href: "https://www.megawind.md",
+    body: "We helped seven local customers turn a single reusable landing template into seven branded lead-generation engines to apply for EU green-tech grants — launching Solo Trans Energy, Eximius, Megawind, Importex Energy, Wind Rise, More Power and Nano Wind from one centralized CMS, each with its own identity, audience and Romanian/Russian content, built to capture high-intent leads fast, stay grant-ready and let each brand manage its own products, news and pages independently.",
+    challenge:
+      "Before the system each brand needed a one-off landing, with slow bespoke builds, inconsistent grant readiness, duplicated effort across seven codebases, no per-brand CMS control and fragmented Romanian/Russian content that made rapid EU grant applications impossible to scale.",
+    solution:
+      "We delivered one high-performance template and centralized management architecture that launches seven branded landings from a single codebase — Solo Trans Energy (solotransenergy.md), Eximius (eximius.md), Megawind (megawind.md), Importex Energy (importexenergy.md), Wind Rise (windrise.md), More Power (morepower.md) and Nano Wind (nanowind.md) — each with independent CMS workspaces, localized RO/RU content, products and news, grant-ready performance and consistent identity.",
+    highlights: [
+      "Seven branded landings from one system — Solo Trans Energy, Eximius, Megawind, Importex Energy, Wind Rise, More Power, Nano Wind (RO/RU, solotransenergy.md / eximius.md / megawind.md / importexenergy.md / windrise.md / morepower.md / nanowind.md).",
+      "One template, seven independent CMS workspaces — each brand controls its own localized content and grant-ready pages without developer help.",
+    ],
+    metrics: [
+      { value: "7", label: "branded landings\none system" },
+      { value: "EU", label: "grant-ready\nRO/RU landings" },
+      { value: "x5", label: "faster brand\nrollout" },
+      { value: "100%", label: "independent\ncontent control" },
+      { value: "24/7", label: "multi-brand\nuptime" },
     ],
   },
   {
     num: "07",
     slug: "etatruck",
     shotLabels: ["Corporate site", "Fleet gallery", "Mobile — EU network"],
-    shotPositions: ["object-top", "object-top", "object-center"],
-    shotSpans: ["col-span-12", "col-span-8", "col-span-4"],
     client: "Logistics · EU",
     name: "ETA Truck",
     href: "https://eta-truck.ro",
-    body: "A corporate digital platform for an international Bucharest logistics firm specializing in oversized cargo, permits, and EU transport networks.",
+    body: "The custom ETA Truck landing page was designed and built as a high-performance B2B lead generation engine to establish market trust and convert European freight prospects into active inquiries. By focusing on persuasive visual hierarchy, clear service segmentation, and frictionless quote request flows, the platform elevates brand credibility and systematically captures high-value B2B logistics clients online.",
+    challenge:
+      "ETA Truck previously suffered from limited digital visibility and an unoptimized online presence that failed to effectively communicate their specialized heavy-haul capabilities or convert visiting prospects. Prospective clients found it difficult to quickly evaluate service tiers, check international coverage, or request custom quotes, resulting in high bounce rates and lost B2B revenue opportunities.",
+    solution:
+      "We developed a streamlined, fully responsive marketing landing page built for speed, immediate clarity, and maximum lead conversion. By organizing complex logistics offerings into clear visual categories, integrating interactive quote calls-to-action, highlighting social proof, and optimizing multilingual accessibility across European markets, the platform turns digital traffic into a consistent stream of qualified logistics leads.",
     highlights: [
-      "Features real-time job openings, fleet showcases, and service breakdowns to establish immediate logistical credibility.",
-      "Includes a standalone admin panel so non-technical staff can update fleet galleries and company news effortlessly.",
+      "Persuasive visual hierarchy with clear service segmentation and frictionless quote request flows.",
+      "Fully responsive, speed-optimized landing with interactive CTAs, social proof and multilingual accessibility.",
     ],
-  },
-  {
-    num: "08",
-    slug: "redcore",
-    shotLabels: ["Lead-gen site", "CMS — project media", "Mobile — service pages"],
-    shotPositions: ["object-top", "object-top", "object-top"],
-    shotSpans: ["col-span-12", "col-span-9", "col-span-3"],
-    client: "Local business · USA",
-    name: "Red Core Concrete",
-    href: "https://redcoreconcrete.com",
-    body: "A high-converting web platform and project gallery built for a specialized concrete and controlled demolition contractor in New England.",
-    highlights: [
-      "Converts organic traffic into quote inquiries by giving each core service dedicated landing pages and visual proof galleries.",
-      "Integrated a custom media CMS enabling the owner to upload project photos and job logs directly from the field.",
+    metrics: [
+      { value: "+65%", label: "visitor-to-lead\nconversion rate" },
+      { value: "-50%", label: "bounce\nrate" },
+      { value: "x3", label: "quote request\nvolume" },
+      { value: "+85%", label: "mobile user\nengagement" },
+      { value: "-70%", label: "page load\ntime" },
     ],
   },
   {
     num: "09",
     slug: "palazzo",
     shotLabels: ["Clinic site", "Mobile booking", "Online appointments"],
-    shotPositions: ["object-top", "object-center", "object-center"],
     client: "Wellness · Chișinău",
     name: "Palazzo Aesthetics",
     href: "https://palazzoaesthetics.md/",
-    body: "An elegant, multi-lingual digital storefront and online appointment portal for a specialized physiotherapy and phytotherapy clinic in Chișinău.",
+    body: "Palazzo Aesthetics is a boutique wellness clinic in Chisinau specializing in phyto-aesthetics and phytotherapy, blending over 65 years of botanical expertise with modern science to deliver natural, visible results for skin, body and wellbeing. To transform its strong local reputation into predictable growth, Palazzo partnered with us to launch a premium, multilingual digital platform designed to attract high-intent clients, build instant trust and convert interest into booked appointments around the clock. The result is a polished, high-performing growth engine that elevates the brand, captures every opportunity and empowers the team to scale revenue without adding workload, establishing Palazzo as the trusted destination for natural aesthetic and therapeutic care in a competitive multilingual market.",
+    challenge:
+      "Before the new platform, Palazzo relied on fragmented manual processes to manage demand, with appointment requests scattered across Instagram messages, phone calls and in-person enquiries that were slow to handle, easy to miss and impossible to track outside working hours. The clinic lacked a central, professional online presence to clearly explain its two core services, reassure discerning clients and serve Romanian, Russian and English speakers equally, causing high-intent visitors to drop off and choose competitors with simpler booking. Content and promotion updates required external help and took too long, the business was nearly invisible in organic search, and valuable clinical time was lost to repetitive administration instead of care, follow-up and growth.",
+    solution:
+      "We delivered an elegant, conversion-focused website that makes discovering, trusting and booking Palazzo effortless on any device and in any language, with clear journeys for phyto-aesthetics and phytotherapy, compelling proof points and one-click appointment scheduling that captures and qualifies every lead instantly even after hours. An intuitive content hub now lets the team publish news, update services and share promotions in minutes without technical support, while integrated contact flows ensure no enquiry is lost and every prospect receives a prompt, professional response. Designed for discovery and trust from the first impression, the platform guides visitors naturally from inspiration to action, dramatically reduces administrative friction, shortens the decision cycle and creates a seamless client experience that consistently turns interest into confirmed appointments, revenue and long-term advocacy.",
     highlights: [
-      "Streamlined patient onboarding with a friction-free booking flow across three languages.",
-      "Backed by a bespoke CMS for managing medical services, news updates, and appointment schedules without developer intervention.",
+      "Elegant conversion-focused journeys for phyto-aesthetics and phytotherapy with one-click scheduling that captures every lead after hours.",
+      "Intuitive content hub for news, services and promotions with integrated contact flows and prompt professional response.",
+    ],
+    metrics: [
+      { value: "+240%", label: "growth in qualified\ninbound leads" },
+      { value: "+68%", label: "online booking\nconversion rate" },
+      { value: "-75%", label: "manual appointment\nhandling time" },
+      { value: "+190%", label: "increase in organic\nsearch visibility" },
+      { value: "x3", label: "monthly booked\nappointments" },
     ],
   },
-]
+];
 
-function PlaceholderFrame({
-  name,
-  meteors = false,
-}: {
-  name: string
-  meteors?: boolean
-}) {
-  return (
-    <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-secondary/40">
-      <GridPattern
-        width={36}
-        height={36}
-        className="fill-none stroke-foreground/[0.06] [mask-image:radial-gradient(400px_circle_at_50%_50%,white,transparent)]"
-      />
-      {meteors && <Meteors number={16} className="bg-primary/70" />}
-      <span className="relative text-2xl font-semibold tracking-tight text-foreground/15 sm:text-3xl">
-        {name}
-      </span>
-    </div>
-  )
-}
-
-function SlideBackdrop({ flipped }: { flipped: boolean }) {
-  return (
-    <AnimationGate className="absolute inset-0">
-      {/* pre-faded gradient, not blur-3xl: animating a blurred layer re-runs
-          the Gaussian blur every frame in Firefox */}
-      <div
-        aria-hidden
-        className={`pointer-events-none absolute top-[calc(25%-3rem)] size-[30rem] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--color-primary)_12%,transparent),transparent)] animate-glow-drift ${
-          flipped ? "-right-36" : "-left-36"
-        }`}
-      />
-      <InteractiveGridPattern
-        width={48}
-        height={48}
-        squares={[24, 18]}
-        squaresClassName="hover:fill-primary/25"
-        className={
-          flipped
-            ? "[mask-image:radial-gradient(620px_circle_at_70%_45%,white,transparent)]"
-            : "[mask-image:radial-gradient(620px_circle_at_30%_45%,white,transparent)]"
-        }
-      />
-    </AnimationGate>
-  )
-}
-
-function EdgeFade({ flipped }: { flipped: boolean }) {
-  return (
-    <div
-      className={`pointer-events-none absolute inset-y-0 z-10 hidden w-14 md:block lg:w-20 ${
-        flipped
-          ? "right-0 bg-gradient-to-l from-background via-background/55 via-35% to-transparent"
-          : "left-0 bg-gradient-to-r from-background via-background/55 via-35% to-transparent"
-      }`}
-    />
-  )
-}
-
-// each project's media lives in public/works/<slug>/ — whatever images are in
-// the folder get shown, in filename order, labelled by shotLabels position
 function availableShots(work: Work): Shot[] {
-  if (!work.slug) return []
-  const dir = join(process.cwd(), "public", "works", work.slug)
-  if (!existsSync(dir)) return []
+  if (!work.slug) return [];
+  const dir = join(process.cwd(), "public", "works", work.slug);
+  if (!existsSync(dir)) return [];
   return readdirSync(dir)
     .filter((file) => /\.(webp|avif|png|jpe?g)$/i.test(file))
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
     .map((file, index) => ({
       src: `/works/${work.slug}/${file}`,
       label: work.shotLabels?.[index] ?? work.name,
-      position: work.shotPositions?.[index],
-    }))
+    }));
 }
 
-// varied 3-image arrangements on a 6-col grid, picked per project so the
-// galleries don't all look the same: wide+narrow / narrow+wide, full-width
-// image on top or bottom
-const gridPatterns = [
-  ["col-span-8", "col-span-4", "col-span-12"],
-  ["col-span-4", "col-span-8", "col-span-12"],
-  ["col-span-12", "col-span-8", "col-span-4"],
-  ["col-span-12", "col-span-4", "col-span-8"],
-]
-
-function shotSpan(count: number, index: number, workIndex: number) {
-  if (count === 1 || count === 2) return "col-span-12"
-  if (count === 3) return gridPatterns[workIndex % gridPatterns.length][index]
-  // 4+: wide/narrow pairs that swap sides each row, odd leftover gets a full row
-  if (count % 2 === 1 && index === count - 1) return "col-span-12"
-  const wideFirst = Math.floor(index / 2) % 2 === 0
-  return wideFirst === (index % 2 === 0) ? "col-span-8" : "col-span-4"
+function getGallerySrcs(work: Work): string[] {
+  if (!work.slug) return [];
+  const dir = join(process.cwd(), "public", "works", work.slug);
+  if (!existsSync(dir)) return [];
+  const numbered = readdirSync(dir)
+    .filter((file) => /^\d+\.webp$/i.test(file))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+    .map((file) => `/works/${work.slug}/${file}`);
+  if (numbered.length > 0) return numbered;
+  // fallback: any available shots except cover (should not happen)
+  const shots = availableShots(work);
+  return shots.map((s) => s.src).filter((src) => !src.endsWith("/cover.webp"));
 }
 
-function WorkGallery({
-  work,
-  shots,
-  workIndex,
-}: {
-  work: Work
-  shots: Shot[]
-  workIndex: number
-}) {
-  if (!shots.length) return <PlaceholderFrame name={work.name} />
-  return (
-    <div className="absolute inset-0 grid auto-rows-fr grid-cols-12 gap-2 p-4 md:gap-3 md:p-[10%]">
-      {shots.map((shot, index) => (
-        <WobbleCard
-          key={shot.src}
-          noise={false}
-          containerClassName={cn(
-            "min-h-0 bg-secondary/40 shadow-[0_10px_22px_-10px] shadow-primary/30",
-            work.shotSpans?.[index] ?? shotSpan(shots.length, index, workIndex)
-          )}
-          className="p-0"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={shot.src}
-            alt={`${work.name} — ${shot.label}`}
-            loading="lazy"
-            className={cn(
-              "absolute inset-0 h-full w-full object-cover",
-              shot.position ?? "object-top"
-            )}
-          />
-        </WobbleCard>
-      ))}
-    </div>
-  )
+function getCoverSrc(work: Work): string {
+  return `/works/${work.slug ?? "placeholder"}/cover.webp`;
 }
 
-function WorkSlide({ work, index }: { work: Work; index: number }) {
-  const flipped = index % 2 === 1
-  const shots = availableShots(work)
-  return (
-    <article className="grid md:min-h-svh md:grid-cols-2">
-      <div
-        className={`relative flex items-center overflow-hidden px-6 py-16 sm:px-8 md:py-24 lg:px-16 ${
-          flipped ? "md:order-2" : ""
-        }`}
-      >
-        <SlideBackdrop flipped={flipped} />
-        <div className="relative z-10 w-full max-w-xl md:mx-auto">
-          <p className="text-sm font-medium text-muted-foreground">
-            {work.client}
-          </p>
-          <h3 className="mt-3 w-fit bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text pb-1 text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
-            {work.name}
-          </h3>
-          <div className="mt-5 h-px w-16 bg-border" />
-          <p className="mt-5 max-w-xl text-xl leading-relaxed text-muted-foreground">
-            {work.body}
-          </p>
-          {work.highlights && (
-            <ul className="mt-4 max-w-xl space-y-2.5">
-              {work.highlights.map((highlight) => {
-                const colon = highlight.indexOf(": ")
-                const lead = colon > 0 ? highlight.slice(0, colon) : null
-                const rest = colon > 0 ? highlight.slice(colon + 2) : highlight
-                return (
-                  <li
-                    key={highlight}
-                    className="flex gap-3 text-base leading-relaxed text-muted-foreground sm:text-lg"
-                  >
-                    <span
-                      aria-hidden
-                      className="mt-2.5 size-1.5 shrink-0 rounded-full bg-primary"
-                    />
-                    <span>
-                      {lead && (
-                        <span className="font-medium text-foreground/90">
-                          {lead}:{" "}
-                        </span>
-                      )}
-                      {rest}
-                    </span>
-                  </li>
-                )
-              })}
-            </ul>
-          )}
-          {work.href && (
-            <MovingBorderButton
-              as="a"
-              href={work.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              borderRadius="0.5rem"
-              duration={4000}
-              containerClassName="group mt-7 inline-block h-12 w-44 text-base"
-              borderClassName="bg-[radial-gradient(#2563eb_40%,transparent_60%)]"
-              className="relative overflow-hidden border-border bg-card font-semibold text-foreground transition-colors duration-300 group-hover:text-primary-foreground"
-            >
-              <span
-                aria-hidden
-                className="absolute inset-0 -translate-x-full bg-primary transition-transform duration-300 ease-out group-hover:translate-x-0"
-              />
-              <span className="relative z-10 flex items-center gap-1.5">
-                Visit site
-                <ArrowUpRight className="size-4" strokeWidth={1.75} />
-              </span>
-            </MovingBorderButton>
-          )}
-        </div>
-      </div>
-      <div
-        className={cn(
-          "relative h-72 sm:h-96 md:h-auto",
-          shots.length > 1 && "h-[30rem] sm:h-[34rem]",
-          flipped && "md:order-1"
-        )}
-      >
-        <WorkGallery work={work} shots={shots} workIndex={index} />
-        <EdgeFade flipped={flipped} />
-      </div>
-    </article>
-  )
-}
-
-// the same clients and people as the recommendations section; each links to
-// their live site
 const ctaAvatars = [
   {
     imageUrl: "/recommendations/2marketing.jpg",
@@ -429,7 +324,6 @@ const ctaAvatars = [
     imageUrl: "/recommendations/palazzo-aesthetics.svg",
     profileUrl: "https://palazzoaesthetics.md/",
     name: "Palazzo Aesthetics",
-    // logo is dark green on a transparent background
     className: "bg-[#f2eee4]",
   },
   {
@@ -437,119 +331,138 @@ const ctaAvatars = [
     profileUrl: "https://www.compass.com/agents/inesa-dita/",
     name: "Inesa Dita — Real Estate Agent",
   },
-]
-
-function CtaSlide({ flipped }: { flipped: boolean }) {
-  return (
-    <article className="grid md:min-h-svh md:grid-cols-2">
-      <div
-        className={`relative flex items-center overflow-hidden px-6 py-16 sm:px-8 md:py-24 lg:px-16 ${
-          flipped ? "md:order-2" : ""
-        }`}
-      >
-        <SlideBackdrop flipped={flipped} />
-        <div className="relative z-10 w-full max-w-xl md:mx-auto">
-          <p className="text-sm font-medium text-muted-foreground">You?</p>
-          <h3 className="mt-3 w-fit bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text pb-1 text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
-            Your project
-          </h3>
-          <div className="mt-5 h-px w-16 bg-border" />
-          <p className="mt-5 max-w-xl text-xl leading-relaxed text-muted-foreground">
-            This spot is reserved for the idea you haven&apos;t sent us yet —
-            good, bad, or delusional. Tell us what you want to build and
-            we&apos;ll tell you honestly what it takes.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
-            <AvatarCircles
-              avatarUrls={ctaAvatars}
-              className="-space-x-4"
-              avatarClassName="size-12"
-            />
-            <div className="flex items-center gap-1" aria-label="Rated 5 out of 5 by our clients">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  className="size-5 fill-amber-400 text-amber-400"
-                  strokeWidth={0}
-                  aria-hidden
-                />
-              ))}
-            </div>
-          </div>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Trusted by clients across four countries
-          </p>
-          <div className="mt-7 space-y-3">
-            <a
-              href="mailto:hello@devalon.dev"
-              className="flex w-fit items-center gap-2.5 text-base text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <Mail className="size-4 text-primary" strokeWidth={1.75} aria-hidden />
-              hello@devalon.dev
-            </a>
-            <a
-              href="tel:+37367500054"
-              className="flex w-fit items-center gap-2.5 text-base text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <Phone className="size-4 text-primary" strokeWidth={1.75} aria-hidden />
-              +373 675 00 054
-            </a>
-          </div>
-        </div>
-      </div>
-      <div
-        id="contact"
-        className={`relative flex scroll-mt-20 items-center justify-center overflow-hidden px-6 py-12 sm:px-10 md:py-24 lg:px-14 ${
-          flipped ? "md:order-1" : ""
-        }`}
-      >
-        <DotPattern
-          width={22}
-          height={22}
-          className="fill-foreground/[0.04] [mask-image:radial-gradient(420px_circle_at_60%_40%,white,transparent)]"
-        />
-        <div className="relative w-full max-w-xl rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
-          <h3 className="text-2xl font-bold tracking-tight text-foreground">
-            Tell us your idea
-          </h3>
-          <p className="mt-2 text-base leading-relaxed text-muted-foreground">
-            Share a few details about your project and we&apos;ll get back to
-            you with an honest assessment — typically within one business day.
-          </p>
-          <ContactForm className="mt-6" />
-        </div>
-      </div>
-    </article>
-  )
-}
+];
 
 export function Works() {
+  const projects: ProjectWithSrc[] = works.map((work) => ({
+    num: work.num,
+    slug: work.slug ?? work.num,
+    client: work.client,
+    name: work.name,
+    href: work.href,
+    body: work.body,
+    challenge: work.challenge,
+    solution: work.solution,
+    highlights: work.highlights,
+    metrics: work.metrics,
+    src: getCoverSrc(work),
+    gallery: getGallerySrcs(work),
+    shotLabels: work.shotLabels,
+  }));
+
   return (
-    <section
-      id="work"
-      className="relative isolate overflow-hidden border-b border-border"
-    >
-      <GridPattern
-        width={36}
-        height={36}
-        className="-z-10 fill-none stroke-foreground/[0.04] [mask-image:radial-gradient(700px_circle_at_25%_15%,white,transparent)]"
-      />
-      <div className="mx-auto w-full max-w-7xl px-6 pt-20 sm:px-8 sm:pt-24 xl:max-w-[88rem]">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Works &amp; projects
-        </h2>
-        <p className="mt-3 max-w-xl text-xl leading-relaxed text-muted-foreground">
-          Real projects, live on the internet — from Denmark to the USA to
-          Moldova and Romania, in five languages. Click through and see for
-          yourself; we&apos;ll gladly tell you the story behind any of them.
-        </p>
-      </div>
-      <div className="mt-12 sm:mt-16">
-        {works.map((work, index) => (
-          <WorkSlide key={work.num} work={work} index={index} />
-        ))}
-        <CtaSlide flipped={works.length % 2 === 1} />
-      </div>
-    </section>
-  )
+    <div className="flex flex-col gap-0 bg-background">
+      <ProjectsGrid projects={projects} />
+
+      <section
+        id="contact"
+        className="relative flex min-h-svh scroll-mt-[72px] items-start overflow-hidden bg-background py-10 md:h-svh md:items-center md:py-0"
+      >
+        {/* top transition — smooth, no border */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background via-background/60 to-transparent sm:h-20"
+        />
+        {/* right half background — expands fully to viewport right edge on md+ — base layout effect */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 overflow-hidden bg-secondary/[0.35] md:block"
+        >
+          <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_88%,transparent)]">
+            <DotPattern
+              width={18}
+              height={18}
+              cr={1.15}
+              className="fill-foreground/[0.07] [mask-image:radial-gradient(640px_circle_at_70%_35%,white,transparent)]"
+            />
+          </div>
+        </div>
+        <div className="relative mx-auto grid w-full max-w-7xl gap-6 md:grid-cols-2 md:gap-0 xl:max-w-[88rem]">
+          {/* left — form */}
+          <div className="order-2 flex items-center px-4 py-6 sm:px-8 sm:py-8 md:order-1 lg:px-12">
+            <div className="w-full max-w-xl rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-8">
+              <h3 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+                Tell us your idea
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                Share a few details about your project and we&apos;ll get back
+                to you with an honest assessment — typically within one business
+                day.
+              </p>
+              <ContactForm className="mt-6" />
+            </div>
+          </div>
+
+          {/* right — testimonials / 5 stars — more forth, fully expanded right */}
+          <div className="relative isolate order-1 flex flex-col justify-center overflow-hidden bg-secondary/[0.35] px-4 py-6 sm:px-8 sm:py-8 md:order-2 md:bg-transparent md:py-12 lg:px-12 lg:py-0">
+            <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_88%,transparent)] md:hidden">
+              <DotPattern
+                width={18}
+                height={18}
+                cr={1.15}
+                className="fill-foreground/[0.07] [mask-image:radial-gradient(640px_circle_at_70%_35%,white,transparent)]"
+              />
+            </div>
+            <p className="text-sm font-medium text-muted-foreground">You?</p>
+            <h3 className="mt-2 w-fit bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text pb-1 text-2xl font-bold tracking-tight text-transparent sm:text-3xl md:mt-3 md:text-4xl">
+              Your project
+            </h3>
+            <div className="mt-3 h-px w-16 bg-border md:mt-5" />
+            <p className="mt-3 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg md:mt-5 md:text-xl">
+              This spot is reserved for the idea you haven&apos;t sent us yet —
+              good, bad, or delusional. Tell us what you want to build and
+              we&apos;ll tell you honestly what it takes.
+            </p>
+            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3 md:mt-8 md:gap-x-5">
+              <AvatarCircles
+                avatarUrls={ctaAvatars}
+                className="-space-x-4"
+                avatarClassName="size-9 sm:size-10 md:size-12"
+              />
+              <div
+                className="flex items-center gap-1"
+                aria-label="Rated 5 out of 5 by our clients"
+              >
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star
+                    key={i}
+                    className="size-4 fill-amber-400 text-amber-400 md:size-5"
+                    strokeWidth={0}
+                    aria-hidden
+                  />
+                ))}
+              </div>
+            </div>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Trusted by clients worldwide
+            </p>
+            <div className="mt-5 space-y-3 md:mt-7">
+              <a
+                href="mailto:hello@devalon.dev"
+                className="flex w-fit items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground sm:text-base"
+              >
+                <Mail
+                  className="size-4 text-primary"
+                  strokeWidth={1.75}
+                  aria-hidden
+                />
+                hello@devalon.dev
+              </a>
+              <a
+                href="tel:+37367500054"
+                className="flex w-fit items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground sm:text-base"
+              >
+                <Phone
+                  className="size-4 text-primary"
+                  strokeWidth={1.75}
+                  aria-hidden
+                />
+                +373 675 00 054
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
 }

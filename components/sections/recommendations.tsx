@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Building2 } from "lucide-react";
 
-import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { AnimationGate } from "@/components/ui/animation-gate";
+import { AuroraText } from "@/components/ui/aurora-text";
 import { Marquee } from "@/components/ui/marquee";
 import { cn } from "@/lib/utils";
 
@@ -114,10 +114,10 @@ function RecommendationCard({
   href,
 }: Recommendation) {
   const card = (
-    <figure className="dark relative isolate flex flex-col overflow-hidden rounded-2xl border border-border bg-[linear-gradient(115deg,oklch(0.22_0.014_258),oklch(0.25_0.05_262),oklch(0.22_0.014_258))] bg-[length:200%_200%] p-3.5 text-foreground transition-colors [--duration:18s] motion-safe:animate-shine hover:border-primary/40 sm:p-5">
+    <figure className="relative isolate flex flex-col overflow-hidden rounded-[1.25rem] bg-white p-5 text-foreground shadow-[0_10px_30px_-12px_rgba(59,67,84,0.35)] transition-shadow hover:shadow-[0_14px_36px_-12px_rgba(59,67,84,0.4)] sm:rounded-[1.75rem] sm:p-5">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_120%_at_80%_0%,rgba(113,150,224,0.10),transparent)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(50%_100%_at_80%_0%,rgba(113,150,224,0.06),transparent)]"
       />
       <figcaption className="flex items-center gap-2.5 sm:gap-3">
         <span
@@ -143,16 +143,16 @@ function RecommendationCard({
           )}
         </span>
         <span className="leading-snug">
-          <span className="block text-[15px] font-semibold tracking-tight text-foreground sm:text-lg">
+          <span className="block text-base font-semibold tracking-tight text-foreground sm:text-lg">
             {name}
           </span>
-          <span className="block text-xs text-muted-foreground sm:text-[13px]">
+          <span className="block text-sm text-muted-foreground sm:text-[13px]">
             {role}
           </span>
         </span>
       </figcaption>
-      <blockquote className="mt-3 text-[13px] leading-snug text-foreground/85 sm:mt-4 sm:text-base sm:leading-relaxed">
-        &ldquo;{quote}&rdquo;
+      <blockquote className="mt-3 text-sm leading-snug text-foreground/85 sm:mt-4 sm:text-base sm:leading-relaxed">
+        {quote}
       </blockquote>
     </figure>
   );
@@ -172,38 +172,55 @@ function RecommendationCard({
 // entries are added or reordered.
 const live = recommendations.filter((rec) => !rec.draft);
 const columns = [
-  { items: live.slice(0, 2), duration: "45s", reverse: false },
-  { items: live.slice(2, 5), duration: "60s", reverse: true },
-  { items: live.slice(5), duration: "50s", reverse: false },
+  { items: live.slice(0, 2), duration: "80s", reverse: false },
+  { items: live.slice(2, 5), duration: "100s", reverse: true },
+  { items: live.slice(5), duration: "90s", reverse: false },
 ];
 
 export function Recommendations() {
   return (
     <section
       id="recommendations"
-      className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden border-b border-border bg-card/40"
+      className="relative isolate flex h-svh scroll-mt-[72px] flex-col justify-center overflow-hidden bg-[linear-gradient(to_bottom_in_oklch,transparent_0%,#f3f4f600_6%,#f1f3f8_14%,#dde4f1_24%,#c2cfe8_36%,#c2d2ec_48%,#b4c6e6_60%,#a8c4f0_75%)]"
     >
-      <AnimatedGridPattern
-        numSquares={20}
-        maxOpacity={0.12}
-        duration={3}
-        repeatDelay={0.6}
-        className="absolute inset-0 -z-10 h-full w-full fill-primary/25 stroke-foreground/[0.06] [mask-image:radial-gradient(1000px_circle_at_50%_35%,white,transparent)]"
-      />
-      <div className="mx-auto w-full max-w-7xl px-6 py-12 sm:px-8 sm:py-16 xl:max-w-[88rem]">
-        <div className="max-w-2xl text-left sm:mx-auto sm:text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            People we&apos;ve built with
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-12 sm:gap-10 sm:px-8 sm:py-16 xl:max-w-[88rem]">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl">
+            Built on trust,
+            <br className="sm:hidden" />
+            <span className="sm:inline">
+              {" "}
+              <AuroraText
+                colors={["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"]}
+                speed={1}
+              >
+                Shipped Worldwide
+              </AuroraText>
+            </span>
           </h2>
         </div>
 
         <AnimationGate
-          className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          // style={{
+          //   maskImage:
+          //     "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.08) 6%, rgba(0,0,0,0.45) 11%, black 18%, black 82%, rgba(0,0,0,0.45) 89%, rgba(0,0,0,0.08) 94%, transparent 100%)",
+          //   WebkitMaskImage:
+          //     "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.08) 6%, rgba(0,0,0,0.45) 11%, black 18%, black 82%, rgba(0,0,0,0.45) 89%, rgba(0,0,0,0.08) 94%, transparent 100%)",
+          // }}
+
+          // style={{
+          //   maskImage:
+          //     "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 8%, rgba(0,0,0,0.6) 18%, black 30%, black 70%, rgba(0,0,0,0.6) 82%, rgba(0,0,0,0.2) 92%, transparent 100%)",
+          //   WebkitMaskImage:
+          //     "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 8%, rgba(0,0,0,0.6) 18%, black 30%, black 70%, rgba(0,0,0,0.6) 82%, rgba(0,0,0,0.2) 92%, transparent 100%)",
+          // }}
+          //
           style={{
             maskImage:
-              "linear-gradient(to bottom, transparent, rgba(0,0,0,0.35) 3%, rgba(0,0,0,0.75) 6%, black 10%, black 90%, rgba(0,0,0,0.75) 94%, rgba(0,0,0,0.35) 97%, transparent)",
+              "linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)",
             WebkitMaskImage:
-              "linear-gradient(to bottom, transparent, rgba(0,0,0,0.35) 3%, rgba(0,0,0,0.75) 6%, black 10%, black 90%, rgba(0,0,0,0.75) 94%, rgba(0,0,0,0.35) 97%, transparent)",
+              "linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)",
           }}
         >
           {/* mobile: a single column cycling through every card */}
@@ -214,7 +231,7 @@ export function Recommendations() {
             className="h-[calc(100svh-11rem)] min-h-[26rem] p-0 sm:hidden"
             style={
               {
-                "--duration": "150s",
+                "--duration": "130s",
                 "--gap": "1.25rem",
               } as React.CSSProperties
             }
