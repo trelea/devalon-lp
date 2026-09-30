@@ -176,12 +176,17 @@ const columns = [
   { items: live.slice(2, 5), duration: "100s", reverse: true },
   { items: live.slice(5), duration: "90s", reverse: false },
 ];
+const mobileOrdered = [
+  ...columns[1].items,
+  ...columns[2].items,
+  ...columns[0].items,
+];
 
 export function Recommendations() {
   return (
     <section
       id="recommendations"
-      className="relative isolate flex h-svh scroll-mt-[72px] flex-col justify-center overflow-hidden bg-[linear-gradient(to_bottom_in_oklch,transparent_0%,#f3f4f600_6%,#f1f3f8_14%,#dde4f1_24%,#c2cfe8_36%,#c2d2ec_48%,#b4c6e6_60%,#a8c4f0_75%)]"
+      className="relative isolate flex h-svh h-dvh scroll-mt-[72px] flex-col justify-center overflow-hidden bg-[linear-gradient(to_bottom_in_oklch,transparent_0%,#f3f4f600_6%,#f1f3f8_14%,#dde4f1_24%,#c2cfe8_36%,#c2d2ec_48%,#b4c6e6_60%,#a8c4f0_75%)]"
     >
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-12 sm:gap-10 sm:px-8 sm:py-16 xl:max-w-[88rem]">
         <div className="mx-auto max-w-4xl text-center">
@@ -228,7 +233,7 @@ export function Recommendations() {
             vertical
             pauseOnHover
             repeat={2}
-            className="h-[calc(100svh-11rem)] min-h-[26rem] p-0 sm:hidden"
+            className="h-[calc(100svh-11rem)] h-[calc(100dvh-11rem)] min-h-[26rem] p-0 sm:hidden"
             style={
               {
                 "--duration": "130s",
@@ -236,7 +241,7 @@ export function Recommendations() {
               } as React.CSSProperties
             }
           >
-            {live.map((rec) => (
+            {mobileOrdered.map((rec) => (
               <RecommendationCard key={rec.name} {...rec} />
             ))}
           </Marquee>
@@ -249,10 +254,10 @@ export function Recommendations() {
               reverse={column.reverse}
               className={
                 index === 0
-                  ? "hidden h-[calc(100svh-11rem)] min-h-[26rem] p-0 sm:flex sm:h-[min(50rem,calc(100svh-14rem))] sm:min-h-0"
+                  ? "hidden h-[calc(100svh-11rem)] h-[calc(100dvh-11rem)] min-h-[26rem] p-0 sm:flex sm:h-[min(50rem,calc(100svh-14rem))] sm:h-[min(50rem,calc(100dvh-14rem))] sm:min-h-0"
                   : index === 1
-                    ? "hidden h-[calc(100svh-11rem)] min-h-[26rem] p-0 sm:flex sm:h-[min(50rem,calc(100svh-14rem))] sm:min-h-0"
-                    : "hidden h-[calc(100svh-11rem)] min-h-[26rem] p-0 sm:h-[min(50rem,calc(100svh-14rem))] sm:min-h-0 lg:flex"
+                    ? "hidden h-[calc(100svh-11rem)] h-[calc(100dvh-11rem)] min-h-[26rem] p-0 sm:flex sm:h-[min(50rem,calc(100svh-14rem))] sm:h-[min(50rem,calc(100dvh-14rem))] sm:min-h-0"
+                    : "hidden h-[calc(100svh-11rem)] h-[calc(100dvh-11rem)] min-h-[26rem] p-0 sm:h-[min(50rem,calc(100svh-14rem))] sm:h-[min(50rem,calc(100dvh-14rem))] sm:min-h-0 lg:flex"
               }
               style={
                 {

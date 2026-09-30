@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -18,6 +19,9 @@ export type LayoutGridCard = {
   gallery?: string[];
   shotLabels?: string[];
   href?: string;
+  /** when set (and expand is disabled), the whole card is a plain link
+      to an internal page — no modal, fully crawlable server HTML. */
+  hrefInternal?: string;
 };
 
 export const LayoutGrid = ({
@@ -26,6 +30,7 @@ export const LayoutGrid = ({
   enableExpand = true,
   variant = "default",
   mobileScrollTarget = "work",
+  splitMobile = "scroll",
 }: {
   cards: LayoutGridCard[];
   className?: string;
@@ -34,6 +39,8 @@ export const LayoutGrid = ({
   variant?: "default" | "split";
   /** id to keep visible on mobile open, or false to disable auto-scroll */
   mobileScrollTarget?: string | false;
+  /** mobile split behavior: "equal" = 50/50 vertical, "scroll" = text auto + image below fold */
+  splitMobile?: "equal" | "scroll";
 }) => {
   const [selected, setSelected] = useState<LayoutGridCard | null>(null);
   const [lastSelected, setLastSelected] = useState<LayoutGridCard | null>(
@@ -79,16 +86,18 @@ export const LayoutGrid = ({
         className
       )}
     >
-      {cards.map((card) => (
-        <div key={card.id} className={cn(card.className)}>
+      {cards.map((card) => {
+        const linkMode = !enableExpand && !!card.hrefInternal;
+        const externalLinkMode = !enableExpand && !!card.href;
+        const tile = (
           <motion.div
             onClick={() => handleClick(card)}
             className={cn(
               card.className,
               "group relative overflow-hidden",
-              enableExpand ? "cursor-pointer" : "cursor-default",
+              enableExpand || linkMode || externalLinkMode ? "cursor-pointer" : "cursor-default",
               selected?.id === card.id
-                ? "fixed inset-x-3 top-[2.5svh] bottom-auto z-[100] flex h-[92svh] w-auto flex-col overflow-hidden rounded-[1.25rem] sm:inset-x-4 sm:top-[2.5svh] lg:inset-0 lg:m-auto lg:h-[92svh] lg:w-[96vw] sm:rounded-[1.5rem] lg:rounded-[2rem] bg-white shadow-2xl"
+                ? "fixed inset-x-3 top-[2.5svh] top-[2.5dvh] bottom-auto z-[100] flex h-[92svh] h-[92dvh] w-auto flex-col overflow-hidden rounded-[1.25rem] sm:inset-x-4 sm:top-[2.5svh] sm:top-[2.5dvh] lg:inset-0 lg:m-auto lg:h-[92svh] lg:h-[92dvh] lg:w-[96vw] sm:rounded-[1.5rem] lg:rounded-[2rem] bg-white shadow-2xl"
                 : lastSelected?.id === card.id
                   ? "z-40 h-full w-full rounded-[1.25rem] sm:rounded-[1.5rem] lg:rounded-[2rem] bg-secondary/40 shadow-[0_18px_45px_-18px_rgba(59,67,84,0.4)]"
                   : "h-full w-full rounded-[1.25rem] sm:rounded-[1.5rem] lg:rounded-[2rem] bg-secondary/40 shadow-[0_18px_45px_-18px_rgba(59,67,84,0.4)]"
@@ -100,18 +109,44 @@ export const LayoutGrid = ({
                 selected={selected}
                 onClose={handleOutsideClick}
                 variant={variant}
+                splitMobile={splitMobile}
               />
             ) : (
               <ImageComponent card={card} />
             )}
             {card.overlay && selected?.id !== card.id && (
-              <div className="absolute inset-0 z-20 flex flex-col justify-end bg-gradient-to-t from-black/85 to-transparent p-5 sm:p-6">
+              <div className="absolute inset-0 z-20 flex flex-col justify-end bg-gradient-to-t from-black/50 via-black/10 to-transparent p-5 sm:p-6">
                 {card.overlay}
               </div>
             )}
           </motion.div>
-        </div>
-      ))}
+        );
+        return (
+          <div key={card.id} className={cn(card.className)}>
+            {linkMode ? (
+              <Link
+                href={card.hrefInternal as string}
+                aria-label={`${card.alt ?? card.id} — read case study`}
+                className="block h-full w-full"
+              >
+                {tile}
+              </Link>
+            ) : externalLinkMode ? (
+              <a
+                href={card.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${card.alt ?? card.id} — visit project`}
+                className="block h-full w-full"
+              >
+                {tile}
+              </a>
+            ) : (
+              tile
+            )}
+          </div>
+        );
+      })}
       <motion.div
         onClick={handleOutsideClick}
         className={cn(
@@ -131,7 +166,7 @@ const ImageComponent = ({ card }: { card: LayoutGridCard }) => {
       src={card.thumbnail}
       height="500"
       width="500"
-      loading="lazy"
+      loading="lazy" decoding="async"
       className="absolute inset-0 h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
       alt={card.alt ?? "Project screenshot"}
     />
@@ -142,14 +177,22 @@ const SelectedCard = ({
   selected,
   onClose,
   variant = "default",
+  splitMobile = "scroll",
 }: {
   selected: LayoutGridCard | null;
   onClose?: () => void;
   variant?: "default" | "split";
+  splitMobile?: "equal" | "scroll";
 }) => {
   if (!selected) return null;
   if (variant === "split") {
-    return <SplitSelectedCard selected={selected} onClose={onClose} />;
+    return (
+      <SplitSelectedCard
+        selected={selected}
+        onClose={onClose}
+        splitMobile={splitMobile}
+      />
+    );
   }
   return <DefaultSelectedCard selected={selected} onClose={onClose} />;
 };
@@ -157,9 +200,11 @@ const SelectedCard = ({
 const SplitSelectedCard = ({
   selected,
   onClose,
+  splitMobile = "scroll",
 }: {
   selected: LayoutGridCard;
   onClose?: () => void;
+  splitMobile?: "equal" | "scroll";
 }) => {
   const gallery =
     selected.gallery && selected.gallery.length > 0
@@ -188,21 +233,29 @@ const SplitSelectedCard = ({
           e.stopPropagation();
           onClose?.();
         }}
-        className="absolute right-3 top-3 z-20 inline-flex size-8 items-center justify-center rounded-full bg-zinc-900/80 text-white backdrop-blur hover:bg-zinc-900 sm:right-4 sm:top-4"
+        className="absolute top-5 right-3 z-20 inline-flex items-center justify-center bg-transparent p-1 text-[#4e6cb8] hover:text-[#4e6cb8]/70 sm:top-4 sm:right-4 lg:top-5 lg:right-6"
       >
-        <X className="size-4" />
+        <X className="size-6" />
       </button>
       <motion.div
         layoutId={`content-${selected.id}`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="w-full flex-none p-6 pt-12 sm:p-8 sm:pt-10 lg:h-full lg:w-1/2 lg:flex-none lg:p-12 lg:pt-12"
+        className={
+          splitMobile === "equal"
+            ? "min-h-0 w-full flex-1 p-6 sm:p-8 sm:pt-5 sm:pr-14 lg:h-full lg:w-1/2 lg:flex-none lg:p-12 lg:pt-6 lg:pr-14"
+            : "w-full flex-none p-6 sm:p-8 sm:pt-5 sm:pr-14 lg:h-full lg:w-1/2 lg:flex-none lg:p-12 lg:pt-6 lg:pr-14"
+        }
       >
         {selected.content}
       </motion.div>
       <div
-        className="relative flex h-[38svh] min-h-[280px] w-full flex-none cursor-grab touch-pan-y flex-col items-center justify-center overflow-hidden active:cursor-grabbing lg:h-full lg:min-h-0 lg:w-1/2 lg:flex-none"
+        className={
+          splitMobile === "equal"
+            ? "relative flex min-h-0 w-full flex-1 cursor-grab touch-pan-y flex-col items-center justify-center overflow-hidden active:cursor-grabbing lg:h-full lg:min-h-0 lg:w-1/2 lg:flex-none"
+            : "relative flex h-[38svh] h-[38dvh] min-h-[280px] w-full flex-none cursor-grab touch-pan-y flex-col items-center justify-center overflow-hidden active:cursor-grabbing lg:h-full lg:min-h-0 lg:w-1/2 lg:flex-none"
+        }
         onTouchStart={(e) => {
           touchStartX.current = e.touches[0]?.clientX ?? null;
         }}
@@ -223,7 +276,7 @@ const SplitSelectedCard = ({
           aria-hidden="true"
           alt=""
           className="absolute inset-0 h-full w-full scale-[1.5] object-cover object-center blur-md brightness-75"
-          loading="lazy"
+          loading="lazy" decoding="async"
         />
         {idx === 0 ? (
           <motion.img
@@ -231,7 +284,7 @@ const SplitSelectedCard = ({
             src={currentSrc}
             alt={currentLabel ?? selected.alt ?? "Project screenshot"}
             className="relative z-10 h-full w-full min-h-0 flex-1 object-contain object-center"
-            loading="lazy"
+            loading="lazy" decoding="async"
             draggable={false}
           />
         ) : (
@@ -239,7 +292,7 @@ const SplitSelectedCard = ({
             src={currentSrc}
             alt={currentLabel ?? selected.alt ?? "Project screenshot"}
             className="relative z-10 h-full w-full min-h-0 flex-1 object-contain object-center"
-            loading="lazy"
+            loading="lazy" decoding="async"
             draggable={false}
           />
         )}
@@ -305,9 +358,9 @@ const DefaultSelectedCard = ({
           e.stopPropagation();
           onClose?.();
         }}
-        className="absolute right-3 top-3 z-20 inline-flex size-8 items-center justify-center rounded-full bg-zinc-900/80 text-white backdrop-blur hover:bg-zinc-900 sm:right-4 sm:top-4"
+        className="absolute top-3 right-3 z-20 inline-flex items-center justify-center bg-transparent p-1 text-[#4e6cb8] hover:text-[#4e6cb8]/70 sm:top-4 sm:right-4"
       >
-        <X className="size-4" />
+        <X className="size-6" />
       </button>
       {/* Left — single-scroll on phones (accordion), split on md+ (tabs) — PC untouched */}
       <div className="flex w-full flex-none flex-col p-6 pt-12 sm:p-8 sm:pt-10 md:min-h-0 md:w-1/2 md:flex-1 md:overflow-y-auto lg:w-1/2 lg:overflow-hidden lg:p-12 lg:pt-12">
@@ -329,8 +382,8 @@ const DefaultSelectedCard = ({
               layoutId={`image-${selected.id}`}
               src={currentSrc}
               alt={selected.alt ?? "Project screenshot"}
-              className="h-auto max-h-[68svh] w-auto max-w-full object-contain object-center md:h-full md:w-full md:max-h-none md:max-w-none md:object-cover"
-              loading="lazy"
+              className="h-auto max-h-[68svh] max-h-[68dvh] w-auto max-w-full object-contain object-center md:h-full md:w-full md:max-h-none md:max-w-none md:object-cover"
+              loading="lazy" decoding="async"
             />
           </div>
         </div>
@@ -342,15 +395,15 @@ const DefaultSelectedCard = ({
                 layoutId={`image-${selected.id}`}
                 src={currentSrc}
                 alt={currentLabel ?? selected.alt ?? "Project screenshot"}
-                className="h-auto max-h-[68svh] w-auto max-w-full object-contain object-center md:max-h-[72svh]"
-                loading="lazy"
+                className="h-auto max-h-[68svh] max-h-[68dvh] w-auto max-w-full object-contain object-center md:max-h-[72svh] md:max-h-[72dvh]"
+                loading="lazy" decoding="async"
               />
             ) : (
               <img
                 src={currentSrc}
                 alt={currentLabel ?? selected.alt ?? "Project screenshot"}
-                className="h-auto max-h-[68svh] w-auto max-w-full object-contain object-center md:max-h-[72svh]"
-                loading="lazy"
+                className="h-auto max-h-[68svh] max-h-[68dvh] w-auto max-w-full object-contain object-center md:max-h-[72svh] md:max-h-[72dvh]"
+                loading="lazy" decoding="async"
               />
             )}
           {total > 1 && (

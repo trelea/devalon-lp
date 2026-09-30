@@ -1,4 +1,5 @@
 import { Code2, LifeBuoy, Smartphone, Sparkles } from "lucide-react";
+import Image from "next/image";
 
 import { AuroraText } from "@/components/ui/aurora-text";
 import { Tabs } from "@/components/ui/tabs";
@@ -47,16 +48,19 @@ export function Services() {
     title: service.title,
     value: service.title,
     content: (
-      <div className="relative flex min-h-[64svh] flex-col gap-6 overflow-hidden rounded-[1.5rem] bg-[oklch(0.32_0.09_262)] p-6 pb-48 sm:min-h-[65svh] sm:gap-8 sm:rounded-[2rem] sm:p-8 sm:pb-56 md:pb-64 lg:h-[63svh] lg:min-h-0 lg:gap-16 lg:rounded-[3.5rem] lg:p-12">
+      <div className="relative flex min-h-[64svh] min-h-[64dvh] flex-col gap-6 overflow-hidden rounded-[1.5rem] bg-[oklch(0.32_0.09_262)] p-6 pb-48 sm:min-h-[65svh] sm:min-h-[65dvh] sm:gap-8 sm:rounded-[2rem] sm:p-8 sm:pb-56 md:pb-64 lg:h-[63svh] lg:h-[63dvh] lg:min-h-0 lg:gap-16 lg:rounded-[3.5rem] lg:p-12">
         {service.image && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={service.image}
-            alt=""
-            aria-hidden
-            loading="lazy"
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] w-full object-cover object-bottom opacity-50 grayscale [mask-image:linear-gradient(to_top,black_0%,black_15%,rgba(0,0,0,0.9)_30%,rgba(0,0,0,0.6)_50%,rgba(0,0,0,0.25)_70%,rgba(0,0,0,0.08)_85%,transparent_95%)] lg:inset-y-0 lg:right-0 lg:bottom-auto lg:left-auto lg:h-full lg:w-1/2 lg:object-cover lg:object-right lg:opacity-60 lg:[mask-image:linear-gradient(to_left,black_0%,black_15%,rgba(0,0,0,0.9)_30%,rgba(0,0,0,0.6)_50%,rgba(0,0,0,0.25)_70%,rgba(0,0,0,0.08)_85%,transparent_95%)]"
-          />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] w-full overflow-hidden lg:inset-y-0 lg:right-0 lg:bottom-auto lg:left-auto lg:h-full lg:w-1/2">
+            <Image
+              src={service.image}
+              alt=""
+              aria-hidden
+              fill
+              loading="lazy"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover object-bottom opacity-50 grayscale [mask-image:linear-gradient(to_top,black_0%,black_15%,rgba(0,0,0,0.9)_30%,rgba(0,0,0,0.6)_50%,rgba(0,0,0,0.25)_70%,rgba(0,0,0,0.08)_85%,transparent_95%)] lg:object-right lg:opacity-60 lg:[mask-image:linear-gradient(to_left,black_0%,black_15%,rgba(0,0,0,0.9)_30%,rgba(0,0,0,0.6)_50%,rgba(0,0,0,0.25)_70%,rgba(0,0,0,0.08)_85%,transparent_95%)]"
+            />
+          </div>
         )}
         <div className="relative z-10 flex items-center gap-3 sm:gap-4 lg:gap-5">
           <service.icon
@@ -77,7 +81,7 @@ export function Services() {
   return (
     <section
       id="services"
-      className="relative flex w-screen max-w-full scroll-mt-[72px] flex-col items-center justify-start overflow-x-clip py-10 sm:py-12 lg:h-[calc(100svh-5rem)] lg:min-h-0 lg:justify-center lg:py-0 bg-transparent"
+      className="relative flex w-screen max-w-full scroll-mt-[72px] flex-col items-center justify-start overflow-x-clip py-10 sm:py-12 lg:h-[calc(100svh-5rem)] lg:h-[calc(100dvh-5rem)] lg:min-h-0 lg:justify-center lg:py-0 bg-transparent"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-8 px-4 py-0 sm:gap-10 sm:px-5 lg:min-h-0 xl:max-w-[88rem] bg-transparent">
         <h2 className="mx-auto max-w-4xl text-center text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl">

@@ -4,6 +4,7 @@ import Image from "next/image"
 import {
   Blocks,
   CalendarDays,
+  CircleHelp,
   FolderGit2,
   Mail,
   Menu,
@@ -23,9 +24,10 @@ import {
 } from "@/components/ui/sheet"
 
 const links = [
-  { title: "Services", href: "#services", icon: Blocks },
-  { title: "Recommendations", href: "#recommendations", icon: MessageSquareQuote },
-  { title: "Projects", href: "#work", icon: FolderGit2 },
+  { title: "Services", href: "/#services", icon: Blocks },
+  { title: "Recommendations", href: "/#recommendations", icon: MessageSquareQuote },
+  { title: "FAQ", href: "/#faq", icon: CircleHelp },
+  { title: "Projects", href: "/#work", icon: FolderGit2 },
 ]
 
 export default function Navbar() {
@@ -33,7 +35,7 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50 translate-y-0 transform-gpu border-b border-border/60 bg-white/70 shadow-[0_6px_20px_-6px_rgba(15,23,42,0.18)] backdrop-blur-md will-change-transform [backface-visibility:hidden]">
       <div className="mx-auto flex h-[72px] w-full max-w-7xl items-center justify-between px-4 sm:px-5 xl:max-w-[88rem]">
         <NavLink
-          href="#top"
+          href="/#top"
           aria-label="Devalon — home"
           className="inline-flex items-center"
         >
@@ -43,7 +45,7 @@ export default function Navbar() {
             width={210}
             height={63}
             className="h-11 w-auto sm:h-12"
-            preload
+            priority
           />
         </NavLink>
 
@@ -62,7 +64,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <Button asChild size="lg" className="hidden h-11 rounded-full border-0 bg-[#4e6cb8] px-6 font-nav text-base font-medium text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90 md:inline-flex">
-            <NavLink href="#contact">
+            <NavLink href="/#contact">
               <CalendarDays className="size-5" />
               Get in touch
             </NavLink>
@@ -84,7 +86,7 @@ export default function Navbar() {
             <SheetHeader className="px-4 pb-2 pt-2 text-left">
               <SheetTitle className="sr-only">Menu</SheetTitle>
               <SheetClose asChild>
-                <NavLink href="#top" aria-label="Devalon — home" className="inline-flex items-center">
+                <NavLink href="/#top" aria-label="Devalon — home" className="inline-flex items-center">
                   <Image
                     src="/devalon-logos/dark-txt.svg"
                     alt="Devalon"
@@ -109,7 +111,7 @@ export default function Navbar() {
               ))}
               <SheetClose asChild>
                 <NavLink
-                  href="#contact"
+                  href="/#contact"
                   className="mt-2 flex items-center gap-3 rounded-lg bg-primary px-3 py-2.5 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                 >
                   <CalendarDays className="size-5" />

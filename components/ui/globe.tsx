@@ -93,7 +93,6 @@ export function Globe({
       },
     })
 
-    setTimeout(() => (canvasRef.current!.style.opacity = "1"), 0)
     return () => {
       globe.destroy()
       window.removeEventListener("resize", onResize)
@@ -109,7 +108,7 @@ export function Globe({
     >
       <canvas
         className={cn(
-          "size-full opacity-0 transition-opacity duration-500 contain-[layout_paint_size]"
+          "size-full opacity-100 contain-[layout_paint_size]"
         )}
         ref={canvasRef}
         onPointerDown={(e) => {

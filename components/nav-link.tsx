@@ -20,8 +20,49 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
   function NavLink({ href, onNavigate, onClick, ...rest }, ref) {
     const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
       onClick?.(event)
-      if (event.defaultPrevented || !href.startsWith("#") || href.length < 2)
+      if (event.defaultPrevented) return
+
+      // Handle root + hash links (e.g., "/#services")
+      if (href.startsWith("/#") && href.length > 2) {
+        const hash = href.slice(1) // "#services"
+        const isOnRoot = window.location.pathname === "/"
+
+        if (isOnRoot) {
+          // Already on root — smooth scroll to the target
+          event.preventDefault()
+          let target: Element | null = null
+          try {
+            target = document.querySelector(hash)
+          } catch {
+            return
+          }
+          if (!target) return
+
+          const win = window as unknown as {
+            __lenis?: {
+              scrollTo: (
+                target: string,
+                options?: { offset?: number; duration?: number },
+              ) => void
+            }
+          }
+          if (win.__lenis) {
+            const isMobile = window.matchMedia("(max-width: 768px)").matches
+            const delay = isMobile ? 80 : 0
+            const offset = isMobile && hash === "#work" ? 16 : 0
+            setTimeout(() => win.__lenis!.scrollTo(hash, { offset, duration: 1.4 }), delay)
+          } else {
+            target.scrollIntoView({ behavior: "smooth", block: "start" })
+          }
+          window.history.replaceState(null, "", hash)
+          onNavigate?.()
+        }
+        // If NOT on root, let the browser navigate normally (full page load)
         return
+      }
+
+      // Handle plain hash links (e.g., "#services")
+      if (!href.startsWith("#") || href.length < 2) return
       let target: Element | null = null
       try {
         target = document.querySelector(href)
@@ -39,7 +80,6 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
         }
       }
       if (win.__lenis) {
-        // phone: was way too top (48+40=8px), need a bit more down — target ~44px gap vs 72px desktop
         const isMobile = window.matchMedia("(max-width: 768px)").matches
         const delay = isMobile ? 80 : 0
         const offset = isMobile && href === "#work" ? 16 : 0

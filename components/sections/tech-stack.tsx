@@ -79,7 +79,7 @@ export function TechStack() {
   return (
     <section
       id="stack"
-      className="relative isolate flex min-h-svh scroll-mt-[5.5rem] items-center overflow-hidden bg-transparent"
+      className="relative isolate flex min-h-svh min-h-dvh scroll-mt-[5.5rem] items-center overflow-hidden bg-transparent"
     >
       <FlickeringGrid
         className="absolute inset-0 -z-10 [mask-image:radial-gradient(900px_circle_at_70%_50%,white,transparent)]"
