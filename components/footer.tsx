@@ -14,6 +14,7 @@ import { siFacebook, siInstagram, siX } from "simple-icons"
 
 import { NeonHalfCircle } from "@/components/ui/neon-half-circle"
 import { NavLink } from "@/components/nav-link"
+import { siteEmail } from "@/lib/site"
 
 // LinkedIn was removed from simple-icons; inline its official mark.
 const linkedin = {
@@ -134,11 +135,11 @@ export default function Footer() {
               Get in touch
             </h4>
             <Link
-              href="mailto:hello@devalon.dev"
+              href={`mailto:${siteEmail}`}
               className="mt-3 flex items-center gap-2.5 text-base text-muted-foreground transition-colors hover:text-foreground"
             >
               <Mail className="size-4" strokeWidth={1.75} aria-hidden />
-              hello@devalon.dev
+              {siteEmail}
             </Link>
             <Link
               href="tel:+37367500054"

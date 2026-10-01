@@ -4,6 +4,7 @@ import { ContactForm } from "@/components/contact-form";
 import { AvatarCircles } from "@/components/ui/avatar-circles";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { AuroraText } from "@/components/ui/aurora-text";
+import { siteEmail } from "@/lib/site";
 
 const AURORA_COLORS = ["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"];
 
@@ -139,7 +140,7 @@ export function ContactCta() {
           </p>
           <div className="mt-6 space-y-4 md:mt-7">
             <a
-              href="mailto:hello@devalon.dev"
+              href={`mailto:${siteEmail}`}
               className="flex w-fit items-center gap-3 text-base font-normal transition-colors hover:text-foreground sm:text-lg"
             >
               <Mail
@@ -148,7 +149,7 @@ export function ContactCta() {
                 aria-hidden
               />
               <AuroraText colors={AURORA_COLORS} speed={1}>
-                hello@devalon.dev
+                {siteEmail}
               </AuroraText>
             </a>
             <a

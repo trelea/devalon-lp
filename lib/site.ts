@@ -10,7 +10,7 @@ export const siteTitle = "Devalon — Software & AI development and consulting"
 export const siteDescription =
   "Devalon takes products from concept to production — custom web apps, AI integrations, and scalable backends. Honest scope, real ballparks, no pressure."
 
-export const siteEmail = "hello@devalon.dev"
+export const siteEmail = "contact@devalon.dev"
 
 export const sitePhoneDisplay = "+373 675 00 054"
 

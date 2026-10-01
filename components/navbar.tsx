@@ -12,6 +12,8 @@ import {
   Phone,
 } from "lucide-react"
 
+import { siteEmail } from "@/lib/site"
+
 import { Button } from "@/components/ui/button"
 import { NavLink } from "@/components/nav-link"
 import {
@@ -123,11 +125,11 @@ export default function Navbar() {
             <div className="mt-auto border-t border-border px-4 pt-6 pb-4">
               <div className="flex flex-col gap-1">
                 <a
-                  href="mailto:hello@devalon.dev"
+                  href={`mailto:${siteEmail}`}
                   className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium text-foreground transition-colors hover:bg-muted"
                 >
                   <Mail className="size-5 text-primary" strokeWidth={1.75} />
-                  hello@devalon.dev
+                  {siteEmail}
                 </a>
                 <a
                   href="tel:+37367500054"

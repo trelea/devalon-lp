@@ -12,6 +12,7 @@ import {
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { siteEmail } from "@/lib/site"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { PhoneNumberInput } from "@/components/ui/phone-number-input"
@@ -188,10 +189,10 @@ export function ContactForm({ className }: { className?: string }) {
             <p className="mt-4 text-center text-sm text-muted-foreground">
               Prefer email?{" "}
               <a
-                href="mailto:hello@devalon.dev"
+                href={`mailto:${siteEmail}`}
                 className="font-medium text-primary transition-colors hover:underline"
               >
-                hello@devalon.dev
+                {siteEmail}
               </a>
             </p>
           </motion.form>
