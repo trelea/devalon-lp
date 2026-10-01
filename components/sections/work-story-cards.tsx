@@ -1,11 +1,39 @@
 "use client";
 
-import { useRef } from "react";
-import { motion } from "motion/react";
+import { Fragment, useMemo, useRef, useSyncExternalStore } from "react";
+import { motion, useInView, type Variants } from "motion/react";
 import { Compass, Rocket } from "lucide-react";
 
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { useAnimationGate } from "@/lib/use-animation-gate";
+
+// One observer for the whole paragraph; the per-word cascade comes from
+// staggerChildren instead of one viewport per word.
+const containerVariants: Variants = {
+  hidden: { transition: { staggerChildren: 0.012, delayChildren: 0.05 } },
+  visible: { transition: { staggerChildren: 0.012, delayChildren: 0.05 } },
+};
+
+// No vertical offset: a transform would lift a word out of its line box and
+// make unrevealed rows sit visibly lower than the rows above them.
+const wordVariants: Variants = {
+  hidden: { opacity: 0, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    filter: "blur(0px)",
+    transition: { duration: 0.28, ease: "easeOut" },
+  },
+};
+
+// false on the server, true after hydration — lets the paragraph render
+// fully visible in the SSR HTML instead of hidden behind the reveal.
+const emptySubscribe = () => () => {};
+const useIsHydrated = () =>
+  useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
 
 function WordReveal({
   text,
@@ -14,25 +42,31 @@ function WordReveal({
   text: string;
   className?: string;
 }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const hydrated = useIsHydrated();
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const words = useMemo(() => text.split(/\s+/).filter(Boolean), [text]);
+
   return (
-    <p className={className}>
-      {text.split(" ").map((word, i) => (
-        <motion.span
-          key={i}
-          className="mr-[0.25em] inline-block"
-          initial={{ opacity: 0, filter: "blur(4px)", y: 8 }}
-          whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{
-            duration: 0.35,
-            delay: i * 0.04,
-            ease: "easeOut",
-          }}
-        >
-          {word}
-        </motion.span>
+    <motion.p
+      ref={ref}
+      className={className}
+      variants={containerVariants}
+      initial={false}
+      animate={!hydrated || inView ? "visible" : "hidden"}
+    >
+      {words.map((word, i) => (
+        <Fragment key={i}>
+          <motion.span className="inline-block" variants={wordVariants}>
+            {word}
+          </motion.span>
+          {/* the space must sit between the spans: trailing whitespace inside
+              an inline-block is collapsed away at the end of the line box */}
+          {i < words.length - 1 ? " " : null}
+        </Fragment>
       ))}
-    </p>
+    </motion.p>
   );
 }
 

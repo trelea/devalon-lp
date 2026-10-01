@@ -10,6 +10,9 @@ import { Works } from "@/components/sections/works";
 import { Recommendations } from "@/components/sections/recommendations";
 import { ContactCta } from "@/components/sections/contact-cta";
 import {
+  founderJobTitle,
+  founderLinkedIn,
+  founderName,
   siteDescription,
   siteEmail,
   siteName,
@@ -35,6 +38,10 @@ const jsonLd = {
         { "@type": "Country", name: "Moldova" },
         { "@type": "Place", name: "Worldwide" },
       ],
+      // Devalon is a solo studio, so the company profile is the founder's.
+      // Add a Devalon-owned company page URL here if one is ever created.
+      sameAs: [],
+      founder: { "@id": `${siteUrl}/#founder` },
       contactPoint: [
         {
           "@type": "ContactPoint",
@@ -51,6 +58,21 @@ const jsonLd = {
         "web and mobile application development",
         "software maintenance and support",
       ],
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#founder`,
+      name: founderName,
+      jobTitle: founderJobTitle,
+      url: siteUrl,
+      worksFor: { "@id": `${siteUrl}/#organization` },
+      knowsAbout: [
+        "custom software development",
+        "AI automation and integration",
+        "web and mobile application development",
+        "software maintenance and support",
+      ],
+      sameAs: [founderLinkedIn],
     },
     {
       "@type": "WebSite",
@@ -167,7 +189,7 @@ export default function Home() {
         <section>
           <Recommendations />
           <section className="bg-[#a8c4f0] py-12 sm:py-16 lg:py-24 xl:py-32">
-            <section className="flex flex-col rounded-[2rem] bg-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.12)] py-12 sm:rounded-[3rem] sm:py-16 lg:rounded-[48px] lg:py-24 xl:rounded-[75px] xl:py-32">
+            <section className="flex flex-col gap-28 rounded-[2rem] bg-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.12)] py-12 sm:gap-0 sm:rounded-[3rem] sm:py-16 lg:rounded-[48px] lg:py-24 xl:rounded-[75px] xl:py-32">
               <HowWeWork />
 
               <Faq />

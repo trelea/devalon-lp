@@ -121,7 +121,7 @@ export function Faq() {
       aria-labelledby="faq-heading"
       className="relative flex min-h-svh min-h-dvh w-full max-w-full scroll-mt-[72px] flex-col items-center justify-center overflow-x-clip bg-transparent"
     >
-      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-6 px-4 py-6 sm:gap-8 sm:px-5 sm:py-8 lg:gap-8 lg:py-0 xl:max-w-[88rem] xl:gap-10 xl:py-0">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-6 px-4 sm:gap-8 sm:px-5 lg:gap-8 xl:max-w-[88rem] xl:gap-10">
         <h2
           id="faq-heading"
           className="mx-auto max-w-4xl text-center text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl"
@@ -138,15 +138,14 @@ export function Faq() {
         <Accordion
           type="single"
           collapsible
-          defaultValue="item-0"
           className="w-full border-t border-border"
         >
           {faqs.map((faq, index) => (
             <AccordionItem key={faq.question} value={`item-${index}`}>
-              <AccordionTrigger className="py-5 text-left text-xl font-semibold sm:text-2xl">
-                <span className="flex flex-1 items-center gap-3 sm:gap-4">
+              <AccordionTrigger className="items-start py-5 text-left text-lg font-semibold sm:text-2xl">
+                <span className="flex flex-1 items-start gap-3 sm:gap-4">
                   <faq.icon
-                    className="size-5 shrink-0 text-primary sm:size-6"
+                    className="mt-0.5 size-5 shrink-0 text-primary sm:mt-1 sm:size-6"
                     strokeWidth={1.75}
                     aria-hidden
                   />

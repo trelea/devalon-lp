@@ -174,7 +174,7 @@ export const Card = ({
       )}
     >
       {decor && (
-        <DecorLayer decor={decor} />
+        <DecorLayer decor={decor} paused={!inView} />
       )}
 
       <div className="relative z-50">
@@ -184,13 +184,26 @@ export const Card = ({
   );
 };
 
-function DecorLayer({ decor }: { decor: Decor }) {
+function DecorLayer({
+  decor,
+  paused,
+}: {
+  decor: Decor;
+  /** Stops the infinite loops while the card is off-screen. */
+  paused?: boolean;
+}) {
   const { side, variant, icons, durations, offsets } = decor;
 
   return (
     <div
       aria-hidden
-      className={cn("pointer-events-none absolute size-64", SIDE_CLASSES[side])}
+      // one multiplier on the whole layer instead of lowering each token:
+      // dropping the bubble fill on its own turns the icons into disembodied
+      // marks and makes the ring more prominent, not less
+      className={cn(
+        "pointer-events-none absolute size-64 opacity-50",
+        SIDE_CLASSES[side],
+      )}
     >
       {/* glow */}
       <div
@@ -213,7 +226,7 @@ function DecorLayer({ decor }: { decor: Decor }) {
                 left: "50%",
                 rotate: `${offsets[i]}deg`,
               }}
-              animate={{ rotate: 360 }}
+              animate={paused ? undefined : { rotate: 360 }}
               transition={{
                 duration: durations[i],
                 repeat: Infinity,
@@ -236,7 +249,7 @@ function DecorLayer({ decor }: { decor: Decor }) {
           <motion.div
             key={i}
             className={cn("absolute", CLUSTER_POSITIONS[i])}
-            animate={{ y: [0, -8, 0] }}
+            animate={paused ? undefined : { y: [0, -8, 0] }}
             transition={{
               duration: durations[i] / 2,
               repeat: Infinity,
@@ -254,7 +267,7 @@ function DecorLayer({ decor }: { decor: Decor }) {
         return (
           <motion.div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            animate={{ rotate: 360 }}
+            animate={paused ? undefined : { rotate: 360 }}
             transition={{
               duration: 30,
               repeat: Infinity,

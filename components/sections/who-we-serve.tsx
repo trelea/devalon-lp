@@ -113,7 +113,7 @@ export function HowWeWork() {
       id="how-we-work"
       className="relative flex min-h-svh min-h-dvh w-full max-w-full scroll-mt-[72px] flex-col items-center justify-center overflow-x-clip bg-transparent lg:h-[calc(100svh-5rem)] lg:h-[calc(100dvh-5rem)] lg:min-h-0"
     >
-      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-6 px-4 py-6 sm:gap-8 sm:px-5 sm:py-8 lg:min-h-0 lg:gap-8 lg:py-0 xl:max-w-[88rem] xl:gap-10 xl:py-0">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-6 px-4 sm:gap-8 sm:px-5 lg:min-h-0 lg:gap-8 xl:max-w-[88rem] xl:gap-10">
         <h2 className="mx-auto max-w-4xl text-center text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl">
           How We Work{" "}
           <AuroraText colors={AURORA_COLORS} speed={1}>

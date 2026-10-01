@@ -15,6 +15,9 @@ export type Work = {
   metrics?: { value: string; label: string }[];
 };
 
+// Bump when work entries or site copy change — feeds sitemap lastModified.
+export const SITE_LAST_UPDATED = "2026-10-01";
+
 // 3 big squares remain 2Marketing (big right top idx2), WHM (big left middle idx3), Palazzo (big right bottom idx8)
 // 6 small reordered as requested: Red Core → Dialog Imobil → Premier Invest → Dialog Invest → Bundller → Eta
 // flat order: [redcore, dialogimobil, 2marketing, wynne, premierinvest, dialoginvest, megawind, etatruck, palazzo]
@@ -28,7 +31,7 @@ export const works: Work[] = [
     shotLabels: [
       "Lead-gen site",
       "CMS — project media",
-      "Mobile — service pages",
+      "Same-day quote CTA",
     ],
     client: "Local business · USA",
     name: "Red Core Concrete",

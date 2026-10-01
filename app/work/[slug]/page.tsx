@@ -19,7 +19,15 @@ import { WorkStoryCards } from "@/components/sections/work-story-cards";
 import { AuroraText } from "@/components/ui/aurora-text";
 import { LayoutGrid, type LayoutGridCard } from "@/components/ui/layout-grid";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
-import { siteName, siteUrl } from "@/lib/site";
+import {
+  founderJobTitle,
+  founderLinkedIn,
+  founderName,
+  siteEmail,
+  siteName,
+  sitePhoneHref,
+  siteUrl,
+} from "@/lib/site";
 import {
   getCoverSrc,
   getPrevNextWork,
@@ -65,6 +73,7 @@ export async function generateMetadata({
       type: "article",
       url: `${siteUrl}${url}`,
       siteName,
+      locale: "en_US",
       title: `${work.name} — Devalon case study`,
       description,
       images: [
@@ -112,7 +121,9 @@ export default async function WorkDetailPage({ params }: PageProps) {
         description: work.body,
         url: pageUrl,
         image: [`${siteUrl}${cover}`],
-        author: { "@id": `${siteUrl}/#organization` },
+        author: { "@id": `${siteUrl}/#founder` },
+        creator: { "@id": `${siteUrl}/#founder` },
+        publisher: { "@id": `${siteUrl}/#organization` },
         isPartOf: { "@id": `${siteUrl}/#website` },
       },
       {
@@ -125,29 +136,35 @@ export default async function WorkDetailPage({ params }: PageProps) {
         about: { "@id": `${pageUrl}#work` },
         inLanguage: "en-US",
       },
+      // Mirrors the homepage nodes so the @id references above resolve
+      // within this page's own graph.
       {
-        "@type": "BreadcrumbList",
-        "@id": `${pageUrl}#breadcrumb`,
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: siteUrl,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Work",
-            item: `${siteUrl}/#work`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: work.name,
-            item: pageUrl,
-          },
-        ],
+        "@type": "Person",
+        "@id": `${siteUrl}/#founder`,
+        name: founderName,
+        jobTitle: founderJobTitle,
+        url: siteUrl,
+        worksFor: { "@id": `${siteUrl}/#organization` },
+        sameAs: [founderLinkedIn],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}/#website`,
+        url: siteUrl,
+        name: siteName,
+        publisher: { "@id": `${siteUrl}/#organization` },
+        inLanguage: "en",
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}/#organization`,
+        name: siteName,
+        url: siteUrl,
+        logo: `${siteUrl}/icons/icon-512.png`,
+        email: siteEmail,
+        telephone: sitePhoneHref.replace("tel:", ""),
+        founder: { "@id": `${siteUrl}/#founder` },
+        sameAs: [],
       },
     ],
   };
