@@ -10,6 +10,7 @@
   --font-sans: var(--font-app-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-app-heading);
+  --font-nav: var(--font-app-nav);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -98,7 +99,24 @@
   50% {
     background-position: 100% 100%;}
   to {
-    background-position: 0% 0%;}}}
+    background-position: 0% 0%;}}
+  --animate-aurora: aurora 8s ease-in-out infinite alternate;
+  @keyframes aurora {
+  0% {
+    background-position: 0% 50%;
+    transform: rotate(-5deg) scale(0.9);}
+  25% {
+    background-position: 50% 100%;
+    transform: rotate(5deg) scale(1.1);}
+  50% {
+    background-position: 100% 50%;
+    transform: rotate(-3deg) scale(0.95);}
+  75% {
+    background-position: 50% 0%;
+    transform: rotate(3deg) scale(1.05);}
+  100% {
+    background-position: 0% 50%;
+    transform: rotate(-5deg) scale(0.9);}}}
 
 :root {
   /* Devalon enterprise light: navy #0f172a, corporate blue #1d4ed8, slate greys */
@@ -203,22 +221,26 @@
   html {
     @apply font-sans;
   }
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      scroll-behavior: smooth;
-    }
-  }
+  /* page motion is owned by Lenis (see smooth-scroll.tsx); native CSS
+     smooth scrolling would double-handle the wheel, so it stays off.
+     Reduced-motion users get instant native scroll. */
   h1,
   h2,
   h3,
   h4 {
     @apply font-heading;
   }
+  /* fixed navbar offset for anchor jumps (h-[68px] ≈ 4.25rem) */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
 }
 
 @theme {
   --animate-orbit: orbit calc(var(--duration) * 1s) linear infinite;
   --animate-move: move 5s linear infinite;
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
 @keyframes move {
@@ -257,5 +279,23 @@
     transform: rotate(calc(var(--angle) * 1deg + 360deg))
       translateY(calc(var(--radius) * 1px))
       rotate(calc(var(--angle) * -1deg - 360deg));
+  }
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
   }
 }

@@ -77,7 +77,7 @@ export function HeroVisual() {
       >
         <Terminal
           sequence={false}
-          className="dark max-h-none w-full max-w-none bg-card/95 shadow-2xl shadow-black/50 backdrop-blur-sm"
+          className="dark max-h-none w-full max-w-none border-white/15 bg-[#0b1220] shadow-[0_32px_90px_-24px_rgba(0,0,0,0.8)] ring-1 ring-white/10"
           aria-hidden
         >
       {/* animation canvas */}

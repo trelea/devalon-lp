@@ -31,12 +31,14 @@ export const Meteors = ({
     const styles = [...new Array(number)].map(() => ({
       "--angle": -angle + "deg",
       top: "-5%",
-      left: `calc(0% + ${Math.floor(Math.random() * window.innerWidth)}px)`,
+      left: `${Math.random() * 100}%`,
       animationDelay: Math.random() * (maxDelay - minDelay) + minDelay + "s",
       animationDuration:
         Math.floor(Math.random() * (maxDuration - minDuration) + minDuration) +
         "s",
     }))
+    // one-time random init (upstream Magic UI pattern), not a render cascade
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMeteorStyles(styles)
   }, [number, minDelay, maxDelay, minDuration, maxDuration, angle])
 
@@ -48,12 +50,12 @@ export const Meteors = ({
           key={idx}
           style={{ ...style }}
           className={cn(
-            "animate-meteor pointer-events-none absolute size-0.5 rotate-(--angle) rounded-full bg-zinc-500 shadow-[0_0_0_1px_#00000010]",
+            "animate-meteor pointer-events-none absolute size-0.5 rotate-(--angle) rounded-full bg-white shadow-[0_0_0_1px_#ffffff10]",
             className
           )}
         >
           {/* Meteor Tail */}
-          <div className="pointer-events-none absolute top-1/2 -z-10 h-px w-12.5 -translate-y-1/2 bg-linear-to-r from-primary/70 to-transparent" />
+          <div className="pointer-events-none absolute top-1/2 -z-10 h-px w-12.5 -translate-y-1/2 bg-linear-to-r from-white to-transparent" />
         </span>
       ))}
     </>

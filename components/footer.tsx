@@ -1,18 +1,19 @@
 import Image from "next/image"
 import Link from "next/link"
 import {
-  Code2,
-  FolderOpen,
+  Blocks,
+  CircleHelp,
+  FolderGit2,
   Laptop,
-  Layers,
   Mail,
+  MessageSquareQuote,
   Phone,
-  Quote,
   Users,
 } from "lucide-react"
 import { siFacebook, siInstagram, siX } from "simple-icons"
 
 import { NeonHalfCircle } from "@/components/ui/neon-half-circle"
+import { NavLink } from "@/components/nav-link"
 
 // LinkedIn was removed from simple-icons; inline its official mark.
 const linkedin = {
@@ -21,18 +22,21 @@ const linkedin = {
 }
 
 const sections = [
-  { label: "Our services", href: "#services", icon: Code2 },
-  { label: "Who we work with", href: "#who-we-serve", icon: Users },
-  { label: "Recommendations", href: "#recommendations", icon: Quote },
-  { label: "Tech stack", href: "#stack", icon: Layers },
-  { label: "Works & projects", href: "#work", icon: FolderOpen },
+  { label: "Services", href: "#services", icon: Blocks },
+  { label: "Recommendations", href: "#recommendations", icon: MessageSquareQuote },
+  { label: "How we work", href: "#how-we-work", icon: Users },
+  { label: "FAQ", href: "#faq", icon: CircleHelp },
+  { label: "Projects", href: "#work", icon: FolderGit2 },
 ]
 
-const socials = [
-  { label: "Instagram", href: "#", icon: siInstagram },
-  { label: "Facebook", href: "#", icon: siFacebook },
-  { label: "X", href: "#", icon: siX },
-  { label: "LinkedIn", href: "#", icon: linkedin },
+// Social profiles aren't live yet — rendered as inert badges (no fake
+// href="#" links) until real URLs exist. Swap `href: null` for the real
+// URL and the footer renders an anchor automatically.
+const socials: { label: string; href: string | null; icon: { path: string } }[] = [
+  { label: "Instagram", href: null, icon: siInstagram },
+  { label: "Facebook", href: null, icon: siFacebook },
+  { label: "X", href: null, icon: siX },
+  { label: "LinkedIn", href: null, icon: linkedin },
 ]
 
 export default function Footer() {
@@ -46,7 +50,7 @@ export default function Footer() {
       <div className="mx-auto w-full max-w-7xl px-6 pt-14 pb-8 sm:px-8 xl:max-w-[88rem]">
         <div className="flex flex-col items-start justify-between gap-10 sm:flex-row">
           <div>
-            <Link
+            <NavLink
               href="#top"
               className="inline-flex items-center"
               aria-label="Devalon home"
@@ -58,29 +62,47 @@ export default function Footer() {
                 height={66}
                 className="h-14 w-auto sm:h-16"
               />
-            </Link>
+            </NavLink>
             <p className="mt-5 max-w-sm text-base leading-relaxed text-muted-foreground">
-              Software, tech &amp; AI development and consulting. From concept
-              to production — for individuals, startups, and enterprises.
+              Building, scaling, and maintaining AI software for startups and
+              enterprises.
             </p>
             <div className="mt-5 flex items-center gap-2.5">
-              {socials.map((social) => (
-                <Link
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="flex size-9 items-center justify-center rounded-lg border border-border bg-secondary/60 text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
-                >
-                  <svg
-                    role="img"
-                    viewBox="0 0 24 24"
-                    aria-hidden
-                    className="size-4 fill-current"
+              {socials.map((social) =>
+                social.href ? (
+                  <Link
+                    key={social.label}
+                    href={social.href}
+                    aria-label={social.label}
+                    className="flex size-9 items-center justify-center rounded-lg border border-border bg-secondary/60 text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
                   >
-                    <path d={social.icon.path} />
-                  </svg>
-                </Link>
-              ))}
+                    <svg
+                      role="img"
+                      viewBox="0 0 24 24"
+                      aria-hidden
+                      className="size-4 fill-current"
+                    >
+                      <path d={social.icon.path} />
+                    </svg>
+                  </Link>
+                ) : (
+                  <span
+                    key={social.label}
+                    title={`${social.label} — coming soon`}
+                    aria-label={`${social.label} (coming soon)`}
+                    className="flex size-9 cursor-default items-center justify-center rounded-lg border border-border bg-secondary/60 text-muted-foreground/50"
+                  >
+                    <svg
+                      role="img"
+                      viewBox="0 0 24 24"
+                      aria-hidden
+                      className="size-4 fill-current"
+                    >
+                      <path d={social.icon.path} />
+                    </svg>
+                  </span>
+                ),
+              )}
             </div>
           </div>
 
@@ -91,7 +113,7 @@ export default function Footer() {
             <ul className="mt-3 space-y-2">
               {sections.map((section) => (
                 <li key={section.href}>
-                  <Link
+                  <NavLink
                     href={section.href}
                     className="flex items-center gap-2.5 text-base text-muted-foreground transition-colors hover:text-foreground"
                   >
@@ -101,7 +123,7 @@ export default function Footer() {
                       aria-hidden
                     />
                     {section.label}
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
             </ul>
@@ -130,9 +152,9 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-base text-muted-foreground sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} Devalon. All rights reserved.</p>
-          <p className="flex items-center gap-2 text-sm">
-            Built by
+          <p className="flex items-center gap-4 text-sm">
             <span className="flex items-center gap-1.5">
+              Built by
               <Image
                 src="/devalon-logos/light-txt.svg"
                 alt="Devalon"
@@ -146,6 +168,12 @@ export default function Footer() {
                 aria-hidden
               />
             </span>
+            <Link
+              href="/llms.txt"
+              className="transition-colors hover:text-foreground"
+            >
+              AI / llms.txt
+            </Link>
           </p>
         </div>
       </div>

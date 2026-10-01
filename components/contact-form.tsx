@@ -170,7 +170,7 @@ export function ContactForm({ className }: { className?: string }) {
               type="submit"
               size="lg"
               disabled={status === "sending"}
-              className="mt-8 h-11 w-full gap-1.5 text-base"
+              className="mt-8 h-11 w-full gap-1.5 rounded-full border-0 bg-[#4e6cb8] text-base text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90"
             >
               {status === "sending" ? (
                 <>

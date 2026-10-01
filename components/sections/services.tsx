@@ -1,100 +1,106 @@
-import { Code2, LifeBuoy, Smartphone, Sparkles } from "lucide-react"
+import { Code2, LifeBuoy, Smartphone, Sparkles } from "lucide-react";
+import Image from "next/image";
 
-import { DotPattern } from "@/components/ui/dot-pattern"
-import { WobbleCard } from "@/components/ui/wobble-card"
+import { AuroraText } from "@/components/ui/aurora-text";
+import { Tabs } from "@/components/ui/tabs";
 
 type Service = {
-  icon: typeof Code2
-  title: string
-  description: string
+  icon: typeof Code2;
+  title: string;
+  description: string;
   /** background photo shown on the right half of the card */
-  image?: string
-}
+  image?: string;
+};
 
 const services: Service[] = [
   {
     icon: Code2,
-    title: "Custom Development",
+    title: "Digital Solutions",
     description:
-      "Web apps, platforms, APIs, internal tools — built from scratch around how you actually work, not around a template.",
+      "Custom CRMs, ERPs, admin panels, booking, inventory & client portals — built from scratch around your ops, not a template. We replace sheets and SaaS limits with your own system: pipelines, roles & permissions, finance & reporting, automations and clean APIs that scale and never lock you in.",
     image: "/custom-dev.jpeg",
   },
   {
-    icon: Sparkles,
-    title: "AI Automation & Integration",
-    description:
-      "Automations, LLM features, and integrations that plug AI into your real workflows — solving problems, not chasing buzzwords.",
-    image: "/ai-automation.jpeg",
-  },
-  {
     icon: LifeBuoy,
-    title: "Maintenance & Support",
+    title: "Cloud Infrastructure",
     description:
-      "We keep software alive: bug fixes, updates, monitoring, and a human who answers when something breaks.",
+      "AWS, Docker, CI/CD, backups, monitoring & uptime — we keep it alive and scaling. Proactive alerts, cost & performance tuning, and a direct engineer who knows your codebase answers when something breaks. Documented, handover-ready, no ticket hell.",
     image: "/maintenance-support.jpeg",
   },
   {
-    icon: Smartphone,
-    title: "Application Development",
+    icon: Sparkles,
+    title: "AI Integrations",
     description:
-      "Mobile and desktop apps that feel native and ship properly — from the first build to the app stores and beyond.",
+      "RAG over your docs, chatbots & voice agents, data extraction, auto-CRM enrichment and lead/content autopilot — plugged straight into your CRM, ERP or support flow. Production-grade on OpenAI/Anthropic with evals, guardrails and monitoring. Saves hours, not just demos.",
+    image: "/ai-automation.jpeg",
+  },
+  {
+    icon: Smartphone,
+    title: "App Development",
+    description:
+      "iOS, Android, PWA and desktop apps that feel native and ship properly — offline, push, payments and store delivery handled. AI chat, search and automation inside the app, plus crash reporting, staged rollouts and continuous iteration post-launch.",
     image: "/app-dev.jpeg",
   },
-]
+];
 
 export function Services() {
+  const tabs = services.map((service) => ({
+    title: service.title,
+    value: service.title,
+    content: (
+      <div className="relative flex min-h-[64svh] min-h-[64dvh] flex-col gap-6 overflow-hidden rounded-[1.5rem] bg-[oklch(0.32_0.09_262)] p-6 pb-48 sm:min-h-[65svh] sm:min-h-[65dvh] sm:gap-8 sm:rounded-[2rem] sm:p-8 sm:pb-56 md:pb-64 lg:h-[63svh] lg:h-[63dvh] lg:min-h-0 lg:gap-16 lg:rounded-[3.5rem] lg:p-12">
+        {service.image && (
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] w-full overflow-hidden lg:inset-y-0 lg:right-0 lg:bottom-auto lg:left-auto lg:h-full lg:w-1/2">
+            <Image
+              src={service.image}
+              alt=""
+              aria-hidden
+              fill
+              loading="lazy"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover object-bottom opacity-50 grayscale [mask-image:linear-gradient(to_top,black_0%,black_15%,rgba(0,0,0,0.9)_30%,rgba(0,0,0,0.6)_50%,rgba(0,0,0,0.25)_70%,rgba(0,0,0,0.08)_85%,transparent_95%)] lg:object-right lg:opacity-60 lg:[mask-image:linear-gradient(to_left,black_0%,black_15%,rgba(0,0,0,0.9)_30%,rgba(0,0,0,0.6)_50%,rgba(0,0,0,0.25)_70%,rgba(0,0,0,0.08)_85%,transparent_95%)]"
+            />
+          </div>
+        )}
+        <div className="relative z-10 flex items-center gap-3 sm:gap-4 lg:gap-5">
+          <service.icon
+            className="size-7 shrink-0 text-white sm:size-9 lg:size-14"
+            strokeWidth={2}
+          />
+          <h3 className="text-xl font-medium tracking-tight text-white sm:text-2xl lg:text-4xl">
+            {service.title}
+          </h3>
+        </div>
+        <p className="relative z-10 max-w-full text-lg leading-snug font-medium text-blue-100/80 sm:text-xl sm:leading-relaxed lg:max-w-[50%]">
+          {service.description}
+        </p>
+      </div>
+    ),
+  }));
+
   return (
     <section
       id="services"
-      className="relative isolate flex min-h-svh items-center overflow-hidden border-b border-border"
+      className="relative flex w-screen max-w-full scroll-mt-[72px] flex-col items-center justify-start overflow-x-clip py-10 sm:py-12 lg:h-[calc(100svh-5rem)] lg:h-[calc(100dvh-5rem)] lg:min-h-0 lg:justify-center lg:py-0 bg-transparent"
     >
-      <DotPattern
-        width={22}
-        height={22}
-        className="-z-10 fill-foreground/[0.03] [mask-image:radial-gradient(600px_circle_at_50%_0%,white,transparent)]"
-      />
-      <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:px-8 sm:py-24 xl:max-w-[88rem]">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Our services
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-8 px-4 py-0 sm:gap-10 sm:px-5 lg:min-h-0 xl:max-w-[88rem] bg-transparent">
+        <h2 className="mx-auto max-w-4xl text-center text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl">
+          Modern Software Solutions &{" "}
+          <AuroraText
+            colors={["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"]}
+            speed={1}
+          >
+            AI, Data, Cloud
+          </AuroraText>
         </h2>
-        <p className="mt-3 max-w-xl text-lg leading-relaxed text-muted-foreground">
-          No matter where your idea is right now, we&rsquo;ll help you shape
-          it, build it, launch it, and keep it running.
-        </p>
 
-        <div className="mt-8 grid gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4">
-          {services.map((service) => (
-            <WobbleCard
-              key={service.title}
-              containerClassName="min-h-56 bg-[oklch(0.32_0.09_262)] sm:min-h-80"
-              className="relative flex h-full flex-col justify-between p-5 sm:p-10"
-            >
-              {service.image && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={service.image}
-                  alt=""
-                  aria-hidden
-                  loading="lazy"
-                  className="pointer-events-none absolute inset-y-0 right-0 w-1/2 object-contain object-right opacity-50 grayscale [mask-image:linear-gradient(to_left,black_10%,rgba(0,0,0,0.7)_40%,rgba(0,0,0,0.3)_70%,transparent_95%)]"
-                />
-              )}
-              <service.icon
-                className="relative z-10 size-7 text-white sm:size-9"
-                strokeWidth={2}
-              />
-              <div className="relative z-10">
-                <h3 className="mt-4 text-xl font-medium tracking-tight text-white sm:mt-8 sm:text-2xl">
-                  {service.title}
-                </h3>
-                <p className="mt-1.5 max-w-[66%] text-base font-light leading-snug text-blue-100/80 sm:mt-2.5 sm:text-lg sm:leading-relaxed">
-                  {service.description}
-                </p>
-              </div>
-            </WobbleCard>
-          ))}
+        <div className="flex w-full flex-col items-center">
+          <Tabs
+            containerClassName="w-full h-full justify-center items-center gap-2 md:gap-6 lg:gap-10"
+            tabs={tabs}
+          />
         </div>
       </div>
     </section>
-  )
+  );
 }

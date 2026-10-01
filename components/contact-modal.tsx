@@ -38,12 +38,12 @@ export function ContactModal() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
         overlayClassName="z-[60] bg-black/60 supports-backdrop-filter:backdrop-blur-sm"
-        className="dark z-[70] block max-h-[calc(100svh-2rem)] w-[calc(100vw-2rem)] max-w-xl overflow-y-auto rounded-2xl border border-border bg-card p-6 text-base text-foreground shadow-2xl shadow-black/40 ring-0 sm:max-w-xl sm:p-8"
+        className="dark z-[70] block max-h-[calc(100svh-2rem)] max-h-[calc(100dvh-2rem)] w-[calc(100vw-2rem)] max-w-xl overflow-y-auto rounded-[2rem] border border-border bg-card p-6 text-base text-foreground shadow-2xl shadow-black/40 ring-0 sm:rounded-[2.5rem] sm:max-w-xl sm:p-8"
       >
-        <DialogTitle className="text-2xl font-bold tracking-tight text-foreground">
+        <DialogTitle className="text-center text-2xl font-bold tracking-tight text-foreground">
           Tell us your idea
         </DialogTitle>
-        <DialogDescription className="mt-2 text-base leading-relaxed text-muted-foreground">
+        <DialogDescription className="mx-auto mt-2 max-w-md text-center text-base leading-relaxed text-muted-foreground">
           Good, bad, or delusional — we&apos;ll tell you honestly what it
           takes to make it real.
         </DialogDescription>
