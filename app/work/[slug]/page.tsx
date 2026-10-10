@@ -301,7 +301,10 @@ export default async function WorkDetailPage({ params }: PageProps) {
                   splitMobile="equal"
                   mobileScrollTarget={false}
                   enableExpand={false}
-                  cards={gallery.map<LayoutGridCard>((src, index) => ({
+                  // The grid is designed for exactly 3 shots (tall first
+                  // card + 2 stacked) — extra screenshots are ignored so
+                  // every case study renders the identical layout.
+                  cards={gallery.slice(0, 3).map<LayoutGridCard>((src, index) => ({
                     id: `gallery-${index}`,
                     content: <></>,
                     thumbnail: src,

@@ -2,6 +2,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { ContactModal } from "@/components/contact-modal";
 import { Hero } from "@/components/sections/hero";
+import { Stats } from "@/components/sections/stats";
 import { Services } from "@/components/sections/services";
 import { Faq, faqs } from "@/components/sections/faq";
 import { HowWeWork } from "@/components/sections/who-we-serve";
@@ -185,6 +186,7 @@ export default function Home() {
       <Navbar />
       <main className="flex w-full flex-1 flex-col gap-12 sm:gap-16 md:gap-20 lg:gap-24 xl:gap-32">
         <Hero />
+        <Stats />
         <Services />
         <section>
           <Recommendations />

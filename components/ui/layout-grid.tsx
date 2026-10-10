@@ -115,7 +115,7 @@ export const LayoutGrid = ({
               <ImageComponent card={card} />
             )}
             {card.overlay && selected?.id !== card.id && (
-              <div className="absolute inset-0 z-20 flex flex-col justify-end bg-gradient-to-t from-black/50 via-black/10 to-transparent p-5 sm:p-6">
+              <div className="absolute inset-0 z-20 flex flex-col justify-end bg-gradient-to-t from-black/75 via-black/30 to-transparent p-5 sm:p-6">
                 {card.overlay}
               </div>
             )}

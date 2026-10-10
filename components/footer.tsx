@@ -169,12 +169,6 @@ export default function Footer() {
                 aria-hidden
               />
             </span>
-            <Link
-              href="/llms.txt"
-              className="transition-colors hover:text-foreground"
-            >
-              AI / llms.txt
-            </Link>
           </p>
         </div>
       </div>

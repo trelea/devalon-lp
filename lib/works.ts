@@ -56,7 +56,7 @@ export const works: Work[] = [
   {
     num: "04",
     slug: "dialogimobil",
-    shotLabels: ["Listings platform", "Mobile property page", "Admin login"],
+    shotLabels: ["Listings platform", "Admin listings table", "Listing edit form"],
     client: "Real estate · Chișinău",
     name: "Dialog Imobil",
     href: "https://dialogimobil.md",
@@ -104,6 +104,7 @@ export const works: Work[] = [
   {
     num: "02",
     slug: "wynne",
+    shotLabels: ["Landing & sign-in", "Admin dashboard", "Client dashboard"],
     client: "Web app · USA",
     name: "Wynne Home Manager",
     href: "https://app.wynnehomemanager.com/",
@@ -127,7 +128,7 @@ export const works: Work[] = [
   {
     num: "05",
     slug: "premierinvest",
-    shotLabels: ["Listings platform", "Property page", "Mobile search"],
+    shotLabels: ["Listings platform", "Property page", "Filtered search"],
     client: "Real estate · Chișinău",
     name: "Premier Invest",
     href: "https://primeinvest.md",
@@ -151,7 +152,7 @@ export const works: Work[] = [
   {
     num: "06",
     slug: "dialoginvest",
-    shotLabels: ["Investor landing", "Key advantages", "Mobile offers"],
+    shotLabels: ["Investor landing", "Key advantages", "Investment strategies"],
     client: "Investments · Romania",
     name: "Dialog Invest",
     href: "https://dialoginvest.md",
@@ -176,10 +177,10 @@ export const works: Work[] = [
     num: "03",
     slug: "megawind",
     shotLabels: [
-      "Solo Trans Energy — solar B2B grid",
-      "Eximius — hybrid solar + wind PPA",
-      "Megawind — wind parks & ESG",
-      "Importex Energy — logistics → wind",
+      "MorePower — wind energy hero",
+      "Importex-Trans — about & services",
+      "Solar news & lead form",
+      "Solar CTA & news",
     ],
     client: "Green Tech · EU",
     name: "Solar Grants Hub — 7 Brands, One System",
@@ -204,7 +205,7 @@ export const works: Work[] = [
   {
     num: "07",
     slug: "etatruck",
-    shotLabels: ["Corporate site", "Fleet gallery", "Mobile — EU network"],
+    shotLabels: ["Corporate site", "Services & quotes", "Fleet gallery"],
     client: "Logistics · EU",
     name: "ETA Truck",
     href: "https://eta-truck.ro",
@@ -228,7 +229,7 @@ export const works: Work[] = [
   {
     num: "09",
     slug: "palazzo",
-    shotLabels: ["Clinic site", "Mobile booking", "Online appointments"],
+    shotLabels: ["Clinic site", "Product catalog", "Product detail"],
     client: "Wellness · Chișinău",
     name: "Palazzo Aesthetics",
     href: "https://palazzoaesthetics.md/",
