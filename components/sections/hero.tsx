@@ -31,8 +31,8 @@ export function Hero() {
             </h1>
 
             <p className="relative z-10 mt-3 max-w-xl px-2 text-base leading-relaxed text-muted-foreground max-[360px]:mt-2 max-[360px]:text-sm max-[360px]:leading-snug sm:mt-4 sm:text-lg md:text-lg lg:mt-5 lg:text-xl xl:mt-5 xl:text-xl 2xl:mt-6 2xl:text-2xl">
-              Building, scaling, and maintaining AI software solutions for startups
-              and enterprises.
+              Building, scaling, and maintaining AI software solutions for
+              startups and enterprises.
             </p>
 
             <div className="relative z-10 mt-5 flex w-full flex-col items-start gap-2 px-2 max-[360px]:mt-4 max-[360px]:gap-1.5 sm:mt-6 sm:gap-3 md:mt-6 lg:mt-6 xl:mt-8 2xl:mt-10 sm:w-auto sm:flex-row">
@@ -42,7 +42,7 @@ export function Hero() {
                 className="h-11 w-full gap-1.5 rounded-full border-0 bg-[#4e6cb8] px-7 text-base text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90 max-[360px]:h-10 max-[360px]:px-6 max-[360px]:text-sm sm:w-44"
               >
                 <NavLink href="#contact">
-                  Get in touch
+                  Start a project
                   <ArrowUpRight className="size-4 max-[360px]:size-3.5" strokeWidth={1.75} />
                 </NavLink>
               </Button>
@@ -53,7 +53,7 @@ export function Hero() {
                 className="h-11 w-full gap-1.5 rounded-full border-0 px-7 text-base shadow-md shadow-black/10 max-[360px]:h-10 max-[360px]:px-6 max-[360px]:text-sm sm:w-44"
               >
                 <NavLink href="#work">
-                  Our Work
+                  See our work
                   <ArrowDown className="size-4 max-[360px]:size-3.5" strokeWidth={1.75} />
                 </NavLink>
               </Button>

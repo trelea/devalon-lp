@@ -12,7 +12,16 @@ type Service = {
   image?: string;
 };
 
+// Order matters: index 0 is the default active tab (Tabs initialises
+// currentIndex to 0), so AI leads the section.
 const services: Service[] = [
+  {
+    icon: Sparkles,
+    title: "AI Agents & Automation",
+    description:
+      "AI agents that do real work inside your business: answering customers, extracting data from documents, enriching your CRM and automating repetitive workflows. Built on OpenAI and Anthropic models and plugged into the tools you already use, with evaluations, guardrails and monitoring so they're reliable in production, not just in demos.",
+    image: "/ai-automation.jpeg",
+  },
   {
     icon: Code2,
     title: "Digital Solutions",
@@ -26,13 +35,6 @@ const services: Service[] = [
     description:
       "AWS, Docker, CI/CD, backups, monitoring & uptime — we keep it alive and scaling. Proactive alerts, cost & performance tuning, and a direct engineer who knows your codebase answers when something breaks. Documented, handover-ready, no ticket hell.",
     image: "/maintenance-support.jpeg",
-  },
-  {
-    icon: Sparkles,
-    title: "AI Integrations",
-    description:
-      "RAG over your docs, chatbots & voice agents, data extraction, auto-CRM enrichment and lead/content autopilot — plugged straight into your CRM, ERP or support flow. Production-grade on OpenAI/Anthropic with evals, guardrails and monitoring. Saves hours, not just demos.",
-    image: "/ai-automation.jpeg",
   },
   {
     icon: Smartphone,
@@ -85,12 +87,12 @@ export function Services() {
     >
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-8 px-4 py-0 sm:gap-10 sm:px-5 lg:min-h-0 xl:max-w-[88rem] bg-transparent">
         <h2 className="mx-auto max-w-4xl text-center text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl">
-          Modern Software Solutions &{" "}
+          AI &amp; Software Development{" "}
           <AuroraText
             colors={["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"]}
             speed={1}
           >
-            AI, Data, Cloud
+            Services
           </AuroraText>
         </h2>
 

@@ -4,11 +4,24 @@ export const siteUrl = "https://devalon.dev"
 
 export const siteName = "Devalon"
 
-export const siteTitle = "Devalon — Software & AI development and consulting"
+export const siteTitle = "Devalon — AI & Software Development Studio"
 
 // Kept under ~155 chars so search snippets don't truncate mid-sentence.
 export const siteDescription =
-  "Devalon takes products from concept to production — custom web apps, AI integrations, and scalable backends. Honest scope, real ballparks, no pressure."
+  "AI & software development studio building AI agents, custom software and scalable backends for startups and growing companies. From concept to production."
+
+// Social/OG variants — deliberately shorter than siteDescription so they
+// aren't truncated in link previews.
+export const siteOgTitle = "Devalon — AI & Software Development"
+
+export const siteOgDescription =
+  "AI agents, custom software and consulting for startups and growing companies. From concept to production."
+
+// Long-form positioning sentence, shared verbatim by the JSON-LD
+// Organization.description and the opening line of /llms.txt so every
+// source describes Devalon identically.
+export const siteStudioDescription =
+  "AI & software development studio based in Chișinău, Moldova, founded by Marius Trelea. Devalon builds AI agents, custom software and scalable backends for startups and growing companies in Europe and the US."
 
 export const siteEmail = "contact@devalon.dev"
 
@@ -26,14 +39,32 @@ export const siteCountry = "Moldova"
 
 export const siteCountryCode = "MD"
 
-// GitHub is intentionally absent: no personal/org profile URL has been
-// confirmed, and sameAs is an authoritative identity assertion in
-// structured data. Add founderGithub here once one exists.
-export const devalonGithub: string | undefined = undefined
-
 // Founder identity for schema.org Person markup (see app/page.tsx).
 export const founderName = "Marius Trelea"
 
 export const founderJobTitle = "Founder & Software Engineer"
 
+// Marius's personal profile. Distinct from devalonLinkedIn below, which is the
+// company page — Person.sameAs wants the person, Organization.sameAs wants the
+// company. Don't merge these.
 export const founderLinkedIn = "https://www.linkedin.com/in/trelea-marius"
+
+// Company/brand social profiles. Used for the footer links and for
+// Organization.sameAs, which lets search engines tie the schema.org entity to
+// these profiles.
+export const devalonLinkedIn = "https://www.linkedin.com/company/devalon-dev"
+
+export const devalonFacebook =
+  "https://www.facebook.com/profile.php?id=61595041843225"
+
+export const devalonInstagram = "https://www.instagram.com/devalon.dev"
+
+export const devalonX = "https://x.com/devalondev"
+
+// Canonical list for Organization.sameAs — append here when adding a profile.
+export const devalonSocials = [
+  devalonLinkedIn,
+  devalonFacebook,
+  devalonInstagram,
+  devalonX,
+] as const

@@ -3,20 +3,24 @@ import {
   founderName,
   siteCity,
   siteCountry,
-  siteDescription,
   siteEmail,
+  siteStudioDescription,
   siteUrl,
 } from "@/lib/site";
 import { getWorkDescription, works } from "@/lib/works";
 
 // Machine-readable summary for LLMs and answer engines (ChatGPT, Claude,
 // Perplexity). Plain text, stable anchors, no marketing fluff.
-// The case study list is generated from lib/works.ts so it can never drift
-// out of sync with the sitemap or the pages themselves.
+// The opening paragraph is siteStudioDescription — the exact same sentence
+// used as JSON-LD Organization.description, so every source describes
+// Devalon identically. The case study list is generated from lib/works.ts
+// so it can never drift from the sitemap or the pages themselves.
 // Keep the prose in sync with app/page.tsx copy and components/sections/faq.tsx.
 const body = `# Devalon
 
-Devalon is a software studio based in ${siteCity}, ${siteCountry}, founded by ${founderName} (${founderJobTitle}). The studio builds backend systems, API integrations, internal tools, and production AI integrations for clients in Moldova and worldwide. ${siteDescription}
+${siteStudioDescription}
+
+Founded by ${founderName} (${founderJobTitle}). Based in ${siteCity}, ${siteCountry}, working with clients across Europe and the US.
 
 - Homepage: ${siteUrl}
 - Services: ${siteUrl}/#services
@@ -30,15 +34,16 @@ Devalon is a software studio based in ${siteCity}, ${siteCountry}, founded by ${
 - Open Graph image: ${siteUrl}/opengraph-image
 
 ## What Devalon does
-Custom software development and AI consulting for individuals, startups,
-and enterprises — from concept to production, then hosting and maintenance:
+AI & software development studio — from concept to production, then hosting
+and maintenance:
+- AI Agents & Automation: AI agents that do real work inside your business —
+  answering customers, extracting data from documents, enriching your CRM
+  and automating repetitive workflows. Built on OpenAI and Anthropic with
+  evaluations, guardrails and monitoring.
 - Digital Solutions: custom CRMs, ERPs, admin panels, booking, inventory,
   and client portals built from scratch.
 - Cloud Infrastructure: AWS, Docker, CI/CD, backups, monitoring, uptime,
   cost and performance tuning.
-- AI Integrations: RAG over your docs, chatbots and voice agents, data
-  extraction, auto-CRM enrichment, lead/content autopilot — production-grade
-  on OpenAI/Anthropic with evals, guardrails, and monitoring.
 - App Development: iOS, Android, PWA, and desktop apps with offline, push,
   payments, and store delivery.
 

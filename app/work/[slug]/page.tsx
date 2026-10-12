@@ -20,7 +20,7 @@ import { AuroraText } from "@/components/ui/aurora-text";
 import { LayoutGrid, type LayoutGridCard } from "@/components/ui/layout-grid";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import {
-  devalonGithub,
+  devalonSocials,
   founderJobTitle,
   founderLinkedIn,
   founderName,
@@ -29,6 +29,7 @@ import {
   siteEmail,
   siteName,
   sitePhoneHref,
+  siteStudioDescription,
   siteUrl,
 } from "@/lib/site";
 import {
@@ -68,8 +69,11 @@ export async function generateMetadata({
   if (!work) return {};
   const description = getWorkDescription(work);
   const url = `/work/${work.slug}`;
+  // `client` is "<Industry> · <Market>"; the title template wants the
+  // industry segment only.
+  const industry = work.client.split("·")[0].trim();
   return {
-    title: `${work.name} — ${work.client}`,
+    title: `${work.name} — ${industry} case study`,
     description,
     alternates: { canonical: url },
     openGraph: {
@@ -152,7 +156,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
         jobTitle: founderJobTitle,
         url: siteUrl,
         worksFor: { "@id": `${siteUrl}/#organization` },
-        sameAs: [founderLinkedIn, ...(devalonGithub ? [devalonGithub] : [])],
+        sameAs: [founderLinkedIn],
       },
       {
         "@type": "WebSite",
@@ -166,8 +170,10 @@ export default async function WorkDetailPage({ params }: PageProps) {
         "@type": "Organization",
         "@id": `${siteUrl}/#organization`,
         name: siteName,
+        alternateName: "Devalon — AI & Software Development Studio",
         url: siteUrl,
         logo: `${siteUrl}/icons/icon-512.png`,
+        description: siteStudioDescription,
         email: siteEmail,
         telephone: sitePhoneHref.replace("tel:", ""),
         address: {
@@ -177,8 +183,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
           addressCountry: siteCountryCode,
         },
         founder: { "@id": `${siteUrl}/#founder` },
-        // sameAs: left empty until a real GitHub/org profile is confirmed.
-        sameAs: devalonGithub ? [devalonGithub] : [],
+        sameAs: [...devalonSocials],
       },
     ],
   };

@@ -11,7 +11,7 @@ import { Works } from "@/components/sections/works";
 import { Recommendations } from "@/components/sections/recommendations";
 import { ContactCta } from "@/components/sections/contact-cta";
 import {
-  devalonGithub,
+  devalonSocials,
   founderJobTitle,
   founderLinkedIn,
   founderName,
@@ -21,6 +21,7 @@ import {
   siteDescription,
   siteEmail,
   siteName,
+  siteStudioDescription,
   siteUrl,
 } from "@/lib/site";
 import { getWorkDescription, works } from "@/lib/works";
@@ -34,9 +35,10 @@ const jsonLd = {
       "@type": "Organization",
       "@id": `${siteUrl}/#organization`,
       name: siteName,
+      alternateName: "Devalon — AI & Software Development Studio",
       url: siteUrl,
       logo: `${siteUrl}/icons/icon-512.png`,
-      description: siteDescription,
+      description: siteStudioDescription,
       email: siteEmail,
       telephone: "+37367500054",
       // City + country only — no street address is published for the studio.
@@ -47,13 +49,14 @@ const jsonLd = {
         addressCountry: siteCountryCode,
       },
       areaServed: [
+        { "@type": "Place", name: "Europe" },
+        { "@type": "Place", name: "United States" },
         { "@type": "Country", name: siteCountry },
-        { "@type": "Place", name: "Worldwide" },
       ],
-      // Devalon is a solo studio, so the company profile is the founder's.
-      // Add a Devalon-owned company page URL here if one is ever created.
-      // sameAs: left empty until a real GitHub/org profile is confirmed.
-      sameAs: devalonGithub ? [devalonGithub] : [],
+      // Devalon is a solo studio, so the company profile is the founder's —
+      // but the brand now has its own pages, so sameAs lists those. The
+      // founder's personal LinkedIn stays on the Person node below.
+      sameAs: [...devalonSocials],
       founder: { "@id": `${siteUrl}/#founder` },
       contactPoint: [
         {
@@ -66,10 +69,11 @@ const jsonLd = {
         },
       ],
       knowsAbout: [
-        "custom software development",
-        "AI automation and integration",
-        "web and mobile application development",
-        "software maintenance and support",
+        "AI agents",
+        "Software development",
+        "Backend development",
+        "API integrations",
+        "Cloud infrastructure",
       ],
     },
     {
@@ -80,19 +84,20 @@ const jsonLd = {
       url: siteUrl,
       worksFor: { "@id": `${siteUrl}/#organization` },
       knowsAbout: [
-        "custom software development",
-        "AI automation and integration",
-        "web and mobile application development",
-        "software maintenance and support",
+        "AI agents",
+        "Software development",
+        "Backend development",
+        "API integrations",
+        "Cloud infrastructure",
       ],
-      sameAs: [founderLinkedIn, ...(devalonGithub ? [devalonGithub] : [])],
+      sameAs: [founderLinkedIn],
     },
     {
       "@type": "WebSite",
       "@id": `${siteUrl}/#website`,
       url: siteUrl,
       name: siteName,
-      description: siteDescription,
+      description: siteStudioDescription,
       publisher: { "@id": `${siteUrl}/#organization` },
       inLanguage: "en",
     },
@@ -105,6 +110,17 @@ const jsonLd = {
       isPartOf: { "@id": `${siteUrl}/#website` },
       about: { "@id": `${siteUrl}/#organization` },
       inLanguage: "en-US",
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteUrl}/#service-ai-agents-automation`,
+      name: "AI Agents & Automation",
+      description:
+        "AI agents that do real work inside your business: answering customers, extracting data from documents, enriching your CRM and automating repetitive workflows. Built on OpenAI and Anthropic models and plugged into the tools you already use, with evaluations, guardrails and monitoring so they're reliable in production, not just in demos.",
+      provider: { "@id": `${siteUrl}/#organization` },
+      serviceType: "AI agents and workflow automation",
+      areaServed: "Worldwide",
+      url: `${siteUrl}/#services`,
     },
     {
       "@type": "Service",
@@ -125,17 +141,6 @@ const jsonLd = {
         "AWS, Docker, CI/CD, backups, monitoring, and uptime — deployment and maintenance that keeps software alive and scaling.",
       provider: { "@id": `${siteUrl}/#organization` },
       serviceType: "Cloud infrastructure and maintenance",
-      areaServed: "Worldwide",
-      url: `${siteUrl}/#services`,
-    },
-    {
-      "@type": "Service",
-      "@id": `${siteUrl}/#service-ai-integrations`,
-      name: "AI Integrations",
-      description:
-        "RAG over your docs, chatbots and voice agents, data extraction, and CRM enrichment — production-grade AI on OpenAI and Anthropic with evals, guardrails, and monitoring.",
-      provider: { "@id": `${siteUrl}/#organization` },
-      serviceType: "AI integration",
       areaServed: "Worldwide",
       url: `${siteUrl}/#services`,
     },

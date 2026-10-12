@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* Rendered at 1640x624 (desktop master) and 1280x720 (mobile master).
+     Facebook centre-crops rather than letterboxing, so all sizing is in vw
+     and the content block is centred and width-capped to survive both crops:
+       - 1640x624 -> mobile crop keeps full height, cuts width to 67.6%
+         => safe band x 265..1375 (1110px)
+       - 1280x720 -> desktop crop keeps full width, cuts height to 67.6%
+         => safe band y 116..603 (487px)
+     68% max-width sits inside both bands at either canvas size. */
+  html, body { width: 100vw; height: 100vh; overflow: hidden; }
+  body {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Inter", sans-serif;
+  }
+
+  body.dark  { background: #13161d; }
+  body.light { background: radial-gradient(120% 160% at 55% 0%, #e8edf7, #f8fafc 70%); }
+
+  .glow { position: absolute; border-radius: 50%; filter: blur(90px); }
+  body.dark  .glow-1 { background: rgba(113,150,224,0.16); }
+  body.light .glow-1 { background: rgba(29,78,216,0.10); }
+  body.dark  .glow-2 { background: rgba(113,150,224,0.10); }
+  body.light .glow-2 { background: rgba(29,78,216,0.06); }
+  .glow-1 { width: 46vw; height: 84vh; right: -8vw; top: -34vh; }
+  .glow-2 { width: 40vw; height: 78vh; left: 26%; bottom: -36vh; }
+
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(234,240,235,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(234,240,235,0.035) 1px, transparent 1px);
+    background-size: 4.3vw 4.3vw;
+    mask-image: radial-gradient(85% 120% at 50% 45%, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(85% 120% at 50% 45%, black 30%, transparent 100%);
+  }
+
+  .beam { position: absolute; height: 1px; width: 100%; }
+  body.dark  .beam { background: linear-gradient(90deg, transparent, rgba(113,150,224,0.35), transparent); }
+  body.light .beam { background: linear-gradient(90deg, transparent, rgba(29,78,216,0.22), transparent); }
+  .beam-1 { top: 18%; }
+  .beam-2 { bottom: 16%; opacity: .6; }
+
+  .watermark {
+    position: absolute;
+    right: -3vw; top: 50%;
+    transform: translateY(-50%);
+    width: 30vw; height: 30vw;
+  }
+  body.dark  .watermark { opacity: 0.09; }
+  body.light .watermark { opacity: 0.07; }
+
+  .content {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center;
+    max-width: 68%;
+    text-align: center;
+  }
+
+  .wordmark { height: 7.2vw; }
+
+  h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: 2.55vw;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-top: 1.1vw;
+  }
+  body.dark  h1 { color: rgba(234,240,235,0.96); }
+  body.light h1 { color: rgba(30,41,59,0.96); }
+  body.dark  h1 .accent { color: #7196E0; }
+  body.light h1 .accent { color: #1d4ed8; }
+
+  .sub {
+    margin-top: 0.9vw;
+    font-size: 1.2vw;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    display: flex; align-items: center; justify-content: center; gap: 1vw;
+    flex-wrap: wrap;
+  }
+  body.dark  .sub { color: rgba(234,240,235,0.55); }
+  body.light .sub { color: rgba(51,65,85,0.72); }
+  body.dark  .sub .dot { background: rgba(113,150,224,0.8); }
+  body.light .sub .dot { background: rgba(29,78,216,0.7); }
+  .sub .dot { width: 4px; height: 4px; border-radius: 50%; }
+</style>
+</head>
+<body class="dark">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="grid"></div>
+  <div class="beam beam-1"></div>
+  <div class="beam beam-2"></div>
+  <img class="watermark" src="../public/devalon-logos/light.svg" alt="">
+
+  <div class="content">
+    <img class="wordmark" src="../public/devalon-logos/light-txt.svg" alt="devalon">
+    <h1>We turn ideas into <span class="accent">working software</span>.</h1>
+    <div class="sub">
+      <span>Software &amp; AI development</span><span class="dot"></span>
+      <span>Consulting</span><span class="dot"></span>
+      <span>Individuals, startups &amp; enterprises</span>
+    </div>
+  </div>
+</body>
+</html>

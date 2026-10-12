@@ -14,7 +14,14 @@ import { siFacebook, siInstagram, siX } from "simple-icons"
 
 import { NeonHalfCircle } from "@/components/ui/neon-half-circle"
 import { NavLink } from "@/components/nav-link"
-import { siteEmail } from "@/lib/site"
+import {
+  devalonFacebook,
+  devalonInstagram,
+  devalonLinkedIn,
+  devalonX,
+  siteEmail,
+  sitePhoneDisplay,
+} from "@/lib/site"
 
 // LinkedIn was removed from simple-icons; inline its official mark.
 const linkedin = {
@@ -30,14 +37,13 @@ const sections = [
   { label: "Projects", href: "#work", icon: FolderGit2 },
 ]
 
-// Social profiles aren't live yet — rendered as inert badges (no fake
-// href="#" links) until real URLs exist. Swap `href: null` for the real
-// URL and the footer renders an anchor automatically.
+// All profiles are live. `href: null` still renders an inert badge rather than
+// a fake href="#" link, so a future placeholder can be added back safely.
 const socials: { label: string; href: string | null; icon: { path: string } }[] = [
-  { label: "Instagram", href: null, icon: siInstagram },
-  { label: "Facebook", href: null, icon: siFacebook },
-  { label: "X", href: null, icon: siX },
-  { label: "LinkedIn", href: null, icon: linkedin },
+  { label: "Instagram", href: devalonInstagram, icon: siInstagram },
+  { label: "Facebook", href: devalonFacebook, icon: siFacebook },
+  { label: "X", href: devalonX, icon: siX },
+  { label: "LinkedIn", href: devalonLinkedIn, icon: linkedin },
 ]
 
 export default function Footer() {
@@ -74,6 +80,8 @@ export default function Footer() {
                   <Link
                     key={social.label}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={social.label}
                     className="flex size-9 items-center justify-center rounded-lg border border-border bg-secondary/60 text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
                   >
@@ -146,7 +154,7 @@ export default function Footer() {
               className="mt-2 flex items-center gap-2.5 text-base text-muted-foreground transition-colors hover:text-foreground"
             >
               <Phone className="size-4" strokeWidth={1.75} aria-hidden />
-              +373 675 00 054
+              {sitePhoneDisplay}
             </Link>
           </div>
         </div>

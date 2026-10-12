@@ -2,8 +2,7 @@ import { readFileSync } from "node:fs"
 import { join } from "node:path"
 import { ImageResponse } from "next/og"
 
-export const alt =
-  "Devalon — Software & AI development and consulting. From concept to production, shipped fast."
+export const alt = "Devalon — AI & Software Development Studio"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
@@ -44,21 +43,22 @@ export default function OpengraphImage() {
         <img src={logoSrc} alt="" width={560} height={168} />
         <div
           style={{
-            fontSize: 34,
-            color: "rgba(234,240,235,0.82)",
+            fontSize: 40,
+            fontWeight: 700,
+            color: "#eaf0eb",
             textAlign: "center",
+            letterSpacing: "-0.02em",
           }}
         >
-          From concept to production — web apps, AI integrations, scalable
-          backends
+          AI &amp; Software Development Studio
         </div>
         <div
           style={{
-            fontSize: 24,
+            fontSize: 26,
             color: "#7196e0",
           }}
         >
-          For individuals, startups, and enterprises
+          From concept to production
         </div>
       </div>
     ),

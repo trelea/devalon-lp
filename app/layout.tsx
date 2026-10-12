@@ -8,7 +8,7 @@ import {
 import "./globals.css";
 
 import { SmoothScroll } from "@/components/smooth-scroll";
-import { siteDescription, siteName, siteTitle, siteUrl } from "@/lib/site";
+import { siteDescription, siteName, siteOgDescription, siteOgTitle, siteTitle, siteUrl } from "@/lib/site";
 
 const appSans = Inter({
   variable: "--font-app-sans",
@@ -36,6 +36,7 @@ const appNav = IBM_Plex_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  applicationName: siteOgTitle,
   title: {
     default: siteTitle,
     template: `%s — ${siteName}`,
@@ -69,23 +70,21 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName,
     locale: "en_US",
-    title: "Devalon — Build your digital dreams",
-    description:
-      "Software & AI development and consulting for individuals, startups, and enterprises. From concept to production, shipped fast.",
+    title: siteOgTitle,
+    description: siteOgDescription,
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Devalon — Software & AI development and consulting. From concept to production, shipped fast.",
+        alt: "Devalon — AI & Software Development Studio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Devalon — Build your digital dreams",
-    description:
-      "Software & AI development and consulting for individuals, startups, and enterprises.",
+    title: siteOgTitle,
+    description: siteOgDescription,
     images: [`${siteUrl}/opengraph-image`],
   },
   appleWebApp: {
