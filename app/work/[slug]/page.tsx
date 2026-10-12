@@ -20,9 +20,12 @@ import { AuroraText } from "@/components/ui/aurora-text";
 import { LayoutGrid, type LayoutGridCard } from "@/components/ui/layout-grid";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import {
+  devalonGithub,
   founderJobTitle,
   founderLinkedIn,
   founderName,
+  siteCity,
+  siteCountryCode,
   siteEmail,
   siteName,
   sitePhoneHref,
@@ -125,6 +128,10 @@ export default async function WorkDetailPage({ params }: PageProps) {
         creator: { "@id": `${siteUrl}/#founder` },
         publisher: { "@id": `${siteUrl}/#organization` },
         isPartOf: { "@id": `${siteUrl}/#website` },
+        // `client` is the case study's industry + market (e.g.
+        // "Real estate · Chișinău"). The leading segment before "·" is the
+        // industry, which is what `about` is meant to convey.
+        about: { "@type": "Thing", name: work.client.split("·")[0].trim() },
       },
       {
         "@type": "WebPage",
@@ -145,7 +152,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
         jobTitle: founderJobTitle,
         url: siteUrl,
         worksFor: { "@id": `${siteUrl}/#organization` },
-        sameAs: [founderLinkedIn],
+        sameAs: [founderLinkedIn, ...(devalonGithub ? [devalonGithub] : [])],
       },
       {
         "@type": "WebSite",
@@ -163,8 +170,15 @@ export default async function WorkDetailPage({ params }: PageProps) {
         logo: `${siteUrl}/icons/icon-512.png`,
         email: siteEmail,
         telephone: sitePhoneHref.replace("tel:", ""),
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: siteCity,
+          addressRegion: siteCity,
+          addressCountry: siteCountryCode,
+        },
         founder: { "@id": `${siteUrl}/#founder` },
-        sameAs: [],
+        // sameAs: left empty until a real GitHub/org profile is confirmed.
+        sameAs: devalonGithub ? [devalonGithub] : [],
       },
     ],
   };

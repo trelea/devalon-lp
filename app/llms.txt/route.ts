@@ -1,10 +1,22 @@
-import { siteDescription, siteEmail, siteUrl } from "@/lib/site";
+import {
+  founderJobTitle,
+  founderName,
+  siteCity,
+  siteCountry,
+  siteDescription,
+  siteEmail,
+  siteUrl,
+} from "@/lib/site";
+import { getWorkDescription, works } from "@/lib/works";
 
-// Machine-readable summary for LLMs and answer engines (ChatGPT,
-// Claude, Perplexity). Plain text, stable anchors, no marketing fluff.
-// Keep in sync with app/page.tsx copy and components/sections/faq.tsx.
+// Machine-readable summary for LLMs and answer engines (ChatGPT, Claude,
+// Perplexity). Plain text, stable anchors, no marketing fluff.
+// The case study list is generated from lib/works.ts so it can never drift
+// out of sync with the sitemap or the pages themselves.
+// Keep the prose in sync with app/page.tsx copy and components/sections/faq.tsx.
 const body = `# Devalon
-${siteDescription}
+
+Devalon is a software studio based in ${siteCity}, ${siteCountry}, founded by ${founderName} (${founderJobTitle}). The studio builds backend systems, API integrations, internal tools, and production AI integrations for clients in Moldova and worldwide. ${siteDescription}
 
 - Homepage: ${siteUrl}
 - Services: ${siteUrl}/#services
@@ -13,6 +25,8 @@ ${siteDescription}
 - Projects: ${siteUrl}/#work
 - FAQ: ${siteUrl}/#faq
 - Contact: ${siteUrl}/#contact
+- Machine-readable summary: ${siteUrl}/llms.txt
+- Sitemap: ${siteUrl}/sitemap.xml
 - Open Graph image: ${siteUrl}/opengraph-image
 
 ## What Devalon does
@@ -28,6 +42,11 @@ and enterprises — from concept to production, then hosting and maintenance:
 - App Development: iOS, Android, PWA, and desktop apps with offline, push,
   payments, and store delivery.
 
+## Case studies
+${works
+  .map((work) => `- [${work.name}](${siteUrl}/work/${work.slug}) (${work.client}): ${getWorkDescription(work)}`)
+  .join("\n")}
+
 ## How we work
 1. Discover & Design: requirements, prototypes, architecture — fast.
 2. Build & Integrate: senior engineers, AI-accelerated development, CI/CD.
@@ -41,6 +60,7 @@ Ask for a range and expect a reply, usually within a day.
 ## Contact
 - Email: ${siteEmail}
 - Phone: +373 675 00 054
+- Location: ${siteCity}, ${siteCountry}
 - Language: English. Based in Moldova, working with clients worldwide.
 `;
 

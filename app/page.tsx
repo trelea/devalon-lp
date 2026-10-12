@@ -11,9 +11,13 @@ import { Works } from "@/components/sections/works";
 import { Recommendations } from "@/components/sections/recommendations";
 import { ContactCta } from "@/components/sections/contact-cta";
 import {
+  devalonGithub,
   founderJobTitle,
   founderLinkedIn,
   founderName,
+  siteCity,
+  siteCountry,
+  siteCountryCode,
   siteDescription,
   siteEmail,
   siteName,
@@ -35,13 +39,21 @@ const jsonLd = {
       description: siteDescription,
       email: siteEmail,
       telephone: "+37367500054",
+      // City + country only — no street address is published for the studio.
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: siteCity,
+        addressRegion: siteCity,
+        addressCountry: siteCountryCode,
+      },
       areaServed: [
-        { "@type": "Country", name: "Moldova" },
+        { "@type": "Country", name: siteCountry },
         { "@type": "Place", name: "Worldwide" },
       ],
       // Devalon is a solo studio, so the company profile is the founder's.
       // Add a Devalon-owned company page URL here if one is ever created.
-      sameAs: [],
+      // sameAs: left empty until a real GitHub/org profile is confirmed.
+      sameAs: devalonGithub ? [devalonGithub] : [],
       founder: { "@id": `${siteUrl}/#founder` },
       contactPoint: [
         {
@@ -73,7 +85,7 @@ const jsonLd = {
         "web and mobile application development",
         "software maintenance and support",
       ],
-      sameAs: [founderLinkedIn],
+      sameAs: [founderLinkedIn, ...(devalonGithub ? [devalonGithub] : [])],
     },
     {
       "@type": "WebSite",

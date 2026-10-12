@@ -1,0 +1,102 @@
+# Tells Bing (and partners adopting IndexNow) that pages changed on deploy.
+#
+# Why this exists as a GitHub Action rather than a Vercel hook: Vercel's build
+# and this workflow both trigger off the same push to `main`, so they run in
+# parallel. We poll the site for a 200 before pinging so we never announce
+# URLs that aren't live yet.
+#
+# Setup (one time):
+#   1. The key file public/028f99bd95bf0e724a2c31078ec4b5bb.txt must be
+#      committed — it is. IndexNow verifies by fetching it from the site root.
+#   2. Add a repository secret INDEXNOW_KEY with the same value. Do NOT rotate
+#      one without the other.
+#
+# Rotate the key by: openssl rand -hex 16 -> new public/<key>.txt, update the
+# paths below, update the INDEXNOW_KEY secret, delete the old file.
+
+name: IndexNow
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build URL list
+        id: urls
+        run: |
+          # Derive the slugs from lib/works.ts so this list can never drift
+          # from sitemap.xml, which reads the same source.
+          slugs=$(grep -oE 'slug: "[^"]+"' lib/works.ts | sed -E 's/slug: "(.*)"/\1/')
+          {
+            echo "https://devalon.dev"
+            for slug in $slugs; do
+              echo "https://devalon.dev/work/$slug"
+            done
+          } > urls.txt
+          echo "URLs to submit:"
+          cat urls.txt
+          echo "count=$(wc -l < urls.txt)"
+
+      - name: Wait for the site to serve the new build
+        run: |
+          # Vercel builds in parallel with this workflow. Poll until the
+          # homepage responds 200 so we don't ping URLs before they're live.
+          for i in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' https://devalon.dev/ || true)
+            if [ "$code" = "200" ]; then
+              echo "site is live (attempt $i)"
+              exit 0
+            fi
+            echo "attempt $i: HTTP $code, retrying..."
+            sleep 10
+          done
+          echo "::warning::site did not return 200 after 300s; pinging anyway"
+
+      - name: Submit to IndexNow
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: |
+          if [ -z "$INDEXNOW_KEY" ]; then
+            echo "::error::INDEXNOW_KEY secret is not set; skipping submission"
+            exit 1
+          fi
+
+          # IndexNow accepts a single url or host/key, or a {host,key,urlList}
+          # object. The object form lets us keep the key out of the URL list.
+          slugs=$(grep -oE 'slug: "[^"]+"' lib/works.ts | sed -E 's/slug: "(.*)"/\1/')
+          json_urls='["https://devalon.dev"'
+          for slug in $slugs; do
+            json_urls="$json_urls,\"https://devalon.dev/work/$slug\""
+          done
+          json_urls="$json_urls]"
+
+          payload=$(printf '{"host":"devalon.dev","key":"%s","urlList":%s}' \
+            "$INDEXNOW_KEY" "$json_urls")
+
+          echo "Submitting $(echo "$json_urls" | tr -cd ',' | wc -c | awk '{print $1+1}') URLs..."
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST \
+            https://api.indexnow.org/indexnow \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            -d "$payload")
+          echo "IndexNow responded: HTTP $code"
+
+          # 200/202 are the documented successes. 202 is async acceptance.
+          if [ "$code" = "200" ] || [ "$code" = "202" ]; then
+            echo "::notice::IndexNow submission accepted"
+          else
+            echo "::error::IndexNow rejected the submission (HTTP $code)"
+            exit 1
+          fi

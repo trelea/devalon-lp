@@ -1,6 +1,5 @@
 import { AuroraText } from "@/components/ui/aurora-text";
 import { MagicCard } from "@/components/ui/magic-card";
-import { NumberTicker } from "@/components/ui/number-ticker";
 import { stats } from "@/lib/stats";
 
 const AURORA_COLORS = ["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"];
@@ -8,6 +7,11 @@ const AURORA_COLORS = ["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"];
 // Full-viewport trust band between Hero and Services: the four studio
 // numbers as tall centered spotlight cards. Light cards bridge the white
 // Hero card above and the dark Services tabs below.
+//
+// Values render as plain static text (no count-up animation) so the real
+// numbers are present in the server-rendered HTML and readable by crawlers,
+// LLM scrapers and readers without JS. value + suffix are kept in a single
+// text node so they scrape as one token (e.g. "20+", not "20" "+").
 export function Stats() {
   return (
     <section
@@ -40,7 +44,7 @@ export function Stats() {
                   />
                 </span>
                 <p className="mt-4 flex h-16 items-center text-5xl font-bold tracking-tight text-foreground tabular-nums sm:mt-6 sm:h-20 sm:text-6xl">
-                  <NumberTicker value={stat.value} />
+                  {stat.value}
                   {stat.suffix}
                 </p>
                 <p className="flex min-h-[3rem] items-center text-lg font-semibold tracking-tight text-foreground sm:min-h-[3.5rem] sm:text-xl">

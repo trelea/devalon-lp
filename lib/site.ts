@@ -16,6 +16,21 @@ export const sitePhoneDisplay = "+373 675 00 054"
 
 export const sitePhoneHref = "tel:+37367500054"
 
+// Studio location, used in JSON-LD (Organization.address) and llms.txt.
+// City + country only: a solo studio with no public premises should not
+// publish a street address. addressCountry is ISO 3166-1 alpha-2, the
+// form schema.org and Google's validator expect — not "Moldova".
+export const siteCity = "Chișinău"
+
+export const siteCountry = "Moldova"
+
+export const siteCountryCode = "MD"
+
+// GitHub is intentionally absent: no personal/org profile URL has been
+// confirmed, and sameAs is an authoritative identity assertion in
+// structured data. Add founderGithub here once one exists.
+export const devalonGithub: string | undefined = undefined
+
 // Founder identity for schema.org Person markup (see app/page.tsx).
 export const founderName = "Marius Trelea"
 

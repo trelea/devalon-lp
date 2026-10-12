@@ -115,6 +115,16 @@ export default function RootLayout({
       lang="en"
       className={`${appSans.variable} ${appHeading.variable} ${geistMono.variable} ${appNav.variable} h-full antialiased`}
     >
+      <head>
+        {/* Advertise the machine-readable summary so crawlers that don't
+            guess paths can discover it. Declared on every page. */}
+        <link
+          rel="alternate"
+          type="text/plain"
+          href={`${siteUrl}/llms.txt`}
+          title="Devalon — machine-readable summary for LLMs"
+        />
+      </head>
       <body className="min-h-full flex flex-col overflow-x-hidden bg-gray-100">
         <SmoothScroll>{children}</SmoothScroll>
       </body>

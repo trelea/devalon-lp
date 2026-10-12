@@ -6,8 +6,7 @@ import { AuroraText } from "@/components/ui/aurora-text";
 import { Marquee } from "@/components/ui/marquee";
 import { cn } from "@/lib/utils";
 
-// TODO: Thomas (2ai), 2Marketing.ai and Inesa Dita still need their real
-// quote texts. Palazzo Aesthetics' quote is a Devalon-written draft — get the
+// TODO: Palazzo Aesthetics' quote is a Devalon-written draft — get the
 // client's sign-off (or their edited version) before deploying.
 // - `name` is the customer: a company name or a real human name
 // - `role` goes under it: the person's role, or the company's theme/industry
@@ -61,7 +60,8 @@ const recommendations: Recommendation[] = [
     kind: "person",
     name: "Thomas Bach Petersen",
     role: "Co-Founder & CTO @ 2ai",
-    quote: "Add here later — placeholder.",
+    quote:
+      "Marius took full ownership of our Meta integration layer, the backbone of our publishing automation. He combines strong architectural judgment with a clear sense of business priorities, anticipating risks before they reach our customers. A dependable engineering partner for any company scaling a serious platform.",
     avatar: "/recommendations/thomas-bach-petersen.jpg",
     href: "https://www.linkedin.com/in/thomasbach/",
   },
@@ -69,7 +69,8 @@ const recommendations: Recommendation[] = [
     kind: "company",
     name: "2Marketing.ai",
     role: "Marketing & AI SaaS · Denmark",
-    quote: "Add here later — placeholder.",
+    quote:
+      "Marius delivered the backend infrastructure behind our publishing and media services, supporting around 30 business customers. His scalable architecture lets us expand into new advertising channels quickly and cost-effectively. Professional, transparent, and consistently focused on results.",
     avatar: "/recommendations/2marketing.jpg",
     href: "https://2marketing.ai/",
   },
