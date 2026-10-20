@@ -11,6 +11,7 @@ import {
   User,
 } from "lucide-react"
 
+import { sendContactIdea } from "@/app/actions/contact"
 import { Button } from "@/components/ui/button"
 import { siteEmail } from "@/lib/site"
 import { Input } from "@/components/ui/input"
@@ -46,17 +47,32 @@ const fieldIconClasses =
 
 export function ContactForm({ className }: { className?: string }) {
   const [status, setStatus] = React.useState<Status>("idle")
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null)
   // unique per instance — the form renders both inline and inside the modal
   const uid = React.useId()
   const fieldId = (name: string) => `contact-${name}${uid}`
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    if (status !== "idle") return
+    if (status === "sending") return
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    setErrorMessage(null)
     setStatus("sending")
-    // TODO: wire real delivery (e.g. a Resend server action) — UI-only for now
-    await new Promise((resolve) => setTimeout(resolve, 900))
-    setStatus("sent")
+
+    try {
+      const result = await sendContactIdea(formData)
+      if (!result.ok) {
+        setErrorMessage(result.error)
+        setStatus("idle")
+        return
+      }
+      form.reset()
+      setStatus("sent")
+    } catch {
+      setErrorMessage("Could not send your message. Please try again.")
+      setStatus("idle")
+    }
   }
 
   return (
@@ -86,11 +102,12 @@ export function ContactForm({ className }: { className?: string }) {
               pressure, no spam.
             </p>
             <Button
-              variant="outline"
-              className="mt-6"
+              size="lg"
+              className="mt-6 h-11 gap-1.5 rounded-full border-0 bg-[#4e6cb8] px-7 text-base text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90"
               onClick={() => setStatus("idle")}
             >
               Send another idea
+              <ArrowUpRight className="size-4" strokeWidth={1.75} />
             </Button>
           </motion.div>
         ) : (
@@ -101,6 +118,17 @@ export function ContactForm({ className }: { className?: string }) {
             exit={{ opacity: 0, scale: 0.98 }}
             onSubmit={handleSubmit}
           >
+            {/* Honeypot field for bots */}
+            <div aria-hidden="true" className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0">
+              <label htmlFor={fieldId("company_website")}>Website</label>
+              <input
+                id={fieldId("company_website")}
+                name="company_website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
             <div className="flex flex-col gap-7 sm:flex-row sm:gap-5">
               <LabelInputContainer>
                 <Label htmlFor={fieldId("name")} className="sr-only">
@@ -166,6 +194,15 @@ export function ContactForm({ className }: { className?: string }) {
                 />
               </div>
             </LabelInputContainer>
+
+            {errorMessage ? (
+              <p
+                role="alert"
+                className="mt-5 text-center text-sm font-medium text-destructive"
+              >
+                {errorMessage}
+              </p>
+            ) : null}
 
             <Button
               type="submit"

@@ -141,11 +141,11 @@ export function ContactCta() {
           <div className="mt-6 space-y-4 md:mt-7">
             <a
               href={`mailto:${siteEmail}`}
-              className="flex w-fit items-center gap-3 text-base font-normal transition-colors hover:text-foreground sm:text-lg"
+              className="flex w-fit items-center gap-3 text-lg font-normal transition-colors hover:text-foreground sm:text-xl"
             >
               <Mail
-                className="size-5 text-primary"
-                strokeWidth={2}
+                className="size-5 shrink-0 text-primary sm:size-6"
+                strokeWidth={1.75}
                 aria-hidden
               />
               <AuroraText colors={AURORA_COLORS} speed={1}>
@@ -154,11 +154,11 @@ export function ContactCta() {
             </a>
             <a
               href="tel:+37367500054"
-              className="flex w-fit items-center gap-3 text-base font-normal transition-colors hover:text-foreground sm:text-lg"
+              className="flex w-fit items-center gap-3 text-lg font-normal transition-colors hover:text-foreground sm:text-xl"
             >
               <Phone
-                className="size-5 text-primary"
-                strokeWidth={2}
+                className="size-5 shrink-0 text-primary sm:size-6"
+                strokeWidth={1.75}
                 aria-hidden
               />
               <AuroraText colors={AURORA_COLORS} speed={1}>
