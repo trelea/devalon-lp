@@ -74,13 +74,13 @@ function timezoneCountry() {
 
 // offline fallback from the browser locale (e.g. "ro-MD" → MD)
 function localeCountry() {
-  try {
-    for (const lang of navigator.languages ?? []) {
+  for (const lang of navigator.languages ?? []) {
+    try {
       const region = new Intl.Locale(lang).region
       if (region) return region
+    } catch {
+      // skip malformed/unsupported language tags
     }
-  } catch {
-    // older browsers without Intl.Locale — fall through
   }
   return undefined
 }
@@ -88,7 +88,7 @@ function localeCountry() {
 export function PhoneNumberInput({
   id,
   name = "phone",
-  defaultCountry = "DK",
+  defaultCountry = "US",
   className,
   inputClassName,
 }: {
@@ -109,9 +109,10 @@ export function PhoneNumberInput({
   // override their choice
   const touchedRef = React.useRef(false)
 
-  // in an effect (not initial state) so the server-rendered markup stays
-  // deterministic — the server would otherwise resolve its own timezone
-  React.useEffect(() => {
+  // in a layout effect (not initial state) so the server-rendered markup stays
+  // deterministic — the server would otherwise resolve its own timezone — but
+  // the detected country is applied before paint to avoid flashing the fallback
+  React.useLayoutEffect(() => {
     if (touchedRef.current) return
     const code = timezoneCountry() ?? localeCountry()
     if (!code) return

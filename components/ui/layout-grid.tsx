@@ -1,9 +1,12 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+const MotionImage = motion(Image);
 
 export type LayoutGridCard = {
   id: string;
@@ -161,14 +164,15 @@ export const LayoutGrid = ({
 
 const ImageComponent = ({ card }: { card: LayoutGridCard }) => {
   return (
-    <motion.img
+    <MotionImage
       layoutId={`image-${card.id}`}
       src={card.thumbnail}
-      height="500"
-      width="500"
-      loading="lazy" decoding="async"
-      className="absolute inset-0 h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
       alt={card.alt ?? "Project screenshot"}
+      fill
+      sizes="(max-width: 1024px) 100vw, 33vw"
+      loading="lazy"
+      decoding="async"
+      className="absolute inset-0 h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
     />
   );
 };
@@ -270,27 +274,33 @@ const SplitSelectedCard = ({
           touchStartX.current = null;
         }}
       >
-        <img
+        <Image
           key={currentSrc}
           src={currentSrc}
           aria-hidden="true"
           alt=""
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="absolute inset-0 h-full w-full scale-[1.5] object-cover object-center blur-md brightness-75"
           loading="lazy" decoding="async"
         />
         {idx === 0 ? (
-          <motion.img
+          <MotionImage
             layoutId={`image-${selected.id}`}
             src={currentSrc}
             alt={currentLabel ?? selected.alt ?? "Project screenshot"}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="relative z-10 h-full w-full min-h-0 flex-1 object-contain object-center"
             loading="lazy" decoding="async"
             draggable={false}
           />
         ) : (
-          <img
+          <Image
             src={currentSrc}
             alt={currentLabel ?? selected.alt ?? "Project screenshot"}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="relative z-10 h-full w-full min-h-0 flex-1 object-contain object-center"
             loading="lazy" decoding="async"
             draggable={false}
@@ -378,10 +388,12 @@ const DefaultSelectedCard = ({
       {total === 1 ? (
         <div className="flex w-full flex-none flex-col overflow-hidden bg-zinc-50 p-3 sm:p-4 md:min-h-0 md:w-1/2 md:flex-1 md:border-l md:border-zinc-100 md:bg-white md:p-0">
           <div className="relative flex justify-center overflow-hidden rounded-lg border border-zinc-200 bg-white p-2 shadow-sm md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none">
-            <motion.img
+            <MotionImage
               layoutId={`image-${selected.id}`}
               src={currentSrc}
               alt={selected.alt ?? "Project screenshot"}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="h-auto max-h-[68svh] max-h-[68dvh] w-auto max-w-full object-contain object-center md:h-full md:w-full md:max-h-none md:max-w-none md:object-cover"
               loading="lazy" decoding="async"
             />
@@ -391,17 +403,21 @@ const DefaultSelectedCard = ({
         <div className="flex w-full flex-none flex-col justify-center gap-3 bg-zinc-50 p-3 sm:p-4 md:min-h-0 md:w-1/2 md:flex-1 md:border-l md:border-zinc-100 md:p-5 lg:w-1/2">
           <div className="relative flex justify-center overflow-hidden rounded-lg border border-zinc-200 bg-white p-2 shadow-sm">
             {idx === 0 ? (
-              <motion.img
+              <MotionImage
                 layoutId={`image-${selected.id}`}
                 src={currentSrc}
                 alt={currentLabel ?? selected.alt ?? "Project screenshot"}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="h-auto max-h-[68svh] max-h-[68dvh] w-auto max-w-full object-contain object-center md:max-h-[72svh] md:max-h-[72dvh]"
                 loading="lazy" decoding="async"
               />
             ) : (
-              <img
+              <Image
                 src={currentSrc}
                 alt={currentLabel ?? selected.alt ?? "Project screenshot"}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="h-auto max-h-[68svh] max-h-[68dvh] w-auto max-w-full object-contain object-center md:max-h-[72svh] md:max-h-[72dvh]"
                 loading="lazy" decoding="async"
               />
