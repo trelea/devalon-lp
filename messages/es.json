@@ -1,0 +1,644 @@
+{
+  "Metadata": {
+    "title": "Devalon — Estudio de desarrollo de IA y software",
+    "description": "Estudio de desarrollo de IA y software que crea agentes de IA, software a medida y backends escalables para startups y empresas en crecimiento. Del concepto a producción.",
+    "ogTitle": "Devalon — Desarrollo de IA y software",
+    "ogDescription": "Agentes de IA, software a medida y consultoría para startups y empresas en crecimiento. Del concepto a producción.",
+    "caseStudy": "caso de estudio"
+  },
+  "Navbar": {
+    "links": {
+      "services": "Servicios",
+      "recommendations": "Recomendaciones",
+      "faq": "Preguntas frecuentes",
+      "projects": "Proyectos"
+    },
+    "getInTouch": "Contáctanos",
+    "openMenu": "Abrir menú",
+    "menu": "Menú",
+    "home": "Devalon — inicio"
+  },
+  "Footer": {
+    "tagline": "Construimos, escalamos y mantenemos software de IA para startups y empresas.",
+    "explore": "Explorar",
+    "links": {
+      "services": "Servicios",
+      "recommendations": "Recomendaciones",
+      "howWeWork": "Cómo trabajamos",
+      "faq": "Preguntas frecuentes",
+      "projects": "Proyectos"
+    },
+    "getInTouch": "Contáctanos",
+    "rights": "© {year} Devalon. Todos los derechos reservados.",
+    "builtBy": "Creado por",
+    "comingSoon": "próximamente"
+  },
+  "Hero": {
+    "titlePrefix": "Convertimos ideas en",
+    "titleHighlight": "Software escalable.",
+    "subtitle": "Creamos, escalamos y mantenemos soluciones de software de IA para startups y empresas.",
+    "startProject": "Inicia un proyecto",
+    "seeWork": "Ver nuestro trabajo"
+  },
+  "Stats": {
+    "ariaLabel": "Devalon en cifras",
+    "titlePrefix": "Devalon en",
+    "titleHighlight": "cifras",
+    "items": {
+      "projectsShipped": {
+        "label": "Proyectos llevados a producción",
+        "sub": "9 casos de estudio documentados"
+      },
+      "yearsBuilding": {
+        "label": "Años creando software",
+        "sub": "Del diseño a la producción y la escala"
+      },
+      "countriesServed": {
+        "label": "Países atendidos",
+        "sub": "EE. UU. · Dinamarca · Moldavia · Rumanía"
+      },
+      "industries": {
+        "label": "Sectores y nichos",
+        "sub": "SaaS · IA · Inmobiliaria · + más"
+      }
+    }
+  },
+  "Services": {
+    "titlePrefix": "",
+    "titleHighlight": "Servicios",
+    "titleSuffix": " de IA y desarrollo de software",
+    "items": {
+      "aiAgents": {
+        "title": "Agentes de IA y automatización",
+        "description": "Agentes de IA que hacen trabajo real dentro de tu negocio: atienden a clientes, extraen datos de documentos, enriquecen tu CRM y automatizan flujos de trabajo repetitivos. Desarrollados sobre modelos de OpenAI y Anthropic e integrados con las herramientas que ya usas, con evaluaciones, barreras de seguridad y monitorización para que sean fiables en producción, no solo en demos."
+      },
+      "digitalSolutions": {
+        "title": "Soluciones digitales",
+        "description": "CRM, ERP, paneles de administración, reservas, inventario y portales de clientes a medida, creados desde cero en torno a tus operaciones, no a partir de una plantilla. Sustituimos las hojas de cálculo y los límites del SaaS por tu propio sistema: pipelines, roles y permisos, finanzas e informes, automatizaciones y APIs limpias que escalan y nunca te atan a un proveedor."
+      },
+      "cloudInfrastructure": {
+        "title": "Infraestructura en la nube",
+        "description": "AWS, Docker, CI/CD, copias de seguridad, monitorización y disponibilidad. Lo mantenemos en marcha y escalando. Alertas proactivas, optimización de costes y rendimiento, y un ingeniero directo que conoce tu código responde cuando algo falla. Documentado, listo para el traspaso y sin infierno de tickets."
+      },
+      "appDevelopment": {
+        "title": "Desarrollo de apps",
+        "description": "Apps para iOS, Android, PWA y escritorio que se sienten nativas y se entregan como es debido, con modo sin conexión, notificaciones push, pagos y publicación en las tiendas incluidos. Chat con IA, búsqueda y automatización dentro de la app, además de informes de fallos, lanzamientos graduales e iteración continua tras el lanzamiento."
+      }
+    }
+  },
+  "HowWeWork": {
+    "titlePrefix": "Cómo trabajamos",
+    "titleHighlight": "con usted",
+    "expand": "Haga clic para ampliar",
+    "items": {
+      "discover-design": {
+        "title": "Descubrir y diseñar",
+        "description": "Empezamos entendiendo su problema, a sus usuarios y sus limitaciones; después damos forma, con rapidez, a los requisitos, los prototipos y la arquitectura técnica. La IA acelera la investigación, las especificaciones y los wireframes, de modo que verá una dirección concreta en días, no en meses.",
+        "tags": [
+          "Análisis de negocio",
+          "Prototipado",
+          "Arquitectura de soluciones",
+          "Consultoría de IA"
+        ]
+      },
+      "build-integrate": {
+        "title": "Desarrollar e integrar",
+        "description": "Ingenieros sénior entregan su producto con desarrollo acelerado por IA: código asistido, revisiones y pruebas dentro de pipelines de CI/CD reales. Las funcionalidades con LLM, las automatizaciones y las integraciones llegan como sistemas en producción, no como demos.",
+        "tags": [
+          "Desarrollo a medida",
+          "Integración de API",
+          "QA y pruebas",
+          "DevOps"
+        ]
+      },
+      "deploy-evolve": {
+        "title": "Desplegar, medir y evolucionar",
+        "description": "Desplegamos en la nube con monitorización, evaluaciones y observabilidad desde el primer día, y seguimos iterando con datos de uso reales. Su software mejora con cada ciclo en lugar de deteriorarse tras el lanzamiento.",
+        "tags": [
+          "Alojamiento en la nube",
+          "Monitorización",
+          "Soporte y mantenimiento",
+          "Optimización"
+        ]
+      }
+    }
+  },
+  "Projects": {
+    "titlePrefix": "Casos",
+    "titleHighlight": "de estudio",
+    "readCaseStudy": "Leer caso de estudio",
+    "items": {
+      "redcore": {
+        "client": "Negocio local · EE. UU."
+      },
+      "dialogimobil": {
+        "client": "Inmobiliaria · Chisináu"
+      },
+      "2marketing": {
+        "client": "SaaS de IA · Dinamarca"
+      },
+      "wynne": {
+        "client": "Aplicación web · EE. UU."
+      },
+      "premierinvest": {
+        "client": "Inmobiliaria · Chisináu"
+      },
+      "dialoginvest": {
+        "client": "Inversiones · Rumanía"
+      },
+      "megawind": {
+        "client": "Tecnología verde · UE"
+      },
+      "etatruck": {
+        "client": "Logística · UE"
+      },
+      "palazzo": {
+        "client": "Bienestar · Chisináu"
+      }
+    }
+  },
+  "Recommendations": {
+    "titlePrefix": "Construido sobre la confianza,",
+    "titleHighlight": "entregado en todo el mundo",
+    "items": {
+      "dimitryBizga": {
+        "name": "Dimitry Bizga",
+        "role": "Fundador @ Synthax Codes",
+        "quote": "Tras trabajar codo con codo con Marius en varios proyectos dentro del mismo grupo, puedo afirmar con total seguridad que es un ingeniero de software excepcional. Asumió por completo la responsabilidad de nuestros sistemas backend principales, construyó arquitecturas estables desde cero y resolvió con gran eficiencia complejos cuellos de botella de infraestructura. Marius destaca porque entrega exactamente lo que el proyecto necesita, convirtiendo requisitos complejos en software sólido, duradero y altamente optimizado que funciona sin fallos en producción."
+      },
+      "inesaDita": {
+        "name": "Inesa Dita",
+        "role": "Agente inmobiliaria y coach para mujeres · EE. UU.",
+        "quote": "Trabajar con Marius fue muy fácil desde el primer día. Entendió lo que necesitaba antes de que pudiera explicarlo del todo, me mantuvo al tanto en cada paso y entregó un resultado mucho más pulido de lo que esperaba. Le confiaría cualquier proyecto."
+      },
+      "redCoreConcrete": {
+        "name": "Red Core Concrete",
+        "role": "Contratista de hormigón · Nueva Inglaterra, EE. UU.",
+        "quote": "He trabajado con Marius Trelea en varios proyectos y cada experiencia ha sido excelente. Creó el sitio web de nuestra empresa exactamente como queríamos y siempre fue receptivo, profesional y fácil de tratar durante todo el proceso. Todo se completó a tiempo y el resultado final superó nuestras expectativas."
+      },
+      "thomasBachPetersen": {
+        "name": "Thomas Bach Petersen",
+        "role": "Cofundador y CTO @ 2ai",
+        "quote": "Marius asumió la plena responsabilidad de nuestra capa de integración con Meta, la columna vertebral de nuestra automatización de publicaciones. Combina un sólido criterio arquitectónico con un claro sentido de las prioridades del negocio, anticipando los riesgos antes de que lleguen a nuestros clientes. Un socio de ingeniería de confianza para cualquier empresa que esté escalando una plataforma seria."
+      },
+      "marketingAi": {
+        "name": "2Marketing.ai",
+        "role": "SaaS de marketing e IA · Dinamarca",
+        "quote": "Marius entregó la infraestructura backend que respalda nuestros servicios de publicación y medios, con la que damos soporte a más de 50 clientes empresariales. Su arquitectura escalable nos permite expandirnos a nuevos canales publicitarios de forma rápida y rentable. Profesional, transparente y siempre centrado en los resultados."
+      },
+      "vasileBorogan": {
+        "name": "Vasile Borogan",
+        "role": "CEO @ Premier Estate",
+        "quote": "Recomiendo encarecidamente a Marius como ingeniero de software. Colaboramos en nuestras aplicaciones internas y gestionó con éxito tanto el front-end como el back-end, afrontando todos los retos técnicos con gran eficiencia. Lo que distingue a Marius es su sólida experiencia técnica combinada con una mentalidad centrada en el cliente: tiene una capacidad notable para entender exactamente lo que quiere el cliente y traducirlo en software sólido, duradero y altamente optimizado."
+      },
+      "palazzoAesthetics": {
+        "name": "Palazzo Aesthetics",
+        "role": "Clínica de fitoestética y fitoterapia · Chisináu, Moldavia",
+        "quote": "Tuve una experiencia estupenda trabajando con Marius Trelea en el sitio web de nuestra clínica. Desde el principio fue fácil comunicarse con él, entendió lo que buscábamos y dio vida a nuestras ideas mejor de lo que esperábamos. Fue fiable durante todo el proyecto, rápido para hacer ajustes cuando hacía falta y mantuvo todo en marcha sin idas y venidas innecesarias. El sitio web quedó genial y estamos muy contentos con el resultado. Sin duda recomiendo trabajar con Marius."
+      }
+    }
+  },
+  "ContactCta": {
+    "formTitle": "Cuéntanos tu idea",
+    "formSubtitle1": "Cuéntanos sobre tu proyecto.",
+    "formSubtitle2": "Respondemos con honestidad, normalmente en un día.",
+    "ideaTitlePrefix": "Tu",
+    "ideaTitleHighlight": "proyecto",
+    "ideaBody": "Aquí viven tus ideas aún no reveladas, buenas o locas. Cuéntanos qué quieres construir y seremos francos.",
+    "trustedBy": "De confianza para clientes en todo el mundo",
+    "ratedAria": "Valorado con 5 de 5 por nuestros clientes"
+  },
+  "ContactModal": {
+    "title": "Cuéntanos tu idea",
+    "description": "Buena, mala o delirante — te diremos honestamente lo que hace falta para hacerla real."
+  },
+  "ContactForm": {
+    "fullName": "Nombre completo",
+    "email": "Correo",
+    "yourIdea": "Tu idea",
+    "phoneOptional": "Número de teléfono (opcional)",
+    "ideaPlaceholder": "Describe tu proyecto — objetivos, alcance y plazos",
+    "submit": "Enviar idea",
+    "sending": "Enviando",
+    "sentTitle": "Idea recibida.",
+    "sentBody": "La leeremos y responderemos con honestidad — normalmente en un día. Sin presión, sin spam.",
+    "sendAnother": "Enviar otra idea",
+    "preferEmail": "¿Prefieres email?",
+    "errorSend": "No se pudo enviar el mensaje. Inténtalo de nuevo."
+  },
+  "Faq": {
+    "titlePrefix": "Preguntas",
+    "titleHighlight": "y respuestas",
+    "items": [
+      {
+        "question": "¿Qué significa realmente «socio tecnológico de ciclo completo»?",
+        "answer": "En pocas palabras: Devalon se ocupa de su producto desde la primera idea hasta el día del lanzamiento, y mucho después. Planificación, diseño, desarrollo, pruebas, puesta en marcha y mantenimiento para que todo funcione sin problemas. Tiene un único equipo y un único punto de contacto, en lugar de tener que hacer malabares con agencias y freelancers.",
+        "points": [
+          "Planificación: definimos qué construir y cómo",
+          "Diseño y desarrollo: de los primeros bocetos a un producto funcional",
+          "Después del lanzamiento: alojamiento, monitorización y mejoras"
+        ],
+        "cta": "Reserve una llamada introductoria gratuita"
+      },
+      {
+        "question": "¿Por qué elegir Devalon en lugar de contratar un equipo propio o recurrir a freelancers?",
+        "answer": "Montar su propio equipo es una gran apuesta a largo plazo, pero lleva meses y mucho dinero antes de que se construya nada. Los freelancers son más baratos, pero si uno desaparece o la calidad es irregular, su proyecto sale perjudicado. Con nosotros cuenta con un equipo experimentado, listo para empezar ya, que puede ampliar o reducir cuando lo necesite.",
+        "points": [
+          "Empezamos en días, no en meses",
+          "Diseñadores, desarrolladores y testers trabajando juntos",
+          "Todo lo que construimos le pertenece"
+        ],
+        "cta": "Pida una estimación sincera"
+      },
+      {
+        "question": "No soy técnico. ¿Cómo puedo probar mi idea sin arriesgar mucho dinero?",
+        "answer": "No necesita hablar «en tecnicismos» para empezar. Comenzamos con algo pequeño: convertimos su idea en pantallas sencillas por las que puede navegar, para que pueda enseñarlas a personas reales, clientes o inversores y conocer su opinión. Solo invierte en el producto completo cuando sepa que merece la pena construirlo.",
+        "points": [
+          "Convertimos su idea en una lista clara de funcionalidades",
+          "Recibe una vista previa interactiva para probar y enseñar",
+          "El plan se acuerda antes de construir el producto real"
+        ],
+        "cta": "Pruebe primero su idea"
+      },
+      {
+        "question": "¿Cuánto costará mi primera versión y cuánto tiempo llevará?",
+        "answer": "Depende de lo que quiera construir: con cuántas otras herramientas se conecta, cuántos tipos de usuarios tiene y si además necesita aplicaciones móviles. La buena noticia es que no tiene que adivinar. Cuéntenos su idea y, normalmente, en un día le enviamos un rango de precio realista, antes de que se comprometa a nada. La mayoría de las primeras versiones están en marcha en semanas, no en meses, y puede ver avances reales por el camino.",
+        "points": [
+          "Un rango de precio antes de firmar nada",
+          "Empiece por lo esencial y añada extras cuando genere ingresos",
+          "Un alcance claro, para que el presupuesto no le sorprenda"
+        ],
+        "cta": "Obtenga su estimación en 30 minutos"
+      },
+      {
+        "question": "¿Precio cerrado o pago según avance: cuál me conviene?",
+        "answer": "Si sabe exactamente lo que quiere y los diseños están listos, el precio cerrado es lo más seguro: conoce el total desde el principio. Si todavía está aprendiendo y ajustando sobre la marcha, algo normal en los negocios nuevos, pagar por el tiempo en ciclos cortos y con un límite le da margen para cambiar de rumbo sin sorpresas desagradables. Le recomendaremos lo que mejor se adapte a usted, no lo que más nos beneficie.",
+        "points": [
+          "Precio cerrado: alcance claro, total claro",
+          "Pago según avance: ciclos cortos con un límite fijado, prioridades modificables cada semana",
+          "Equipo dedicado: ideal para planes más grandes y a largo plazo"
+        ],
+        "cta": "Consulte qué opción le conviene"
+      },
+      {
+        "question": "¿De quién es el trabajo y me quedaré atado a Devalon?",
+        "answer": "Es suyo y nunca queda atado. Todo lo que hacemos le pertenece: el código, los diseños, la configuración de los datos, todo. Usamos tecnologías populares y ampliamente conocidas (como React, Node.js y PostgreSQL) y entregamos documentación clara, de modo que cualquier buen equipo pueda retomar el trabajo donde lo dejamos. Si algún día quiere cambiar de proveedor, puede hacerlo.",
+        "points": [
+          "Recibe todos los archivos, accesos y documentación",
+          "Tecnologías comunes, nada bloqueado ni secreto",
+          "Sesiones de traspaso para que su equipo se sienta seguro"
+        ],
+        "cta": "Pregunte por el traspaso"
+      },
+      {
+        "question": "¿Pueden añadir IA a mi producto y es seguro?",
+        "answer": "Sí. Creamos funcionalidades de IA que funcionan en el mundo real, no solo en una demo: asistentes que responden preguntas a partir de sus propios documentos, chatbots, herramientas que leen y organizan información por usted. Las probamos con cuidado, fijamos límites de seguridad y las vigilamos tras el lanzamiento. La seguridad forma parte de nuestra forma de trabajar desde el primer día, con comprobaciones automáticas, conexiones protegidas y acceso controlado en cada actualización.",
+        "points": [
+          "Cada funcionalidad de IA se prueba, se protege y se monitoriza",
+          "Las comprobaciones de seguridad se ejecutan automáticamente con cada actualización",
+          "Seguimos vigilando y corrigiendo tras el lanzamiento"
+        ],
+        "cta": "Hable de su idea de IA"
+      }
+    ]
+  },
+  "Works": {
+    "visit": "Visitar",
+    "challengeSolutionPrefix": "Desafío y",
+    "challengeSolutionHighlight": "solución",
+    "resultsPrefix": "Resultados",
+    "resultsHighlight": "probados",
+    "galleryPrefix": "Véalo",
+    "galleryHighlight": "en acción",
+    "visitProject": "Visitar proyecto",
+    "screenshot": "captura de pantalla",
+    "projectCover": "portada del proyecto",
+    "items": {
+      "redcore": {
+        "body": "Red Core is a Massachusetts-based concrete cutting expert helping contractors, developers, and property owners get precise, clean, and reliable results across core drilling, slab cutting, wall sawing, demolition, and concrete restoration, delivering a modern, conversion-focused digital experience that turns everyday website visitors into qualified leads and booked jobs while building long-term trust through transparent pricing, proven project results, and always-available service.",
+        "challenge": "Before the transformation, the business was losing valuable opportunities due to a fragmented customer journey, slow and cumbersome quote requests, limited visibility of services and special offers, inconsistent presentation of past work, and a poor mobile experience that frustrated busy decision-makers, leading to missed inquiries, low conversion rates, manual follow-up overhead, and difficulty standing out in a competitive local market despite strong field expertise and reputation.",
+        "solution": "The new solution created a seamless, customer-first experience that makes it effortless to discover services, explore real project examples, view compelling offers, and request a same-day quote in seconds with photo uploads and flexible callback scheduling, ensuring every inquiry is captured instantly across desktop and mobile, guiding prospects smoothly from interest to action, strengthening credibility, and freeing the team to focus on delivering exceptional work rather than chasing leads.",
+        "highlights": [
+          "Converts organic traffic into quote inquiries by giving each core service dedicated landing pages and visual proof galleries.",
+          "Integrated a custom media CMS enabling the owner to upload project photos and job logs directly from the field."
+        ],
+        "metrics": [
+          {
+            "value": "x3",
+            "label": "increase in\nqualified leads"
+          },
+          {
+            "value": "+68%",
+            "label": "faster quote\nturnaround"
+          },
+          {
+            "value": "+45%",
+            "label": "higher conversion\nrate"
+          },
+          {
+            "value": "+70%",
+            "label": "growth in mobile\nengagement"
+          },
+          {
+            "value": "-95%",
+            "label": "reduction in missed\ninquiries"
+          }
+        ],
+        "shotLabels": [
+          "Lead-gen site",
+          "CMS — project media",
+          "Same-day quote CTA"
+        ]
+      },
+      "dialogimobil": {
+        "body": "Dialog Imobil is a high-converting real estate platform that turns every property into a lead-generating opportunity, seamlessly connecting a full portfolio of apartments, houses, commercial spaces, land and garages with serious buyers and tenants through a beautifully curated, multilingual showcase and an integrated client engagement engine, delivering sustained growth, stronger brand authority and measurable commercial success for a forward-thinking agency operating in a highly competitive property market.",
+        "challenge": "The agency was held back by fragmented and manual property operations, slow and inconsistent listing updates across multiple property types, limited visibility for high-value offers, frustrating search experiences for buyers unable to filter by real needs, lack of control over who could manage and publish sensitive listings, and no unified way to nurture inquiries, build trust through team and service storytelling, or convert casual browsing into qualified leads at scale.",
+        "solution": "Dialog Imobil delivered a unified business solution that centralizes all portfolio management in one intuitive hub while empowering buyers with a fast, elegant, and highly personalized discovery experience featuring smart filters, interactive location exploration, hot offers, mortgage guidance and rich storytelling around services, team expertise and trust, supported by secure agent workflows, private and public listing controls, effortless multilingual content management and optimized media delivery that makes publishing effortless, keeps every listing accurate and on-brand, and guides every visitor naturally from interest to inquiry to closed deal.",
+        "highlights": [
+          "Built a custom back-office dashboard allowing agents to update properties, hot offers, and articles in real time without technical help.",
+          "Streamlined buyer navigation with interactive maps, filterable property categories, and direct contact forms."
+        ],
+        "metrics": [
+          {
+            "value": "+70%",
+            "label": "faster property\npublishing"
+          },
+          {
+            "value": "x3",
+            "label": "increase in\nqualified leads"
+          },
+          {
+            "value": "-60%",
+            "label": "reduction in admin\nworkload"
+          },
+          {
+            "value": "+45%",
+            "label": "higher buyer\nengagement"
+          },
+          {
+            "value": "+85%",
+            "label": "faster browsing\nexperience"
+          }
+        ],
+        "shotLabels": [
+          "Listings platform",
+          "Admin listings table",
+          "Listing edit form"
+        ]
+      },
+      "2marketing": {
+        "body": "2Marketing is the complete AI-powered marketing operating system that transforms how small and medium businesses grow, unifying automated content creation, intelligent media management, high-converting landing pages and reliable cross-platform publishing into one seamless platform that delivers agency-quality marketing at a fraction of the cost, time and effort while helping customers cut costs in half, double conversions and stay perfectly on brand across every channel.",
+        "challenge": "Growing businesses were trapped in a fragmented and expensive marketing reality, juggling disconnected tools for ideas, assets, campaigns and publishing, relying on costly agencies or endless manual work, struggling with untagged media libraries, inconsistent branding, missed schedules, failed uploads and weak landing page copy that wasted budget, drained teams and made predictable growth impossible to achieve or scale.",
+        "solution": "2Marketing replaces the chaos with one intelligent, always-on platform that automatically creates a full month of on-brand ideas from each customer's own content, instantly organizes and perfects thousands of images and videos with AI that preserves faces and messaging, crafts landing page copy that rivals human experts, validates and publishes flawlessly across Meta, Instagram, Facebook, LinkedIn, Google and Reddit with built-in recovery and synchronization, and is orchestrated through a single command center with an always-on AI teammate that remembers every customer and handles the heavy lifting so businesses market faster, smarter and with total confidence.",
+        "highlights": [
+          "Built for scale: Reliably processes 100,000+ automated posts and ad updates monthly with automated error recovery.",
+          "Saves 15+ hours weekly per business by replacing manual ad management with streamlined 1-click publishing."
+        ],
+        "metrics": [
+          {
+            "value": "+50%",
+            "label": "marketing cost\nsavings"
+          },
+          {
+            "value": "x2",
+            "label": "higher conversion\nrates"
+          },
+          {
+            "value": "+90%",
+            "label": "time saved on\nmarketing"
+          },
+          {
+            "value": "+95%",
+            "label": "publishing and\ncampaign success"
+          },
+          {
+            "value": "+99.9%",
+            "label": "reliable automated\ndelivery"
+          }
+        ],
+        "shotLabels": [
+          "Mobile app",
+          "Landing page",
+          "Admin dashboard"
+        ]
+      },
+      "wynne": {
+        "body": "Wynne Home Manager is a premium membership-based home management platform designed for discerning homeowners to protect, preserve, and enhance the long-term value of their properties through personalized maintenance plans, dedicated advisor guidance, and proactive property care, delivering complete peace of mind, preventing costly repairs, and transforming homeownership from reactive upkeep into strategic asset management while driving exceptional client satisfaction, loyalty, and recurring revenue growth.",
+        "challenge": "Before Wynne, homeowners and advisors faced constant friction from fragmented and manual property care, with missed seasonal maintenance leading to expensive emergency repairs, inconsistent communication and scheduling causing delays and confusion, complex and opaque onboarding and pricing frustrating new clients and slowing conversion, and no centralized visibility into home health, upcoming tasks, or property history making it impossible to stay proactive, protect investment value, or deliver scalable white-glove service efficiently.",
+        "solution": "Wynne Home Manager eliminates this friction with a seamless, guided experience that starts with an intuitive property survey and square-footage-based membership plan, moves effortlessly through integrated walkthrough scheduling and expert advisor matching, and sustains value through a centralized home health dashboard, automated personalized maintenance calendars, proactive reminders, overdue alerts and weather safeguards, and streamlined payments and document management, empowering clients to manage their entire property effortlessly while enabling advisors to deliver exceptional service at scale, deepen relationships, and accelerate business growth with ease and efficiency.",
+        "highlights": [
+          "Intuitive property survey and square-footage-based membership with integrated walkthrough scheduling and expert advisor matching.",
+          "Centralized home health dashboard with automated maintenance calendars, proactive reminders, weather safeguards, payments and document management."
+        ],
+        "metrics": [
+          {
+            "value": "-70%",
+            "label": "onboarding\ntime"
+          },
+          {
+            "value": "+95%",
+            "label": "on-time\ncompletion"
+          },
+          {
+            "value": "-60%",
+            "label": "operational\ncosts"
+          },
+          {
+            "value": "x3",
+            "label": "advisor\nproductivity"
+          },
+          {
+            "value": "+85%",
+            "label": "client\nretention"
+          }
+        ],
+        "shotLabels": [
+          "Landing & sign-in",
+          "Admin dashboard",
+          "Client dashboard"
+        ]
+      },
+      "premierinvest": {
+        "body": "Premier Imobil is Chisinau's leading all-in-one real estate marketplace bringing together apartments, houses, commercial spaces and land for sale and rent in one trusted destination, empowering buyers, sellers and renters to discover, compare and connect with confidence through an engaging multilingual experience that turns high-intent browsing into booked viewings while driving sustained growth in leads, listings and customer loyalty.",
+        "challenge": "Before the transformation Premier Imobil struggled with fragmented property visibility, slow manual listing workflows, overwhelming and unfocused search experiences, language barriers for a diverse local and international audience and disconnected communication between clients and agents, leading to frustrated buyers unable to find relevant properties quickly, missed high-value inquiries, prolonged time on market, heavy administrative burden on the team and an inconsistent customer journey that limited lead generation, conversion and competitive differentiation in a crowded market.",
+        "solution": "We created a unified, customer-centric marketplace that makes property discovery effortless and action-oriented, offering intuitive category navigation, powerful smart filtering, interactive map-based location discovery, personalized favourites and instant direct connection to dedicated agents, all fully optimized for mobile and seamlessly available in Romanian, Russian and English, enabling Premier Imobil to publish new opportunities faster, keep buyers engaged longer, capture significantly more qualified inquiries and guide every client smoothly from first search to final viewing while drastically reducing operational effort and elevating brand trust and perceived value.",
+        "highlights": [
+          "Intuitive category navigation with smart filtering, map-based discovery, favourites and instant direct agent connection.",
+          "Fully optimized for mobile and trilingual RO/RU/EN with faster publishing and longer buyer engagement."
+        ],
+        "metrics": [
+          {
+            "value": "+180%",
+            "label": "qualified buyer\ninquiries"
+          },
+          {
+            "value": "+65%",
+            "label": "property listing\nengagement"
+          },
+          {
+            "value": "-55%",
+            "label": "avg property\nsearch time"
+          },
+          {
+            "value": "-70%",
+            "label": "manual listing\nmanagement effort"
+          },
+          {
+            "value": "x3",
+            "label": "inquiry-to-viewing\nconversion speed"
+          }
+        ],
+        "shotLabels": [
+          "Listings platform",
+          "Property page",
+          "Filtered search"
+        ]
+      },
+      "dialoginvest": {
+        "body": "Dialog Invest is Romania's exclusive gateway for international investors seeking secure, high-yield entry into the European Union market through verified off-market commercial real estate and turnkey profitable businesses, delivering immediate passive income, strategic capital growth and fully managed ownership without the risks of public listings, empowering clients to build stable euro-denominated portfolios with trusted local expertise, transparent transactions and long-term partnership at every step.",
+        "challenge": "International investors eager to enter the EU market were held back by inflated Western European prices, overcrowded and unreliable public listings, complex legal and tax requirements, language barriers and a complete lack of trusted on-the-ground partners, leaving them exposed to risky deals, endless due diligence, slow and stressful market entry, uncertain profitability and missed opportunities for stable long-term growth.",
+        "solution": "Dialog Invest removes every barrier by providing exclusive access to vetted off-market properties and operating businesses precisely tailored to each investor's budget and strategy, combining deep financial analytics, risk assessment and ROI forecasting with full legal protection from licensed Romanian lawyers, transparent transaction support and complete business setup including company registration, banking and tax consulting plus optional remote management, turning a complex cross-border investment into a fast, secure and effortlessly profitable experience that generates returns from day one.",
+        "highlights": [
+          "Exclusive access to vetted off-market properties and turnkey businesses tailored to each investor's budget and strategy.",
+          "Deep analytics, risk assessment and ROI forecasting with full legal protection, business setup and optional remote management."
+        ],
+        "metrics": [
+          {
+            "value": "+7.6%",
+            "label": "annual passive\nyield in euros"
+          },
+          {
+            "value": "+30%",
+            "label": "capital growth\nin 12-24 months"
+          },
+          {
+            "value": "x3",
+            "label": "lower acquisition\ncosts vs W. Europe"
+          },
+          {
+            "value": "+48%",
+            "label": "net profit on resale\nin 14 months"
+          },
+          {
+            "value": "-70%",
+            "label": "faster time to\nverified EU asset"
+          }
+        ],
+        "shotLabels": [
+          "Investor landing",
+          "Key advantages",
+          "Investment strategies"
+        ]
+      },
+      "megawind": {
+        "body": "We helped seven local customers turn a single reusable landing template into seven branded lead-generation engines to apply for EU green-tech grants — launching Solo Trans Energy, Eximius, Megawind, Importex Energy, Wind Rise, More Power and Nano Wind from one centralized CMS, each with its own identity, audience and Romanian/Russian content, built to capture high-intent leads fast and stay grant-ready.",
+        "challenge": "Before the system each brand needed a one-off landing, with slow bespoke builds, inconsistent grant readiness, duplicated effort across seven codebases, no per-brand CMS control and fragmented Romanian/Russian content that made rapid EU grant applications impossible to scale.",
+        "solution": "We delivered one high-performance template and centralized management architecture that launches seven branded landings from a single codebase — Solo Trans Energy (solotransenergy.md), Eximius (eximius.md), Megawind (megawind.md), Importex Energy (importexenergy.md), Wind Rise (windrise.md), More Power (morepower.md) and Nano Wind (nanowind.md) — each with independent CMS workspaces, localized RO/RU content, products and news, grant-ready performance and consistent identity.",
+        "highlights": [
+          "Seven branded landings from one system — Solo Trans Energy, Eximius, Megawind, Importex Energy, Wind Rise, More Power, Nano Wind (RO/RU, solotransenergy.md / eximius.md / megawind.md / importexenergy.md / windrise.md / morepower.md / nanowind.md).",
+          "One template, seven independent CMS workspaces — each brand controls its own localized content and grant-ready pages without developer help."
+        ],
+        "metrics": [
+          {
+            "value": "7",
+            "label": "branded landings\none system"
+          },
+          {
+            "value": "EU",
+            "label": "grant-ready\nRO/RU landings"
+          },
+          {
+            "value": "x5",
+            "label": "faster brand\nrollout"
+          },
+          {
+            "value": "100%",
+            "label": "independent\ncontent control"
+          },
+          {
+            "value": "24/7",
+            "label": "multi-brand\nuptime"
+          }
+        ],
+        "shotLabels": [
+          "MorePower — wind energy hero",
+          "Importex-Trans — about & services",
+          "Solar news & lead form",
+          "Solar CTA & news"
+        ]
+      },
+      "etatruck": {
+        "body": "The custom ETA Truck landing page was designed and built as a high-performance B2B lead generation engine to establish market trust and convert European freight prospects into active inquiries. By focusing on persuasive visual hierarchy, clear service segmentation, and frictionless quote request flows, the platform elevates brand credibility and systematically captures high-value B2B logistics clients online.",
+        "challenge": "ETA Truck previously suffered from limited digital visibility and an unoptimized online presence that failed to effectively communicate their specialized heavy-haul capabilities or convert visiting prospects. Prospective clients found it difficult to quickly evaluate service tiers, check international coverage, or request custom quotes, resulting in high bounce rates and lost B2B revenue opportunities.",
+        "solution": "We developed a streamlined, fully responsive marketing landing page built for speed, immediate clarity, and maximum lead conversion. By organizing complex logistics offerings into clear visual categories, integrating interactive quote calls-to-action, highlighting social proof, and optimizing multilingual accessibility across European markets, the platform turns digital traffic into a consistent stream of qualified logistics leads.",
+        "highlights": [
+          "Persuasive visual hierarchy with clear service segmentation and frictionless quote request flows.",
+          "Fully responsive, speed-optimized landing with interactive CTAs, social proof and multilingual accessibility."
+        ],
+        "metrics": [
+          {
+            "value": "+65%",
+            "label": "visitor-to-lead\nconversion rate"
+          },
+          {
+            "value": "-50%",
+            "label": "bounce\nrate"
+          },
+          {
+            "value": "x3",
+            "label": "quote request\nvolume"
+          },
+          {
+            "value": "+85%",
+            "label": "mobile user\nengagement"
+          },
+          {
+            "value": "-70%",
+            "label": "page load\ntime"
+          }
+        ],
+        "shotLabels": [
+          "Corporate site",
+          "Services & quotes",
+          "Fleet gallery"
+        ]
+      },
+      "palazzo": {
+        "body": "Palazzo Aesthetics is a boutique wellness clinic in Chisinau specializing in phyto-aesthetics and phytotherapy, blending over 65 years of botanical expertise with modern science to deliver natural, visible results for skin, body and wellbeing. To transform its strong local reputation into predictable growth, Palazzo partnered with us to launch a premium, multilingual digital platform that attracts high-intent clients, builds instant trust and converts interest into booked appointments around the clock.",
+        "challenge": "Before the new platform, Palazzo relied on fragmented manual processes to manage demand, with appointment requests scattered across Instagram messages, phone calls and in-person enquiries that were slow to handle, easy to miss and impossible to track outside working hours. The clinic lacked a central, professional online presence to clearly explain its two core services, reassure discerning clients and serve Romanian, Russian and English speakers equally, causing high-intent visitors to drop off and choose competitors with simpler booking. Content and promotion updates required external help and took too long, the business was nearly invisible in organic search, and valuable clinical time was lost to repetitive administration instead of care, follow-up and growth.",
+        "solution": "We delivered an elegant, conversion-focused website that makes discovering, trusting and booking Palazzo effortless on any device and in any language, with clear journeys for phyto-aesthetics and phytotherapy, compelling proof points and one-click appointment scheduling that captures and qualifies every lead instantly even after hours. An intuitive content hub now lets the team publish news, update services and share promotions in minutes without technical support, while integrated contact flows ensure no enquiry is lost and every prospect receives a prompt, professional response. Designed for discovery and trust from the first impression, the platform guides visitors naturally from inspiration to action, dramatically reduces administrative friction, shortens the decision cycle and creates a seamless client experience that consistently turns interest into confirmed appointments, revenue and long-term advocacy.",
+        "highlights": [
+          "Elegant conversion-focused journeys for phyto-aesthetics and phytotherapy with one-click scheduling that captures every lead after hours.",
+          "Intuitive content hub for news, services and promotions with integrated contact flows and prompt professional response."
+        ],
+        "metrics": [
+          {
+            "value": "+240%",
+            "label": "growth in qualified\ninbound leads"
+          },
+          {
+            "value": "+68%",
+            "label": "online booking\nconversion rate"
+          },
+          {
+            "value": "-75%",
+            "label": "manual appointment\nhandling time"
+          },
+          {
+            "value": "+190%",
+            "label": "increase in organic\nsearch visibility"
+          },
+          {
+            "value": "x3",
+            "label": "monthly booked\nappointments"
+          }
+        ],
+        "shotLabels": [
+          "Clinic site",
+          "Product catalog",
+          "Product detail"
+        ]
+      }
+    }
+  }
+}

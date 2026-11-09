@@ -1,6 +1,7 @@
 import { AuroraText } from "@/components/ui/aurora-text";
 import { MagicCard } from "@/components/ui/magic-card";
 import { stats } from "@/lib/stats";
+import { getLocale, getTranslations } from "next-intl/server";
 
 const AURORA_COLORS = ["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"];
 
@@ -12,17 +13,19 @@ const AURORA_COLORS = ["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"];
 // numbers are present in the server-rendered HTML and readable by crawlers,
 // LLM scrapers and readers without JS. value + suffix are kept in a single
 // text node so they scrape as one token (e.g. "20+", not "20" "+").
-export function Stats() {
+export async function Stats({ locale: localeProp }: { locale?: string }) {
+  const locale = localeProp ?? (await getLocale());
+  const t = await getTranslations({ locale, namespace: "Stats" });
   return (
     <section
-      aria-label="Devalon in numbers"
+      aria-label={t("ariaLabel")}
       className="flex min-h-svh min-h-dvh w-screen max-w-full items-center justify-center bg-transparent"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 py-16 sm:gap-12 sm:px-5 sm:py-20 xl:max-w-[88rem]">
         <h2 className="mx-auto max-w-4xl text-center text-3xl font-bold tracking-tight text-balance text-foreground sm:text-4xl">
-          Devalon in{" "}
+          {t("titlePrefix")}{" "}
           <AuroraText colors={AURORA_COLORS} speed={1}>
-            numbers
+            {t("titleHighlight")}
           </AuroraText>
         </h2>
 
@@ -48,11 +51,11 @@ export function Stats() {
                   {stat.suffix}
                 </p>
                 <p className="flex min-h-[3rem] items-center text-lg font-semibold tracking-tight text-foreground sm:min-h-[3.5rem] sm:text-xl">
-                  {stat.label}
+                  {t(`items.${stat.key}.label`)}
                 </p>
                 <div aria-hidden className="h-px w-full bg-border" />
                 <p className="flex min-h-[2.75rem] items-start text-sm leading-relaxed text-muted-foreground sm:text-base">
-                  {stat.sub}
+                  {t(`items.${stat.key}.sub`)}
                 </p>
               </article>
             </MagicCard>

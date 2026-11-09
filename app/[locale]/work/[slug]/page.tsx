@@ -1,7 +1,11 @@
+
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import {
@@ -45,7 +49,9 @@ const AURORA_COLORS = ["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"];
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return getWorkSlugs().map((slug) => ({ slug }));
+  return routing.locales.flatMap((locale) =>
+    getWorkSlugs().map((slug) => ({ locale, slug }))
+  );
 }
 
 function getGallerySrcs(slug: string): string[] {
@@ -58,61 +64,111 @@ function getGallerySrcs(slug: string): string[] {
 }
 
 type PageProps = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
+};
+
+const OG_LOCALE_MAP: Record<string, string> = {
+  ro: "ro_RO",
+  ru: "ru_RU",
+  en: "en_US",
+  es: "es_ES",
+  da: "da_DK",
+  de: "de_DE",
+  fr: "fr_FR",
 };
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const work = getWorkBySlug(slug);
   if (!work) return {};
-  const description = getWorkDescription(work);
-  const url = `/work/${work.slug}`;
-  // `client` is "<Industry> · <Market>"; the title template wants the
-  // industry segment only.
-  const industry = work.client.split("·")[0].trim();
+  const tMeta = await getTranslations({ locale, namespace: "Metadata" });
+  const tProjects = await getTranslations({ locale, namespace: "Projects" });
+  const tWorks = await getTranslations({ locale, namespace: "Works" });
+  const client = tProjects.has(`items.${slug}.client`)
+    ? tProjects(`items.${slug}.client`)
+    : work.client;
+  const localizedBody = tWorks.has(`items.${slug}.body`)
+    ? tWorks(`items.${slug}.body`)
+    : work.body;
+  const localizedWork = { ...work, body: localizedBody };
+  const description = getWorkDescription(localizedWork);
+  const url = `/${locale}/work/${work.slug}`;
+  const industry = client.split("·")[0].trim();
+  const languages = Object.fromEntries([
+    ...routing.locales.map((l) => [l, `/${l}/work/${work.slug}`]),
+    ["x-default", `/en/work/${work.slug}`],
+  ]);
   return {
-    title: `${work.name} — ${industry} case study`,
+    title: `${work.name} — ${tMeta("caseStudy")}: ${industry} | ${siteName}`,
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: url, languages },
     openGraph: {
       type: "article",
       url: `${siteUrl}${url}`,
       siteName,
-      locale: "en_US",
-      title: `${work.name} — Devalon case study`,
+      locale: OG_LOCALE_MAP[locale] ?? "en_US",
+      alternateLocale: routing.locales
+        .filter((l) => l !== locale)
+        .map((l) => OG_LOCALE_MAP[l] ?? "en_US"),
+      title: `${work.name} — ${siteName} ${tMeta("caseStudy")}`,
       description,
+      publishedTime: "2026-01-01T00:00:00Z",
+      modifiedTime: "2026-11-09T00:00:00Z",
+      authors: [siteUrl],
       images: [
         {
           url: `${siteUrl}${url}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: `${work.name} — ${work.client} case study by Devalon`,
+          alt: `${work.name} — ${client} · ${tMeta("caseStudy")} ${siteName}`,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${work.name} — Devalon case study`,
+      title: `${work.name} — ${siteName} ${tMeta("caseStudy")}`,
       description,
       images: [
         {
           url: `${siteUrl}${url}/opengraph-image`,
-          alt: `${work.name} — ${work.client} case study by Devalon`,
+          alt: `${work.name} — ${client} · ${tMeta("caseStudy")} ${siteName}`,
         },
       ],
     },
   };
 }
 
-// Case study page built from the same pieces as the homepage:
-// white rounded hero card, dark service-style cards, pill CTAs,
-/// metric cards, bento gallery and the dark closing CTA.
 export default async function WorkDetailPage({ params }: PageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const work = getWorkBySlug(slug);
   if (!work) notFound();
+  const tProjects = await getTranslations({ locale, namespace: "Projects" });
+  const tWorks = await getTranslations({ locale, namespace: "Works" });
+  const tMeta = await getTranslations({ locale, namespace: "Metadata" });
+  const client = tProjects.has(`items.${slug}.client`)
+    ? tProjects(`items.${slug}.client`)
+    : work.client;
+  const localizedBody = tWorks.has(`items.${slug}.body`)
+    ? tWorks(`items.${slug}.body`)
+    : work.body;
+  const localizedChallenge = tWorks.has(`items.${slug}.challenge`)
+    ? tWorks(`items.${slug}.challenge`)
+    : work.challenge;
+  const localizedSolution = tWorks.has(`items.${slug}.solution`)
+    ? tWorks(`items.${slug}.solution`)
+    : work.solution;
+  const localizedHighlights = tWorks.has(`items.${slug}.highlights`)
+    ? (tWorks.raw(`items.${slug}.highlights`) as string[])
+    : work.highlights;
+  const localizedMetrics = tWorks.has(`items.${slug}.metrics`)
+    ? (tWorks.raw(`items.${slug}.metrics`) as { value: string; label: string }[])
+    : (work.metrics ?? []);
+  const localizedShotLabels = tWorks.has(`items.${slug}.shotLabels`)
+    ? (tWorks.raw(`items.${slug}.shotLabels`) as string[])
+    : work.shotLabels;
   const gallery = getGallerySrcs(work.slug);
   const cover = getCoverSrc(work);
   const { prev, next } = getPrevNextWork(work.slug);
@@ -122,33 +178,40 @@ export default async function WorkDetailPage({ params }: PageProps) {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "CreativeWork",
+        "@type": "Article",
         "@id": `${pageUrl}#work`,
-        name: work.name,
-        description: work.body,
+        headline: `${work.name} — ${client}`,
+        description: localizedBody,
         url: pageUrl,
         image: [`${siteUrl}${cover}`],
-        author: { "@id": `${siteUrl}/#founder` },
+        inLanguage: locale,
+        datePublished: "2026-01-01",
+        dateModified: "2026-11-09",
+        author: { "@type": "Organization", name: siteName, url: siteUrl },
+        publisher: { "@type": "Organization", name: siteName, url: siteUrl, logo: { "@type": "ImageObject", url: `${siteUrl}/icons/icon-512.png` } },
         creator: { "@id": `${siteUrl}/#founder` },
-        publisher: { "@id": `${siteUrl}/#organization` },
         isPartOf: { "@id": `${siteUrl}/#website` },
-        // `client` is the case study's industry + market (e.g.
-        // "Real estate · Chișinău"). The leading segment before "·" is the
-        // industry, which is what `about` is meant to convey.
-        about: { "@type": "Thing", name: work.client.split("·")[0].trim() },
+        about: { "@type": "Thing", name: client.split("·")[0].trim() },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/${locale}` },
+          { "@type": "ListItem", position: 2, name: tMeta("caseStudy"), item: `${siteUrl}/${locale}/#work` },
+          { "@type": "ListItem", position: 3, name: work.name, item: pageUrl },
+        ],
       },
       {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
         url: pageUrl,
-        name: `${work.name} — ${work.client}`,
-        description: getWorkDescription(work),
+        name: `${work.name} — ${client}`,
+        description: getWorkDescription({ ...work, body: localizedBody }),
         isPartOf: { "@id": `${siteUrl}/#website` },
         about: { "@id": `${pageUrl}#work` },
-        inLanguage: "en-US",
+        inLanguage: locale,
       },
-      // Mirrors the homepage nodes so the @id references above resolve
-      // within this page's own graph.
       {
         "@type": "Person",
         "@id": `${siteUrl}/#founder`,
@@ -164,7 +227,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
         url: siteUrl,
         name: siteName,
         publisher: { "@id": `${siteUrl}/#organization` },
-        inLanguage: "en",
+        inLanguage: locale,
       },
       {
         "@type": "Organization",
@@ -198,13 +261,12 @@ export default async function WorkDetailPage({ params }: PageProps) {
       />
       <Navbar />
       <main className="flex w-full flex-1 flex-col gap-12 sm:gap-16 md:gap-20 lg:gap-24">
-        {/* hero — same full-viewport white card as the homepage hero */}
         <section className="relative flex min-h-svh min-h-dvh w-full max-w-full flex-col pt-[72px] sm:pt-20 lg:h-svh lg:h-dvh">
           <div className="mx-auto flex w-full max-w-7xl flex-1 items-center px-3 py-4 sm:px-4 sm:py-6 md:px-5 md:py-8 lg:px-5 lg:py-6 xl:max-w-[88rem] xl:px-4 xl:py-6">
             <div className="grid w-full overflow-hidden rounded-[1.75rem] bg-white shadow-[0_20px_45px_-20px_rgba(15,23,42,0.22)] sm:rounded-[2rem] lg:grid-cols-2 lg:rounded-[3rem] min-h-[calc(100svh-72px-2rem)] min-h-[calc(100dvh-72px-2rem)] sm:min-h-[calc(100svh-72px-3rem)] sm:min-h-[calc(100dvh-72px-3rem)] md:min-h-[calc(100svh-72px-4rem)] md:min-h-[calc(100dvh-72px-4rem)] lg:min-h-[calc(100svh-72px-7rem)] lg:min-h-[calc(100dvh-72px-7rem)] xl:min-h-[calc(100svh-16rem)] xl:min-h-[calc(100dvh-16rem)]">
               <div className="flex flex-col items-start justify-center bg-white px-5 py-8 sm:px-8 md:px-10 lg:px-12 lg:py-14">
                 <p className="relative z-10 text-xs font-medium tracking-[0.14em] text-muted-foreground uppercase">
-                  {work.num} — {work.client}
+                  {work.num} — {client}
                 </p>
                 <h1 className="relative z-10 mt-3 max-w-2xl text-3xl font-bold tracking-tight text-foreground/95 sm:text-4xl xl:text-5xl xl:leading-[1.08]">
                   <AuroraText colors={AURORA_COLORS} speed={1}>
@@ -212,7 +274,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                   </AuroraText>
                 </h1>
                 <p className="relative z-10 mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:text-xl">
-                  {work.body}
+                  {localizedBody}
                 </p>
                 {work.href && (
                   <div className="relative z-10 mt-6 flex w-full sm:w-auto">
@@ -222,7 +284,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                       rel="noopener noreferrer"
                       className="inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-full border-0 bg-[#4e6cb8] px-7 text-base text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90 sm:w-auto"
                     >
-                      Visit {work.name}
+                      {tWorks("visit")} {work.name}
                       <ArrowUpRight className="size-4" strokeWidth={1.75} />
                     </a>
                   </div>
@@ -231,7 +293,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
               <div className="relative min-h-[280px] sm:min-h-[360px] lg:min-h-[520px]">
                 <Image
                   src={cover}
-                  alt={`${work.name} — project cover`}
+                  alt={`${work.name} — ${tWorks("projectCover")}`}
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -242,7 +304,6 @@ export default async function WorkDetailPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* challenge & solution */}
         {(work.challenge || work.solution) && (
           <section
             id="story"
@@ -254,21 +315,20 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 id="story-heading"
                 className="mx-auto max-w-4xl text-center text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl"
               >
-                Challenge &amp;{" "}
+                {tWorks("challengeSolutionPrefix")}{" "}
                 <AuroraText colors={AURORA_COLORS} speed={1}>
-                  solution
+                  {tWorks("challengeSolutionHighlight")}
                 </AuroraText>
               </h2>
 
               <WorkStoryCards
-                challenge={work.challenge}
-                solution={work.solution}
+                challenge={localizedChallenge}
+                solution={localizedSolution}
               />
             </div>
           </section>
         )}
 
-        {/* results — metrics */}
         {work.metrics && work.metrics.length > 0 && (
           <section
             id="results"
@@ -280,15 +340,15 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 id="results-heading"
                 className="mx-auto max-w-4xl text-center text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl"
               >
-                Proven{" "}
+                {tWorks("resultsPrefix")}{" "}
                 <AuroraText colors={AURORA_COLORS} speed={1}>
-                  results
+                  {tWorks("resultsHighlight")}
                 </AuroraText>
               </h2>
 
               <div className="w-full">
                 <HoverEffect
-                  items={work.metrics.map((m, i, arr) => ({
+                  items={localizedMetrics.map((m, i, arr) => ({
                     title: m.value,
                     description: m.label.replace(/\n/g, " "),
                     className:
@@ -301,7 +361,6 @@ export default async function WorkDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* gallery — bento grid, same layout as "How We Work" */}
         {gallery.length > 0 && (
           <section aria-labelledby="gallery-heading" className="w-full">
             <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-8 px-4 sm:gap-10 sm:px-5 xl:max-w-[88rem]">
@@ -309,9 +368,9 @@ export default async function WorkDetailPage({ params }: PageProps) {
                 id="gallery-heading"
                 className="mx-auto max-w-4xl text-center text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl"
               >
-                See it{" "}
+                {tWorks("galleryPrefix")}{" "}
                 <AuroraText colors={AURORA_COLORS} speed={1}>
-                  in action
+                  {tWorks("galleryHighlight")}
                 </AuroraText>
               </h2>
               <div className="flex h-auto min-h-0 w-full flex-col items-center sm:h-auto md:h-[78svh] md:h-[78dvh] md:min-h-[30rem] lg:h-[72svh] lg:h-[72dvh] lg:min-h-0">
@@ -320,27 +379,24 @@ export default async function WorkDetailPage({ params }: PageProps) {
                   splitMobile="equal"
                   mobileScrollTarget={false}
                   enableExpand={false}
-                  // The grid is designed for exactly 3 shots (tall first
-                  // card + 2 stacked) — extra screenshots are ignored so
-                  // every case study renders the identical layout.
                   cards={gallery.slice(0, 3).map<LayoutGridCard>((src, index) => ({
                     id: `gallery-${index}`,
                     content: <></>,
                     thumbnail: src,
                     alt:
-                      work.shotLabels?.[index] ??
-                      `${work.name} screenshot ${index + 1}`,
+                      localizedShotLabels?.[index] ??
+                      `${work.name} ${tWorks("screenshot")} ${index + 1}`,
                     href: work.href,
                     className: index === 0 ? "lg:row-span-2" : undefined,
                     overlay: (
                       <>
                         <p className="mt-2 text-lg font-medium tracking-tight text-white sm:text-xl">
-                          {work.shotLabels?.[index] ??
-                            `${work.name} — screenshot ${index + 1}`}
+                          {localizedShotLabels?.[index] ??
+                            `${work.name} — ${tWorks("screenshot")} ${index + 1}`}
                         </p>
                         {work.href && (
                           <p className="mt-1 flex items-center gap-1 text-xs font-medium tracking-wide text-white/60 uppercase">
-                            Visit project
+                            {tWorks("visitProject")}
                             <ArrowUpRight className="size-3" strokeWidth={2} />
                           </p>
                         )}
@@ -353,9 +409,9 @@ export default async function WorkDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        <ContactCta />
+        <ContactCta locale={locale} />
       </main>
-      <Footer />
+      <Footer locale={locale} />
       <ContactModal />
     </>
   );

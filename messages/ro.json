@@ -1,0 +1,644 @@
+{
+  "Metadata": {
+    "title": "Devalon — Studio de dezvoltare AI și software",
+    "description": "Studio de dezvoltare AI și software care construiește agenți AI, software personalizat și backend-uri scalabile pentru startup-uri și companii în creștere. De la concept la producție.",
+    "ogTitle": "Devalon — Dezvoltare AI și software",
+    "ogDescription": "Agenți AI, software personalizat și consultanță pentru startup-uri și companii în creștere. De la concept la producție.",
+    "caseStudy": "studiu de caz"
+  },
+  "Navbar": {
+    "links": {
+      "services": "Servicii",
+      "recommendations": "Recomandări",
+      "faq": "Întrebări frecvente",
+      "projects": "Proiecte"
+    },
+    "getInTouch": "Contactează-ne",
+    "openMenu": "Deschide meniul",
+    "menu": "Meniu",
+    "home": "Devalon — acasă"
+  },
+  "Footer": {
+    "tagline": "Construim, scalăm și întreținem software AI pentru startup-uri și companii.",
+    "explore": "Explorează",
+    "links": {
+      "services": "Servicii",
+      "recommendations": "Recomandări",
+      "howWeWork": "Cum lucrăm",
+      "faq": "Întrebări frecvente",
+      "projects": "Proiecte"
+    },
+    "getInTouch": "Contactează-ne",
+    "rights": "© {year} Devalon. Toate drepturile rezervate.",
+    "builtBy": "Construit de",
+    "comingSoon": "în curând"
+  },
+  "Hero": {
+    "titlePrefix": "Transformăm ideile în",
+    "titleHighlight": "Software scalabil.",
+    "subtitle": "Construim, scalăm și întreținem soluții software bazate pe AI pentru startup-uri și companii.",
+    "startProject": "Începe un proiect",
+    "seeWork": "Vezi lucrările noastre"
+  },
+  "Stats": {
+    "ariaLabel": "Devalon în cifre",
+    "titlePrefix": "Devalon în",
+    "titleHighlight": "cifre",
+    "items": {
+      "projectsShipped": {
+        "label": "Proiecte livrate în producție",
+        "sub": "9 studii de caz documentate"
+      },
+      "yearsBuilding": {
+        "label": "Ani de dezvoltare software",
+        "sub": "De la design la producție și scalare"
+      },
+      "countriesServed": {
+        "label": "Țări deservite",
+        "sub": "SUA · Danemarca · Moldova · România"
+      },
+      "industries": {
+        "label": "Industrii și nișe",
+        "sub": "SaaS · AI · Imobiliare · + altele"
+      }
+    }
+  },
+  "Services": {
+    "titlePrefix": "",
+    "titleHighlight": "Servicii",
+    "titleSuffix": " de dezvoltare software și AI",
+    "items": {
+      "aiAgents": {
+        "title": "Agenți AI și automatizare",
+        "description": "Agenți AI care fac muncă reală în afacerea ta: răspund clienților, extrag date din documente, îmbogățesc CRM-ul și automatizează fluxuri de lucru repetitive. Construiți pe modele OpenAI și Anthropic și integrați în instrumentele pe care le folosești deja, cu evaluări, mecanisme de protecție și monitorizare, ca să fie fiabili în producție, nu doar în demonstrații."
+      },
+      "digitalSolutions": {
+        "title": "Soluții digitale",
+        "description": "CRM-uri, ERP-uri, panouri de administrare, rezervări, inventar și portaluri pentru clienți, personalizate și construite de la zero în jurul operațiunilor tale, nu pe un șablon. Înlocuim tabelele și limitările SaaS cu propriul tău sistem: pipeline-uri, roluri și permisiuni, finanțe și raportare, automatizări și API-uri curate care scalează și nu te blochează niciodată la un furnizor."
+      },
+      "cloudInfrastructure": {
+        "title": "Infrastructură cloud",
+        "description": "AWS, Docker, CI/CD, backup-uri, monitorizare și uptime. Îl menținem funcțional și în creștere. Alerte proactive, optimizarea costurilor și a performanței și un inginer direct care îți cunoaște codul îți răspunde când ceva se strică. Documentat, gata de predare, fără tichete interminabile."
+      },
+      "appDevelopment": {
+        "title": "Dezvoltare de aplicații",
+        "description": "Aplicații iOS, Android, PWA și desktop care se simt native și sunt livrate corect, cu funcționare offline, notificări push, plăți și publicare în magazine incluse. Chat AI, căutare și automatizare în aplicație, plus raportare de crash-uri, lansări etapizate și îmbunătățire continuă după lansare."
+      }
+    }
+  },
+  "HowWeWork": {
+    "titlePrefix": "Cum lucrăm",
+    "titleHighlight": "cu dumneavoastră",
+    "expand": "Apăsați pentru a extinde",
+    "items": {
+      "discover-design": {
+        "title": "Descoperire și proiectare",
+        "description": "Începem prin a înțelege problema dvs., utilizatorii și constrângerile, apoi definim rapid cerințele, prototipurile și arhitectura tehnică. AI-ul accelerează cercetarea, specificațiile și wireframe-urile, astfel încât vedeți o direcție concretă în câteva zile, nu în luni.",
+        "tags": [
+          "Analiză de business",
+          "Prototipare",
+          "Arhitectura soluției",
+          "Consultanță AI"
+        ]
+      },
+      "build-integrate": {
+        "title": "Dezvoltare și integrare",
+        "description": "Ingineri seniori livrează produsul dvs. prin dezvoltare accelerată de AI: cod asistat, code review și teste în pipeline-uri CI/CD reale. Funcționalitățile LLM, automatizările și integrările ajung ca sisteme de producție, nu ca demonstrații.",
+        "tags": [
+          "Dezvoltare personalizată",
+          "Integrare API",
+          "QA și testare",
+          "DevOps"
+        ]
+      },
+      "deploy-evolve": {
+        "title": "Lansare, măsurare și evoluție",
+        "description": "Lansăm în cloud cu monitorizare, evaluări și observabilitate din prima zi, apoi continuăm să iterăm pe baza datelor reale de utilizare. Software-ul dvs. se îmbunătățește la fiecare ciclu, în loc să se degradeze după lansare.",
+        "tags": [
+          "Găzduire în cloud",
+          "Monitorizare",
+          "Suport și mentenanță",
+          "Optimizare"
+        ]
+      }
+    }
+  },
+  "Projects": {
+    "titlePrefix": "Studii",
+    "titleHighlight": "de caz",
+    "readCaseStudy": "Citește studiul de caz",
+    "items": {
+      "redcore": {
+        "client": "Afacere locală · SUA"
+      },
+      "dialogimobil": {
+        "client": "Imobiliare · Chișinău"
+      },
+      "2marketing": {
+        "client": "platformă SaaS cu IA · Danemarca"
+      },
+      "wynne": {
+        "client": "Aplicație web · SUA"
+      },
+      "premierinvest": {
+        "client": "Imobiliare · Chișinău"
+      },
+      "dialoginvest": {
+        "client": "Investiții · România"
+      },
+      "megawind": {
+        "client": "Tehnologie verde · UE"
+      },
+      "etatruck": {
+        "client": "Logistică · UE"
+      },
+      "palazzo": {
+        "client": "Wellness · Chișinău"
+      }
+    }
+  },
+  "Recommendations": {
+    "titlePrefix": "Construit pe încredere,",
+    "titleHighlight": "livrat în toată lumea",
+    "items": {
+      "dimitryBizga": {
+        "name": "Dimitry Bizga",
+        "role": "Fondator @ Synthax Codes",
+        "quote": "După ce am lucrat îndeaproape cu Marius la mai multe proiecte, în același grup, pot spune cu încredere că este un inginer software remarcabil. Și-a asumat întreaga responsabilitate pentru sistemele noastre backend de bază, a construit arhitecturi stabile de la zero și a rezolvat cu mare eficiență blocaje complexe de infrastructură. Marius se remarcă prin faptul că livrează exact ce are nevoie proiectul, transformând cerințe complexe într-un software solid, durabil și extrem de optimizat, care rulează impecabil în producție."
+      },
+      "inesaDita": {
+        "name": "Inesa Dita",
+        "role": "Agentă imobiliară și coach pentru femei · SUA",
+        "quote": "Colaborarea cu Marius a fost lipsită de efort încă din prima zi. A înțeles ce îmi trebuie înainte să apuc să explic complet, m-a ținut la curent la fiecare pas și a livrat un rezultat mult mai bine finisat decât mă așteptam. I-aș încredința orice proiect."
+      },
+      "redCoreConcrete": {
+        "name": "Red Core Concrete",
+        "role": "Antreprenor în lucrări de beton · New England, SUA",
+        "quote": "Am lucrat cu Marius Trelea la mai multe proiecte, iar fiecare experiență a fost excelentă. A construit site-ul companiei noastre exact așa cum ne-am dorit și a fost mereu receptiv, profesionist și ușor de contactat pe tot parcursul procesului. Totul a fost finalizat la timp, iar rezultatul final ne-a depășit așteptările."
+      },
+      "thomasBachPetersen": {
+        "name": "Thomas Bach Petersen",
+        "role": "Co-fondator și CTO @ 2ai",
+        "quote": "Marius și-a asumat întreaga responsabilitate pentru stratul nostru de integrare cu Meta, coloana vertebrală a automatizării noastre de publicare. Îmbină un spirit arhitectural solid cu un simț clar al priorităților de business, anticipând riscurile înainte ca acestea să ajungă la clienții noștri. Un partener de inginerie de încredere pentru orice companie care scalează o platformă serioasă."
+      },
+      "marketingAi": {
+        "name": "2Marketing.ai",
+        "role": "SaaS de marketing și AI · Danemarca",
+        "quote": "Marius a livrat infrastructura backend din spatele serviciilor noastre de publicare și media, care deservește peste 50 de clienți business. Arhitectura sa scalabilă ne permite să ne extindem rapid și eficient din punct de vedere al costurilor în noi canale de publicitate. Profesionist, transparent și concentrat constant pe rezultate."
+      },
+      "vasileBorogan": {
+        "name": "Vasile Borogan",
+        "role": "CEO @ Premier Estate",
+        "quote": "Îl recomand cu toată încrederea pe Marius ca inginer software. Am colaborat la aplicațiile noastre interne, iar el s-a ocupat cu succes atât de front-end, cât și de back-end, gestionând cu mare eficiență toate provocările de inginerie. Ceea ce îl face pe Marius să se remarce este expertiza sa tehnică solidă, combinată cu o mentalitate orientată spre client: are o abilitate remarcabilă de a înțelege exact ce își dorește clientul și de a transforma asta într-un software solid, durabil și extrem de optimizat."
+      },
+      "palazzoAesthetics": {
+        "name": "Palazzo Aesthetics",
+        "role": "Clinică de fitoestetică și fitoterapie · Chișinău, Moldova",
+        "quote": "Am avut o experiență excelentă lucrând cu Marius Trelea la site-ul clinicii noastre. Încă de la început a fost ușor de comunicat cu el, a înțeles ce ne dorim și ne-a pus ideile în practică mai bine decât ne așteptam. A fost de încredere pe tot parcursul proiectului, rapid în a face ajustări când era nevoie și a ținut totul în mișcare fără discuții inutile dus-întors. Site-ul a ieșit excelent, iar rezultatul ne-a încântat. Recomand cu siguranță colaborarea cu Marius."
+      }
+    }
+  },
+  "ContactCta": {
+    "formTitle": "Spune-ne ideea ta",
+    "formSubtitle1": "Spune-ne despre proiectul tău.",
+    "formSubtitle2": "Răspundem sincer, de obicei într-o zi.",
+    "ideaTitlePrefix": "Proiectul",
+    "ideaTitleHighlight": "tău",
+    "ideaBody": "Aici trăiesc ideile tale încă nedezvăluite, fie bune, fie nebunești. Spune-ne ce vrei să construiești, iar noi vom fi sinceri.",
+    "trustedBy": "De încredere pentru clienți din toată lumea",
+    "ratedAria": "Evaluat cu 5 din 5 de clienții noștri"
+  },
+  "ContactModal": {
+    "title": "Spune-ne ideea ta",
+    "description": "Bună, rea sau delirantă — îți spunem sincer ce trebuie pentru a o face realitate."
+  },
+  "ContactForm": {
+    "fullName": "Nume complet",
+    "email": "Email",
+    "phoneOptional": "Număr de telefon (opțional)",
+    "yourIdea": "Ideea ta",
+    "ideaPlaceholder": "Descrie proiectul — obiective, scop și termen",
+    "submit": "Trimite ideea",
+    "sending": "Se trimite",
+    "sentTitle": "Ideea a fost primită.",
+    "sentBody": "O vom citi și răspundem sincer — de obicei într-o zi. Fără presiune, fără spam.",
+    "sendAnother": "Trimite altă idee",
+    "preferEmail": "Preferi email?",
+    "errorSend": "Nu am putut trimite mesajul. Încearcă din nou."
+  },
+  "Faq": {
+    "titlePrefix": "Întrebări,",
+    "titleHighlight": "cu răspunsuri",
+    "items": [
+      {
+        "question": "Ce înseamnă, de fapt, „partener tehnologic full-cycle”?",
+        "answer": "Pe scurt: Devalon se ocupă de produsul dvs. de la prima idee până în ziua lansării și mult după aceea. Planificare, design, dezvoltare, testare, punere în producție și menținerea tuturor lucrurilor în funcțiune fără probleme. Aveți o singură echipă și o singură persoană de contact, în loc să jonglați între agenții și freelanceri.",
+        "points": [
+          "Planificare: stabilim ce construim și cum",
+          "Design și dezvoltare: de la primele schițe până la un produs funcțional",
+          "După lansare: hosting, monitorizare și îmbunătățiri"
+        ],
+        "cta": "Programați un apel introductiv gratuit"
+      },
+      {
+        "question": "De ce să alegeți Devalon în loc de angajări interne sau freelanceri?",
+        "answer": "Construirea propriei echipe este o mișcare excelentă pe termen lung, dar durează luni de zile și costă mult înainte să se construiască efectiv ceva. Freelancerii sunt mai ieftini, dar dacă unul dispare sau calitatea variază, proiectul dvs. are de suferit. La noi aveți o echipă cu experiență, gata să înceapă acum, pe care o puteți mări sau micșora oricând este nevoie.",
+        "points": [
+          "Începem în câteva zile, nu în luni",
+          "Designeri, dezvoltatori și testeri care lucrează împreună",
+          "Tot ce construim vă aparține"
+        ],
+        "cta": "Solicitați o estimare sinceră"
+      },
+      {
+        "question": "Nu am cunoștințe tehnice. Cum îmi pot testa ideea fără a risca mulți bani?",
+        "answer": "Nu trebuie să vorbiți „pe limba tehnologiei” ca să începeți. Pornim de la mic: transformăm ideea dvs. în ecrane simple, prin care puteți naviga, ca să le arătați unor oameni reali, clienți sau investitori și să aflați ce părere au. Investiți în produsul complet abia după ce știți că merită construit.",
+        "points": [
+          "Transformăm ideea dvs. într-o listă clară de funcționalități",
+          "Primiți o previzualizare interactivă pe care o puteți testa și arăta mai departe",
+          "Planul este agreat înainte de a construi produsul propriu-zis"
+        ],
+        "cta": "Testați-vă mai întâi ideea"
+      },
+      {
+        "question": "Cât va costa prima versiune și cât va dura?",
+        "answer": "Depinde de ce doriți să construiți: cu câte alte instrumente se conectează, câte tipuri de utilizatori are și dacă aveți nevoie și de aplicații mobile. Vestea bună este că nu trebuie să ghiciți. Spuneți-ne despre ideea dvs. și, de regulă, vă trimitem în cel mult o zi un interval de preț realist, înainte să vă angajați la ceva. Cele mai multe prime versiuni sunt lansate în câteva săptămâni, nu în luni, iar progresul real îl puteți vedea pe parcurs.",
+        "points": [
+          "Un interval de preț înainte de a semna ceva",
+          "Începeți cu esențialul, adăugați extra odată ce produsul aduce venituri",
+          "Un domeniu de aplicare clar, ca bugetul să nu vă surprindă"
+        ],
+        "cta": "Primiți estimarea în 30 de minute"
+      },
+      {
+        "question": "Preț fix sau plată pe măsura lucrului: ce mi se potrivește?",
+        "answer": "Dacă știți exact ce doriți și design-urile sunt gata, prețul fix este cea mai sigură variantă: cunoașteți totalul de la început. Dacă încă învățați și ajustați pe parcurs, lucru normal pentru afacerile noi, plata pentru timpul lucrat în cicluri scurte, cu plafon, vă oferă libertatea de a schimba direcția fără surprize neplăcute. Vă recomandăm ce vi se potrivește cel mai bine, nu ce ne aduce nouă mai mult profit.",
+        "points": [
+          "Preț fix: domeniu clar, total clar",
+          "Plată pe măsura lucrului: cicluri scurte cu limită stabilită, prioritățile pot fi schimbate săptămânal",
+          "Echipă dedicată: ideală pentru planuri mai ample, pe termen lung"
+        ],
+        "cta": "Întrebați ce variantă vi se potrivește"
+      },
+      {
+        "question": "Cui aparține lucrarea și voi rămâne dependent de Devalon?",
+        "answer": "Vă aparține și nu rămâneți niciodată blocat. Tot ce realizăm este al dvs.: codul, design-urile, structura datelor, absolut tot. Folosim tehnologii populare și bine cunoscute (precum React, Node.js și PostgreSQL) și predăm o documentație clară, astfel încât orice echipă bună să poată prelua munca de unde am lăsat-o. Dacă veți dori vreodată să mergeți mai departe, o puteți face.",
+        "points": [
+          "Primiți toate fișierele, accesurile și documentația",
+          "Tehnologii uzuale, nimic blocat sau secret",
+          "Sesiuni de predare, ca echipa dvs. să se simtă în siguranță"
+        ],
+        "cta": "Întrebați despre predare"
+      },
+      {
+        "question": "Puteți adăuga AI în produsul meu și este sigur?",
+        "answer": "Da. Construim funcționalități AI care funcționează în lumea reală, nu doar într-un demo: asistenți care răspund la întrebări pe baza documentelor dvs., chatboți, instrumente care citesc și organizează informații în locul dvs. Le testăm cu atenție, stabilim limite de siguranță și le monitorizăm după lansare. Securitatea face parte din modul nostru de lucru din prima zi, cu verificări automate, conexiuni protejate și acces controlat la fiecare actualizare.",
+        "points": [
+          "Fiecare funcționalitate AI este testată, protejată și monitorizată",
+          "Verificările de securitate rulează automat la fiecare actualizare",
+          "Continuăm să supraveghem și să remediem după lansare"
+        ],
+        "cta": "Discutați despre ideea dvs. de AI"
+      }
+    ]
+  },
+  "Works": {
+    "visit": "Vizitează",
+    "challengeSolutionPrefix": "Provocare și",
+    "challengeSolutionHighlight": "soluție",
+    "resultsPrefix": "Rezultate",
+    "resultsHighlight": "dovedite",
+    "galleryPrefix": "Vezi",
+    "galleryHighlight": "în acțiune",
+    "visitProject": "Vizitează proiectul",
+    "screenshot": "captură de ecran",
+    "projectCover": "copertă proiect",
+    "items": {
+      "redcore": {
+        "body": "Red Core este un expert în tăierea betonului din Massachusetts, care ajută antreprenorii, dezvoltatorii și proprietarii să obțină rezultate precise, curate și de încredere în foraj de carote, tăiere de dale, tăiere de pereți, demolări și restaurare de beton, oferind o experiență digitală modernă, orientată spre conversie, care transformă vizitatorii obișnuiți în lead-uri calificate și lucrări rezervate, construind încrederea pe termen lung prin prețuri transparente, rezultate dovedite și servicii disponibile non-stop.",
+        "challenge": "Înainte de transformare, afacerea pierdea oportunități valoroase din cauza unui parcurs fragmentat al clientului, a cererilor de ofertă lente și anevoioase, a vizibilității reduse a serviciilor și ofertelor speciale, a prezentării inconsistente a lucrărilor anterioare și a unei experiențe mobile slabe, care frustra factorii de decizie ocupați, ducând la solicitări pierdute, rate de conversie scăzute, efort manual de urmărire și dificultăți în a se remarca pe o piață locală competitivă, în ciuda expertizei și reputației solide din teren.",
+        "solution": "Noua soluție a creat o experiență fluidă, centrată pe client, care face efortless descoperirea serviciilor, explorarea exemplelor reale de proiecte, vizualizarea ofertelor atractive și solicitarea unei oferte în aceeași zi în câteva secunde, cu încărcare de fotografii și programare flexibilă a apelurilor de retur, asigurând capturarea instantanee a fiecărei solicitări pe desktop și mobil, ghidând prospectul lin de la interes la acțiune, consolidând credibilitatea și eliberând echipa pentru a se concentra pe livrarea unor lucrări excepționale în loc să urmărească lead-uri.",
+        "highlights": [
+          "Convertește traficul organic în solicitări de ofertă, oferind fiecărui serviciu principal pagini de destinație dedicate și galerii vizuale cu dovezi.",
+          "A integrat un CMS media personalizat care permite proprietarului să încarce fotografii de proiect și jurnale de lucrări direct din teren."
+        ],
+        "metrics": [
+          {
+            "value": "x3",
+            "label": "creștere a\nlead-urilor calificate"
+          },
+          {
+            "value": "+68%",
+            "label": "timp de răspuns\nmai rapid la ofertă"
+          },
+          {
+            "value": "+45%",
+            "label": "rată de conversie\nmai mare"
+          },
+          {
+            "value": "+70%",
+            "label": "creștere a\nimplicării mobile"
+          },
+          {
+            "value": "-95%",
+            "label": "reducere a\nsolicitărilor pierdute"
+          }
+        ],
+        "shotLabels": [
+          "Site de generare lead-uri",
+          "CMS media — proiecte",
+          "CTA ofertă în aceeași zi"
+        ]
+      },
+      "dialogimobil": {
+        "body": "Dialog Imobil este o platformă imobiliară cu rată mare de conversie, care transformă fiecare proprietate într-o oportunitate de generare de lead-uri, conectând fără întreruperi un portofoliu complet de apartamente, case, spații comerciale, terenuri și garaje cu cumpărători și chiriași serioși, printr-o prezentare multilingvă, elegantă și un motor integrat de angajare a clienților, oferind creștere susținută, autoritate de brand mai puternică și succes comercial măsurabil pentru o agenție vizionară care operează pe o piață imobiliară extrem de competitivă.",
+        "challenge": "Agenția era frânată de operațiuni imobiliare fragmentate și manuale, actualizări lente și inconsistente ale anunțurilor pentru mai multe tipuri de proprietăți, vizibilitate redusă pentru ofertele de valoare mare, experiențe de căutare frustrante pentru cumpărători care nu puteau filtra după nevoi reale, lipsa controlului asupra celor care puteau gestiona și publica anunțuri sensibile și absența unei modalități unificate de a cultiva solicitările, de a construi încrederea prin povești despre echipă și servicii sau de a converti navigarea ocazională în lead-uri calificate la scară.",
+        "solution": "Dialog Imobil a livrat o soluție de business unificată care centralizează întreaga gestionare a portofoliului într-un hub intuitiv, oferind în același timp cumpărătorilor o experiență de descoperire rapidă, elegantă și personalizată, cu filtre inteligente, explorare interactivă a locațiilor, oferte hot, îndrumare ipotecară și povești bogate despre servicii, expertiza echipei și încredere, susținută de fluxuri sigure pentru agenți, control privat și public al anunțurilor, gestionare efortless a conținutului multilingv și livrare media optimizată, care face publicarea facilă, menține fiecare anunț corect și on-brand și ghidează fiecare vizitator natural de la interes la solicitare și până la tranzacție încheiată.",
+        "highlights": [
+          "A construit un panou de administrare personalizat care permite agenților să actualizeze proprietăți, oferte hot și articole în timp real, fără ajutor tehnic.",
+          "A simplificat navigarea cumpărătorilor cu hărți interactive, categorii de proprietăți filtrabile și formulare directe de contact."
+        ],
+        "metrics": [
+          {
+            "value": "+70%",
+            "label": "publicare mai rapidă\na proprietăților"
+          },
+          {
+            "value": "x3",
+            "label": "creștere a\nlead-urilor calificate"
+          },
+          {
+            "value": "-60%",
+            "label": "reducere a efortului\nadministrativ"
+          },
+          {
+            "value": "+45%",
+            "label": "implicare mai mare\na cumpărătorilor"
+          },
+          {
+            "value": "+85%",
+            "label": "experiență de navigare\nmai rapidă"
+          }
+        ],
+        "shotLabels": [
+          "Platformă de anunțuri",
+          "Tabel admin anunțuri",
+          "Formular editare anunț"
+        ]
+      },
+      "2marketing": {
+        "body": "2Marketing este sistemul de operare de marketing complet, bazat pe AI, care transformă modul în care cresc afacerile mici și mijlocii, unificând crearea automată de conținut, gestionarea inteligentă a media, paginile de destinație cu rată mare de conversie și publicarea fiabilă cross-platform într-o singură platformă fără întreruperi, care oferă marketing de calitate de agenție la o fracțiune din cost, timp și efort, ajutând clienții să reducă costurile la jumătate, să dubleze conversiile și să rămână perfect on-brand pe fiecare canal.",
+        "challenge": "Afacerile în creștere erau captive într-o realitate de marketing fragmentată și costisitoare, jonglând cu instrumente deconectate pentru idei, active, campanii și publicare, bazându-se pe agenții costisitoare sau muncă manuală nesfârșită, luptând cu biblioteci media neetichetate, branding inconsistent, programe ratate, încărcări eșuate și texte slabe pentru paginile de destinație, care iroseau bugetul, epuizau echipele și făceau imposibilă atingerea sau scalarea unei creșteri predictibile.",
+        "solution": "2Marketing înlocuiește haosul cu o platformă inteligentă, mereu activă, care creează automat o lună întreagă de idei on-brand din conținutul propriu al fiecărui client, organizează și perfecționează instantaneu mii de imagini și videoclipuri cu AI care păstrează fețele și mesajul, redactează texte pentru pagini de destinație care rivalizează cu experții umani, validează și publică impecabil pe Meta, Instagram, Facebook, LinkedIn, Google și Reddit cu recuperare și sincronizare integrate, orchestrată printr-un centru de comandă unic cu un coechipier AI mereu activ care își amintește de fiecare client și se ocupă de munca grea, astfel încât afacerile să facă marketing mai rapid, mai inteligent și cu încredere totală.",
+        "highlights": [
+          "Construit pentru scală: procesează fiabil peste 100.000 de postări și actualizări de anunțuri automatizate lunar, cu recuperare automată a erorilor.",
+          "Economisește peste 15 ore săptămânal per afacere, înlocuind gestionarea manuală a anunțurilor cu publicarea simplificată într-un singur clic."
+        ],
+        "metrics": [
+          {
+            "value": "+50%",
+            "label": "economii la\ncosturile de marketing"
+          },
+          {
+            "value": "x2",
+            "label": "rate de conversie\nmai mari"
+          },
+          {
+            "value": "+90%",
+            "label": "timp economisit\nla marketing"
+          },
+          {
+            "value": "+95%",
+            "label": "succes la publicare\nși campanii"
+          },
+          {
+            "value": "+99.9%",
+            "label": "livrare automată\nfiabilă"
+          }
+        ],
+        "shotLabels": [
+          "Aplicație mobilă",
+          "Pagină de destinație",
+          "Panou de administrare"
+        ]
+      },
+      "wynne": {
+        "body": "Wynne Home Manager este o platformă premium de gestionare a locuinței, bazată pe abonament, concepută pentru proprietarii pretențioși pentru a proteja, conserva și spori valoarea pe termen lung a proprietăților lor prin planuri personalizate de întreținere, îndrumare dedicată a consilierilor și îngrijire proactivă a proprietății, oferind liniște totală, prevenind reparațiile costisitoare și transformând proprietatea dintr-o întreținere reactivă într-o gestionare strategică a activului, stimulând în același timp satisfacția excepțională a clienților, loialitatea și creșterea veniturilor recurente.",
+        "challenge": "Înainte de Wynne, proprietarii și consilierii se confruntau cu fricțiuni constante din cauza îngrijirii fragmentate și manuale a proprietății, întreținerea sezonieră ratată ducând la reparații de urgență costisitoare, comunicarea și programarea inconsistente provocând întârzieri și confuzie, onboarding-ul și prețurile complexe și opace frustrând clienții noi și încetinind conversia, iar lipsa vizibilității centralizate asupra stării locuinței, a sarcinilor viitoare sau a istoricului proprietății făcând imposibilă menținerea unei abordări proactive, protejarea valorii investiției sau livrarea eficientă a unui serviciu white-glove scalabil.",
+        "solution": "Wynne Home Manager elimină aceste fricțiuni printr-o experiență ghidată, fără întreruperi, care începe cu un sondaj intuitiv al proprietății și un plan de abonament bazat pe suprafață, trece fără efort prin programarea integrată a vizitelor și asocierea cu consilieri experți și menține valoarea printr-un tablou de bord centralizat al stării locuinței, calendare automate de întreținere personalizată, memento-uri proactive, alerte pentru întârzieri și protecție la intemperii, plus plăți și gestionare a documentelor simplificate, împuternicind clienții să își gestioneze întreaga proprietate fără efort, în timp ce consilierii livrează servicii excepționale la scară, aprofundează relațiile și accelerează creșterea afacerii cu ușurință și eficiență.",
+        "highlights": [
+          "Sondaj intuitiv al proprietății și abonament bazat pe suprafață, cu programare integrată a vizitelor și asociere cu consilieri experți.",
+          "Tablou de bord centralizat al stării locuinței cu calendare automate de întreținere, memento-uri proactive, protecție la intemperii, plăți și gestionare a documentelor."
+        ],
+        "metrics": [
+          {
+            "value": "-70%",
+            "label": "timp de\nonboarding"
+          },
+          {
+            "value": "+95%",
+            "label": "finalizare\nla timp"
+          },
+          {
+            "value": "-60%",
+            "label": "costuri\noperaționale"
+          },
+          {
+            "value": "x3",
+            "label": "productivitate\nconsilieri"
+          },
+          {
+            "value": "+85%",
+            "label": "retenție\nclienți"
+          }
+        ],
+        "shotLabels": [
+          "Landing și autentificare",
+          "Panou de administrare",
+          "Panou client"
+        ]
+      },
+      "premierinvest": {
+        "body": "Premier Imobil este piața imobiliară all-in-one de top din Chișinău, care reunește apartamente, case, spații comerciale și terenuri de vânzare și închiriere într-o singură destinație de încredere, oferind cumpărătorilor, vânzătorilor și chiriașilor posibilitatea de a descoperi, compara și conecta cu încredere printr-o experiență multilingvă captivantă, care transformă navigarea cu intenție mare în vizionări rezervate, stimulând în același timp creșterea susținută a lead-urilor, anunțurilor și loialității clienților.",
+        "challenge": "Înainte de transformare, Premier Imobil se confrunta cu vizibilitate fragmentată a proprietăților, fluxuri de lucru manuale lente pentru anunțuri, experiențe de căutare copleșitoare și nefocalizate, bariere lingvistice pentru o audiență locală și internațională diversă și comunicare deconectată între clienți și agenți, ducând la cumpărători frustrați care nu găseau rapid proprietăți relevante, solicitări de valoare mare pierdute, timp prelungit pe piață, povară administrativă grea pentru echipă și un parcurs inconsistent al clientului care limita generarea de lead-uri, conversia și diferențierea competitivă pe o piață aglomerată.",
+        "solution": "Am creat o piață unificată, centrată pe client, care face descoperirea proprietăților efortless și orientată spre acțiune, oferind navigare intuitivă pe categorii, filtrare inteligentă puternică, descoperire interactivă a locațiilor pe hartă, favorite personalizate și conectare directă instantanee cu agenți dedicați, toate complet optimizate pentru mobil și disponibile fără întreruperi în română, rusă și engleză, permițând Premier Imobil să publice noi oportunități mai rapid, să mențină cumpărătorii angajați mai mult timp, să captureze semnificativ mai multe solicitări calificate și să ghideze fiecare client lin de la prima căutare la vizionarea finală, reducând drastic efortul operațional și sporind încrederea și valoarea percepută a brandului.",
+        "highlights": [
+          "Navigare intuitivă pe categorii cu filtrare inteligentă, descoperire pe hartă, favorite și conectare directă instantanee cu agentul.",
+          "Complet optimizat pentru mobil și trilingv RO/RU/EN, cu publicare mai rapidă și implicare mai mare a cumpărătorilor."
+        ],
+        "metrics": [
+          {
+            "value": "+180%",
+            "label": "solicitări calificate\nde la cumpărători"
+          },
+          {
+            "value": "+65%",
+            "label": "implicare la\nanunțurile de proprietăți"
+          },
+          {
+            "value": "-55%",
+            "label": "timp mediu de\ncăutare proprietate"
+          },
+          {
+            "value": "-70%",
+            "label": "efort de gestionare\nmanuală a anunțurilor"
+          },
+          {
+            "value": "x3",
+            "label": "viteză de conversie\nsolicitare-vizionare"
+          }
+        ],
+        "shotLabels": [
+          "Platformă de anunțuri",
+          "Pagină proprietate",
+          "Căutare filtrată"
+        ]
+      },
+      "dialoginvest": {
+        "body": "Dialog Invest este poarta exclusivă a României pentru investitorii internaționali care caută o intrare sigură, cu randament ridicat, pe piața Uniunii Europene, prin intermediul imobiliarelor comerciale verificate off-market și al afacerilor profitabile turnkey, oferind venit pasiv imediat, creștere strategică a capitalului și proprietate complet gestionată fără riscurile anunțurilor publice, împuternicind clienții să construiască portofolii stabile denominate în euro cu expertiză locală de încredere, tranzacții transparente și parteneriat pe termen lung la fiecare pas.",
+        "challenge": "Investitorii internaționali dornici să intre pe piața UE erau frânați de prețurile umflate din Europa de Vest, anunțurile publice aglomerate și nesigure, cerințele complexe legale și fiscale, barierele lingvistice și absența completă a partenerilor de încredere la fața locului, lăsându-i expuși la tranzacții riscante, due diligence nesfârșit, intrare lentă și stresantă pe piață, profitabilitate incertă și oportunități pierdute pentru creștere stabilă pe termen lung.",
+        "solution": "Dialog Invest elimină fiecare barieră oferind acces exclusiv la proprietăți off-market verificate și afaceri operaționale adaptate precis bugetului și strategiei fiecărui investitor, combinând analize financiare aprofundate, evaluarea riscurilor și prognoza ROI cu protecție juridică completă din partea avocaților români licențiați, suport transparent la tranzacție și configurare completă a afacerii, inclusiv înregistrarea companiei, servicii bancare și consultanță fiscală, plus gestionare la distanță opțională, transformând o investiție transfrontalieră complexă într-o experiență rapidă, sigură și efortless profitabilă, care generează randamente din prima zi.",
+        "highlights": [
+          "Acces exclusiv la proprietăți off-market verificate și afaceri turnkey adaptate bugetului și strategiei fiecărui investitor.",
+          "Analize aprofundate, evaluarea riscurilor și prognoza ROI cu protecție juridică completă, configurare a afacerii și gestionare la distanță opțională."
+        ],
+        "metrics": [
+          {
+            "value": "+7.6%",
+            "label": "randament anual pasiv\nîn euro"
+          },
+          {
+            "value": "+30%",
+            "label": "creștere a capitalului\nîn 12-24 luni"
+          },
+          {
+            "value": "x3",
+            "label": "costuri de achiziție\nmai mici vs. Europa de Vest"
+          },
+          {
+            "value": "+48%",
+            "label": "profit net la revânzare\nîn 14 luni"
+          },
+          {
+            "value": "-70%",
+            "label": "timp mai scurt până la\nactiv UE verificat"
+          }
+        ],
+        "shotLabels": [
+          "Landing investitor",
+          "Avantaje cheie",
+          "Strategii de investiție"
+        ]
+      },
+      "megawind": {
+        "body": "Am ajutat șapte clienți locali să transforme un singur șablon reutilizabil de landing page în șapte motoare de generare de lead-uri branded pentru aplicarea la granturi verzi UE — lansând Solo Trans Energy, Eximius, Megawind, Importex Energy, Wind Rise, More Power și Nano Wind dintr-un CMS centralizat, fiecare cu propria identitate, audiență și conținut în română/rusă, construite pentru a captura rapid lead-uri cu intenție mare și a rămâne pregătite pentru granturi.",
+        "challenge": "Înainte de sistem, fiecare brand avea nevoie de un landing separat, cu dezvoltări bespoke lente, pregătire inconsistentă pentru granturi, efort duplicat pe șapte codebase-uri, lipsa controlului CMS per brand și conținut fragmentat în română/rusă, care făceau imposibilă scalarea rapidă a aplicațiilor pentru granturi UE.",
+        "solution": "Am livrat un șablon de înaltă performanță și o arhitectură de gestionare centralizată care lansează șapte landing-uri branded dintr-un singur codebase — Solo Trans Energy (solotransenergy.md), Eximius (eximius.md), Megawind (megawind.md), Importex Energy (importexenergy.md), Wind Rise (windrise.md), More Power (morepower.md) și Nano Wind (nanowind.md) — fiecare cu spații de lucru CMS independente, conținut localizat RO/RU, produse și știri, performanță pregătită pentru granturi și identitate consistentă.",
+        "highlights": [
+          "Șapte landing-uri branded dintr-un singur sistem — Solo Trans Energy, Eximius, Megawind, Importex Energy, Wind Rise, More Power, Nano Wind (RO/RU).",
+          "Un șablon, șapte spații de lucru CMS independente — fiecare brand controlează propriul conținut localizat și paginile pregătite pentru granturi fără ajutor de la dezvoltatori."
+        ],
+        "metrics": [
+          {
+            "value": "7",
+            "label": "landing-uri branded\nun singur sistem"
+          },
+          {
+            "value": "EU",
+            "label": "landing-uri RO/RU\npregătite pentru granturi"
+          },
+          {
+            "value": "x5",
+            "label": "lansare mai rapidă\na brandului"
+          },
+          {
+            "value": "100%",
+            "label": "control independent\nal conținutului"
+          },
+          {
+            "value": "24/7",
+            "label": "uptime multi-brand"
+          }
+        ],
+        "shotLabels": [
+          "MorePower — hero energie eoliană",
+          "Importex-Trans — despre și servicii",
+          "Știri solare și formular lead",
+          "CTA solar și știri"
+        ]
+      },
+      "etatruck": {
+        "body": "Pagina de destinație personalizată ETA Truck a fost proiectată și construită ca un motor de generare de lead-uri B2B de înaltă performanță pentru a stabili încrederea pe piață și a converti prospectele de transport european în solicitări active. Prin concentrarea pe ierarhie vizuală convingătoare, segmentare clară a serviciilor și fluxuri fără fricțiune pentru cereri de ofertă, platforma sporește credibilitatea brandului și capturează sistematic clienți logistici B2B de valoare mare online.",
+        "challenge": "ETA Truck suferea anterior de vizibilitate digitală limitată și o prezență online neoptimizată care nu reușea să comunice eficient capabilitățile specializate de transport greu sau să convertească prospecții vizitatori. Clienții potențiali găseau dificil să evalueze rapid nivelurile de serviciu, să verifice acoperirea internațională sau să solicite oferte personalizate, rezultând rate mari de respingere și oportunități de venit B2B pierdute.",
+        "solution": "Am dezvoltat o pagină de destinație de marketing simplificată, complet responsivă, construită pentru viteză, claritate imediată și conversie maximă a lead-urilor. Organizând ofertele logistice complexe în categorii vizuale clare, integrând CTA-uri interactive pentru oferte, evidențiind dovada socială și optimizând accesibilitatea multilingvă pe piețele europene, platforma transformă traficul digital într-un flux constant de lead-uri logistice calificate.",
+        "highlights": [
+          "Ierarhie vizuală convingătoare cu segmentare clară a serviciilor și fluxuri fără fricțiune pentru cereri de ofertă.",
+          "Landing complet responsiv, optimizat pentru viteză, cu CTA-uri interactive, dovadă socială și accesibilitate multilingvă."
+        ],
+        "metrics": [
+          {
+            "value": "+65%",
+            "label": "rată de conversie\nvizitator-lead"
+          },
+          {
+            "value": "-50%",
+            "label": "rată de\nrespingere"
+          },
+          {
+            "value": "x3",
+            "label": "volum de solicitări\nde ofertă"
+          },
+          {
+            "value": "+85%",
+            "label": "implicare utilizatori\nmobile"
+          },
+          {
+            "value": "-70%",
+            "label": "timp de încărcare\npagină"
+          }
+        ],
+        "shotLabels": [
+          "Site corporativ",
+          "Servicii și oferte",
+          "Galerie flotă"
+        ]
+      },
+      "palazzo": {
+        "body": "Palazzo Aesthetics este o clinică boutique de wellness din Chișinău, specializată în fitoestetică și fitoterapie, care îmbină peste 65 de ani de expertiză botanică cu știința modernă pentru a oferi rezultate naturale, vizibile pentru piele, corp și bunăstare. Pentru a transforma reputația locală puternică în creștere predictibilă, Palazzo a colaborat cu noi pentru a lansa o platformă digitală premium, multilingvă, care atrage clienți cu intenție mare, construiește încredere instantanee și convertește interesul în programări rezervate non-stop.",
+        "challenge": "Înainte de noua platformă, Palazzo se baza pe procese manuale fragmentate pentru a gestiona cererea, cu solicitări de programare dispersate în mesaje Instagram, apeluri telefonice și cereri în persoană, care erau lente de gestionat, ușor de ratat și imposibil de urmărit în afara programului de lucru. Clinica nu avea o prezență online centrală, profesională pentru a explica clar cele două servicii de bază, pentru a liniști clienții pretențioși și pentru a servi egal vorbitorii de română, rusă și engleză, determinând vizitatorii cu intenție mare să abandoneze și să aleagă competitori cu programare mai simplă. Actualizările de conținut și promovare necesitau ajutor extern și durau prea mult, afacerea era aproape invizibilă în căutarea organică, iar timp clinic valoros se pierdea în administrare repetitivă în loc de îngrijire, urmărire și creștere.",
+        "solution": "Am livrat un site elegant, orientat spre conversie, care face descoperirea, încrederea și programarea la Palazzo efortless pe orice dispozitiv și în orice limbă, cu parcursuri clare pentru fitoestetică și fitoterapie, puncte de dovadă convingătoare și programare într-un singur clic care capturează și califică fiecare lead instantaneu, chiar și după ore. Un hub de conținut intuitiv permite acum echipei să publice știri, să actualizeze servicii și să partajeze promoții în câteva minute fără suport tehnic, în timp ce fluxurile integrate de contact asigură că nicio solicitare nu se pierde și fiecare prospect primește un răspuns prompt și profesional. Proiectat pentru descoperire și încredere din prima impresie, platforma ghidează vizitatorii natural de la inspirație la acțiune, reduce dramatic fricțiunea administrativă, scurtează ciclul de decizie și creează o experiență client fără întreruperi care transformă constant interesul în programări confirmate, venituri și susținere pe termen lung.",
+        "highlights": [
+          "Parcursuri elegante, orientate spre conversie, pentru fitoestetică și fitoterapie, cu programare într-un singur clic care capturează fiecare lead după ore.",
+          "Hub de conținut intuitiv pentru știri, servicii și promoții cu fluxuri integrate de contact și răspuns profesional prompt."
+        ],
+        "metrics": [
+          {
+            "value": "+240%",
+            "label": "creștere a lead-urilor\ncalificate inbound"
+          },
+          {
+            "value": "+68%",
+            "label": "rată de conversie\nla programări online"
+          },
+          {
+            "value": "-75%",
+            "label": "timp de gestionare\nmanuală a programărilor"
+          },
+          {
+            "value": "+190%",
+            "label": "creștere a vizibilității\nîn căutarea organică"
+          },
+          {
+            "value": "x3",
+            "label": "programări lunare\nrezervate"
+          }
+        ],
+        "shotLabels": [
+          "Site clinică",
+          "Catalog produse",
+          "Detaliu produs"
+        ]
+      }
+    }
+  }
+}

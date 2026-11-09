@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { getLocale, getTranslations } from "next-intl/server"
 import {
   Blocks,
   CircleHelp,
@@ -30,12 +31,12 @@ const linkedin = {
 }
 
 const sections = [
-  { label: "Services", href: "#services", icon: Blocks },
-  { label: "Recommendations", href: "#recommendations", icon: MessageSquareQuote },
-  { label: "How we work", href: "#how-we-work", icon: Users },
-  { label: "FAQ", href: "#faq", icon: CircleHelp },
-  { label: "Projects", href: "#work", icon: FolderGit2 },
-]
+  { key: "services", href: "#services", icon: Blocks },
+  { key: "recommendations", href: "#recommendations", icon: MessageSquareQuote },
+  { key: "howWeWork", href: "#how-we-work", icon: Users },
+  { key: "faq", href: "#faq", icon: CircleHelp },
+  { key: "projects", href: "#work", icon: FolderGit2 },
+] as const
 
 // All profiles are live. `href: null` still renders an inert badge rather than
 // a fake href="#" link, so a future placeholder can be added back safely.
@@ -46,7 +47,13 @@ const socials: { label: string; href: string | null; icon: { path: string } }[] 
   { label: "LinkedIn", href: devalonLinkedIn, icon: linkedin },
 ]
 
-export default function Footer() {
+export default async function Footer({
+  locale: localeProp,
+}: {
+  locale?: string;
+}) {
+  const locale = localeProp ?? (await getLocale());
+  const t = await getTranslations({ locale, namespace: "Footer" });
   return (
     <footer className="dark relative isolate overflow-hidden border-t border-border bg-background bg-[linear-gradient(to_right,oklch(0.16_0.012_258),oklch(0.185_0.045_262))] text-foreground">
       <div
@@ -71,8 +78,7 @@ export default function Footer() {
               />
             </NavLink>
             <p className="mt-5 max-w-sm text-base leading-relaxed text-muted-foreground">
-              Building, scaling, and maintaining AI software for startups and
-              enterprises.
+              {t("tagline")}
             </p>
             <div className="mt-5 flex items-center gap-2.5">
               {socials.map((social) =>
@@ -97,8 +103,8 @@ export default function Footer() {
                 ) : (
                   <span
                     key={social.label}
-                    title={`${social.label} — coming soon`}
-                    aria-label={`${social.label} (coming soon)`}
+                    title={`${social.label} — ${t("comingSoon")}`}
+                    aria-label={`${social.label} (${t("comingSoon")})`}
                     className="flex size-9 cursor-default items-center justify-center rounded-lg border border-border bg-secondary/60 text-muted-foreground/50"
                   >
                     <svg
@@ -117,7 +123,7 @@ export default function Footer() {
 
           <div>
             <h4 className="text-base font-semibold text-foreground">
-              Explore
+              {t("explore")}
             </h4>
             <ul className="mt-3 space-y-2">
               {sections.map((section) => (
@@ -127,11 +133,11 @@ export default function Footer() {
                     className="flex items-center gap-2.5 text-base text-muted-foreground transition-colors hover:text-foreground"
                   >
                     <section.icon
-                      className="size-4"
+                      className="size-4 shrink-0"
                       strokeWidth={1.75}
                       aria-hidden
                     />
-                    {section.label}
+                    {t(`links.${section.key}`)}
                   </NavLink>
                 </li>
               ))}
@@ -140,7 +146,7 @@ export default function Footer() {
 
           <div>
             <h4 className="text-base font-semibold text-foreground">
-              Get in touch
+              {t("getInTouch")}
             </h4>
             <Link
               href={`mailto:${siteEmail}`}
@@ -160,10 +166,10 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-base text-muted-foreground sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} Devalon. All rights reserved.</p>
+          <p>{t("rights", { year: new Date().getFullYear() })}</p>
           <p className="flex items-center gap-4 text-sm">
             <span className="flex items-center gap-1.5">
-              Built by
+              {t("builtBy")}
               <Image
                 src="/devalon-logos/light-txt.svg"
                 alt="Devalon"

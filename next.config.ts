@@ -1,10 +1,12 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   images: {
     formats: ["image/avif", "image/webp"],
+    deviceSizes: [640, 828, 1080, 1280, 1920],
     // Devalon brand logos are local, trusted SVGs.
     dangerouslyAllowSVG: true,
     contentDispositionType: "inline",
@@ -45,4 +47,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin();
+export default withNextIntl(nextConfig);

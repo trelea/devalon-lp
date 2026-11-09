@@ -1,6 +1,7 @@
 "use client"
 
 import { forwardRef, type AnchorHTMLAttributes, type MouseEvent } from "react"
+import { useLocale } from "next-intl"
 
 type NavLinkProps = Omit<
   AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -18,17 +19,30 @@ type NavLinkProps = Omit<
  */
 export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
   function NavLink({ href, onNavigate, onClick, ...rest }, ref) {
+    const locale = useLocale();
+
+    // Keep hash links on the current localized page.
+    const effectiveHref =
+      href.startsWith("/#") && href.length > 2
+        ? `/${locale}${href.slice(1)}`
+        : href;
+
     const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
       onClick?.(event)
       if (event.defaultPrevented) return
 
-      // Handle root + hash links (e.g., "/#services")
-      if (href.startsWith("/#") && href.length > 2) {
-        const hash = href.slice(1) // "#services"
-        const isOnRoot = window.location.pathname === "/"
+      // Handle localized root + hash links (e.g. "/en#services")
+      if (
+        effectiveHref.startsWith(`/${locale}#`) &&
+        effectiveHref.length > `/${locale}`.length + 1
+      ) {
+        const hash = effectiveHref.slice(effectiveHref.indexOf("#"))
+        const isOnRoot =
+          window.location.pathname === `/${locale}` ||
+          window.location.pathname === `/${locale}/` ||
+          window.location.pathname === "/"
 
         if (isOnRoot) {
-          // Already on root — smooth scroll to the target
           event.preventDefault()
           let target: Element | null = null
           try {
@@ -57,15 +71,51 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
           window.history.replaceState(null, "", hash)
           onNavigate?.()
         }
-        // If NOT on root, let the browser navigate normally (full page load)
+        return
+      }
+
+      // Handle root + hash links (e.g., "/#services") for the default case
+      if (effectiveHref.startsWith("/#") && effectiveHref.length > 2) {
+        const hash = effectiveHref.slice(1)
+        const isOnRoot = window.location.pathname === "/"
+
+        if (isOnRoot) {
+          event.preventDefault()
+          let target: Element | null = null
+          try {
+            target = document.querySelector(hash)
+          } catch {
+            return
+          }
+          if (!target) return
+
+          const win = window as unknown as {
+            __lenis?: {
+              scrollTo: (
+                target: string,
+                options?: { offset?: number; duration?: number },
+              ) => void
+            }
+          }
+          if (win.__lenis) {
+            const isMobile = window.matchMedia("(max-width: 768px)").matches
+            const delay = isMobile ? 80 : 0
+            const offset = isMobile && hash === "#work" ? 16 : 0
+            setTimeout(() => win.__lenis!.scrollTo(hash, { offset, duration: 1.4 }), delay)
+          } else {
+            target.scrollIntoView({ behavior: "smooth", block: "start" })
+          }
+          window.history.replaceState(null, "", hash)
+          onNavigate?.()
+        }
         return
       }
 
       // Handle plain hash links (e.g., "#services")
-      if (!href.startsWith("#") || href.length < 2) return
+      if (!effectiveHref.startsWith("#") || effectiveHref.length < 2) return
       let target: Element | null = null
       try {
-        target = document.querySelector(href)
+        target = document.querySelector(effectiveHref)
       } catch {
         return
       }
@@ -82,14 +132,14 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
       if (win.__lenis) {
         const isMobile = window.matchMedia("(max-width: 768px)").matches
         const delay = isMobile ? 80 : 0
-        const offset = isMobile && href === "#work" ? 16 : 0
-        setTimeout(() => win.__lenis!.scrollTo(href, { offset, duration: 1.4 }), delay)
+        const offset = isMobile && effectiveHref === "#work" ? 16 : 0
+        setTimeout(() => win.__lenis!.scrollTo(effectiveHref, { offset, duration: 1.4 }), delay)
       } else {
         target.scrollIntoView({ behavior: "smooth", block: "start" })
       }
-      window.history.replaceState(null, "", href)
+      window.history.replaceState(null, "", effectiveHref)
       onNavigate?.()
     }
-    return <a {...rest} ref={ref} href={href} onClick={handleClick} />
+    return <a {...rest} ref={ref} href={effectiveHref} onClick={handleClick} />
   }
 )

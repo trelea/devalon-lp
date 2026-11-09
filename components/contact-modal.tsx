@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useTranslations } from "next-intl"
 
 import { ContactForm } from "@/components/contact-form"
 import {
@@ -17,6 +18,7 @@ import {
  * carries id="contact".
  */
 export function ContactModal() {
+  const t = useTranslations("ContactModal")
   const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
@@ -41,11 +43,10 @@ export function ContactModal() {
         className="dark z-[70] block max-h-[calc(100svh-2rem)] max-h-[calc(100dvh-2rem)] w-[calc(100vw-2rem)] max-w-xl overflow-y-auto rounded-[2rem] border border-border bg-card p-6 text-base text-foreground shadow-2xl shadow-black/40 ring-0 sm:rounded-[2.5rem] sm:max-w-xl sm:p-8"
       >
         <DialogTitle className="text-center text-2xl font-bold tracking-tight text-foreground">
-          Tell us your idea
+          {t("title")}
         </DialogTitle>
         <DialogDescription className="mx-auto mt-2 max-w-md text-center text-base leading-relaxed text-muted-foreground">
-          Good, bad, or delusional — we&apos;ll tell you honestly what it
-          takes to make it real.
+          {t("description")}
         </DialogDescription>
         <ContactForm className="mt-6" />
       </DialogContent>

@@ -1,6 +1,7 @@
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 
 import { NavLink } from "@/components/nav-link";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { AuroraText } from "@/components/ui/aurora-text";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,9 @@ import { HeroGlobeLazy } from "./hero-globe-lazy";
 // Server-rendered copy + CTAs paint immediately for LCP/SEO; the decorative
 // WebGL globe hydrates separately on the client and never blocks the H1.
 
-export function Hero() {
+export async function Hero({ locale: localeProp }: { locale?: string }) {
+  const locale = localeProp ?? (await getLocale());
+  const t = await getTranslations({ locale, namespace: "Hero" });
   return (
     <section
       id="top"
@@ -21,28 +24,27 @@ export function Hero() {
           {/* left: copy — balanced centered + 320px smaller, tighter on 1920 */}
           <div className="flex flex-col items-start justify-center bg-white px-5 py-6 text-left max-[360px]:px-4 max-[360px]:py-4 sm:px-6 sm:py-7 md:px-7 md:py-8 lg:px-8 lg:py-8 xl:px-10 xl:py-10 2xl:px-12 2xl:py-14">
             <h1 className="relative z-10 max-w-2xl px-2 text-3xl font-bold tracking-tight text-foreground/95 max-[360px]:text-[1.65rem] max-[360px]:leading-tight sm:text-4xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-6xl xl:leading-[1.08]">
-              We turn ideas into{" "}
+              {t("titlePrefix")}{" "}
               <AuroraText
                 colors={["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"]}
                 speed={1}
               >
-                Scalable Software.
+                {t("titleHighlight")}
               </AuroraText>
             </h1>
 
             <p className="relative z-10 mt-3 max-w-xl px-2 text-base leading-relaxed text-muted-foreground max-[360px]:mt-2 max-[360px]:text-sm max-[360px]:leading-snug sm:mt-4 sm:text-lg md:text-lg lg:mt-5 lg:text-xl xl:mt-5 xl:text-xl 2xl:mt-6 2xl:text-2xl">
-              Building, scaling, and maintaining AI software solutions for
-              startups and enterprises.
+              {t("subtitle")}
             </p>
 
             <div className="relative z-10 mt-5 flex w-full flex-col items-start gap-2 px-2 max-[360px]:mt-4 max-[360px]:gap-1.5 sm:mt-6 sm:gap-3 md:mt-6 lg:mt-6 xl:mt-8 2xl:mt-10 sm:w-auto sm:flex-row">
               <Button
                 asChild
                 size="lg"
-                className="h-11 w-full gap-1.5 rounded-full border-0 bg-[#4e6cb8] px-7 text-base text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90 max-[360px]:h-10 max-[360px]:px-6 max-[360px]:text-sm sm:w-44"
+                className="h-auto min-h-11 w-full gap-1.5 rounded-full border-0 bg-[#4e6cb8] px-7 py-2.5 text-center text-base leading-tight text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90 max-[360px]:min-h-10 max-[360px]:px-6 max-[360px]:text-sm sm:w-auto sm:min-w-[10rem] sm:whitespace-nowrap"
               >
                 <NavLink href="#contact">
-                  Start a project
+                  {t("startProject")}
                   <ArrowUpRight className="size-4 max-[360px]:size-3.5" strokeWidth={1.75} />
                 </NavLink>
               </Button>
@@ -50,10 +52,10 @@ export function Hero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="h-11 w-full gap-1.5 rounded-full border-0 px-7 text-base shadow-md shadow-black/10 max-[360px]:h-10 max-[360px]:px-6 max-[360px]:text-sm sm:w-44"
+                className="h-auto min-h-11 w-full gap-1.5 rounded-full border-0 px-7 py-2.5 text-center text-base leading-tight shadow-md shadow-black/10 max-[360px]:min-h-10 max-[360px]:px-6 max-[360px]:text-sm sm:w-auto sm:min-w-[10rem] sm:whitespace-nowrap"
               >
                 <NavLink href="#work">
-                  See our work
+                  {t("seeWork")}
                   <ArrowDown className="size-4 max-[360px]:size-3.5" strokeWidth={1.75} />
                 </NavLink>
               </Button>

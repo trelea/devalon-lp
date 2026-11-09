@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 import { AuroraText } from "@/components/ui/aurora-text";
+import { useTranslations } from "next-intl";
 import { LayoutGrid, type LayoutGridCard } from "@/components/ui/layout-grid";
 import { cn } from "@/lib/utils";
 
@@ -53,7 +54,8 @@ const ICON_MAP: Record<string, LucideIcon> = {
 // pages — no modal. Full text lives only on /work/[slug].
 function toProjectLayoutCard(
   project: ProjectWithSrc,
-  className?: string,
+  className: string | undefined,
+  t: ReturnType<typeof useTranslations>,
 ): LayoutGridCard {
   const Icon = ICON_MAP[project.slug] ?? Briefcase;
   return {
@@ -73,7 +75,7 @@ function toProjectLayoutCard(
           {project.client}
         </p>
         <p className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-white/85">
-          Read case study
+          {t("readCaseStudy")}
           <ArrowUpRight className="size-4" aria-hidden />
         </p>
       </>
@@ -82,6 +84,7 @@ function toProjectLayoutCard(
 }
 
 export function ProjectsGrid({ projects }: { projects: ProjectWithSrc[] }) {
+  const t = useTranslations("Projects");
   // chunk into groups of 3 → alternating tall position per row group
   const chunks: ProjectWithSrc[][] = [];
   for (let i = 0; i < projects.length; i += 3) {
@@ -95,9 +98,9 @@ export function ProjectsGrid({ projects }: { projects: ProjectWithSrc[] }) {
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-8 px-4 sm:gap-10 sm:px-5 xl:max-w-[88rem]">
         <h2 className="mx-auto max-w-4xl text-center text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl">
-          Case{" "}
+          {t("titlePrefix")}{" "}
           <AuroraText colors={AURORA_COLORS} speed={1}>
-            Studies
+            {t("titleHighlight")}
           </AuroraText>
         </h2>
 
@@ -110,21 +113,21 @@ export function ProjectsGrid({ projects }: { projects: ProjectWithSrc[] }) {
                 // inverse of HowWeWork: 2 small stacked left, 1 tall right — bento only on lg+, single-col stack below
                 const [a, b, c] = chunk;
                 cards = [
-                  toProjectLayoutCard(a, undefined),
-                  toProjectLayoutCard(c, "lg:row-span-2 lg:col-start-2 lg:row-start-1"),
-                  toProjectLayoutCard(b, undefined),
+                  toProjectLayoutCard(a, undefined, t),
+                  toProjectLayoutCard(c, "lg:row-span-2 lg:col-start-2 lg:row-start-1", t),
+                  toProjectLayoutCard(b, undefined, t),
                 ];
               } else {
                 // classic: 1 tall left, 2 stacked right — bento only on lg+
                 const [a, b, c] = chunk;
                 cards = [
-                  toProjectLayoutCard(a, "lg:row-span-2"),
-                  toProjectLayoutCard(b, undefined),
-                  toProjectLayoutCard(c, undefined),
+                  toProjectLayoutCard(a, "lg:row-span-2", t),
+                  toProjectLayoutCard(b, undefined, t),
+                  toProjectLayoutCard(c, undefined, t),
                 ];
               }
             } else {
-              cards = chunk.map((p) => toProjectLayoutCard(p, undefined));
+              cards = chunk.map((p) => toProjectLayoutCard(p, undefined, t));
             }
 
             return (

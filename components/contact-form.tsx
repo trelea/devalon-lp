@@ -19,6 +19,7 @@ import { Label } from "@/components/ui/label"
 import { PhoneNumberInput } from "@/components/ui/phone-number-input"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
+import { useTranslations } from "next-intl"
 
 type Status = "idle" | "sending" | "sent"
 
@@ -46,6 +47,7 @@ const fieldIconClasses =
   "pointer-events-none absolute left-0 size-4 text-muted-foreground/70 transition-colors peer-focus:text-primary"
 
 export function ContactForm({ className }: { className?: string }) {
+  const t = useTranslations("ContactForm")
   const [status, setStatus] = React.useState<Status>("idle")
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null)
   // unique per instance — the form renders both inline and inside the modal
@@ -70,7 +72,7 @@ export function ContactForm({ className }: { className?: string }) {
       form.reset()
       setStatus("sent")
     } catch {
-      setErrorMessage("Could not send your message. Please try again.")
+      setErrorMessage(t("errorSend"))
       setStatus("idle")
     }
   }
@@ -95,18 +97,17 @@ export function ContactForm({ className }: { className?: string }) {
               <Check className="size-7" strokeWidth={2.5} />
             </motion.div>
             <h3 className="mt-5 text-xl font-semibold tracking-tight text-foreground">
-              Idea received.
+              {t("sentTitle")}
             </h3>
             <p className="mt-2 max-w-sm text-base leading-relaxed text-muted-foreground">
-              We&apos;ll read it and answer honestly — usually within a day. No
-              pressure, no spam.
+              {t("sentBody")}
             </p>
             <Button
               size="lg"
               className="mt-6 h-11 gap-1.5 rounded-full border-0 bg-[#4e6cb8] px-7 text-base text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90"
               onClick={() => setStatus("idle")}
             >
-              Send another idea
+              {t("sendAnother")}
               <ArrowUpRight className="size-4" strokeWidth={1.75} />
             </Button>
           </motion.div>
@@ -132,14 +133,14 @@ export function ContactForm({ className }: { className?: string }) {
             <div className="flex flex-col gap-7 sm:flex-row sm:gap-5">
               <LabelInputContainer>
                 <Label htmlFor={fieldId("name")} className="sr-only">
-                  Full name
+                  {t("fullName")}
                 </Label>
                 <div className="relative flex items-center">
                   <Input
                     id={fieldId("name")}
                     name="name"
                     type="text"
-                    placeholder="Full name"
+                    placeholder={t("fullName")}
                     autoComplete="name"
                     required
                     className={fieldClasses}
@@ -149,14 +150,14 @@ export function ContactForm({ className }: { className?: string }) {
               </LabelInputContainer>
               <LabelInputContainer>
                 <Label htmlFor={fieldId("email")} className="sr-only">
-                  Email
+                  {t("email")}
                 </Label>
                 <div className="relative flex items-center">
                   <Input
                     id={fieldId("email")}
                     name="email"
                     type="email"
-                    placeholder="Email"
+                    placeholder={t("email")}
                     autoComplete="email"
                     required
                     className={fieldClasses}
@@ -167,7 +168,7 @@ export function ContactForm({ className }: { className?: string }) {
             </div>
             <LabelInputContainer className="mt-7">
               <Label htmlFor={fieldId("phone")} className="sr-only">
-                Phone number (optional)
+                {t("phoneOptional")}
               </Label>
               <PhoneNumberInput
                 id={fieldId("phone")}
@@ -176,13 +177,13 @@ export function ContactForm({ className }: { className?: string }) {
             </LabelInputContainer>
             <LabelInputContainer className="mt-7">
               <Label htmlFor={fieldId("idea")} className="sr-only">
-                Your idea
+                {t("yourIdea")}
               </Label>
               <div className="relative">
                 <Textarea
                   id={fieldId("idea")}
                   name="idea"
-                  placeholder="Describe your project — goals, scope, and timeline"
+                  placeholder={t("ideaPlaceholder")}
                   required
                   rows={6}
                   className={cn(fieldClasses, "h-auto min-h-40 py-3")}
@@ -212,19 +213,19 @@ export function ContactForm({ className }: { className?: string }) {
             >
               {status === "sending" ? (
                 <>
-                  Sending
+                  {t("sending")}
                   <LoaderCircle className="size-4 animate-spin" strokeWidth={2} />
                 </>
               ) : (
                 <>
-                  Send your idea
+                  {t("submit")}
                   <ArrowUpRight className="size-4" strokeWidth={1.75} />
                 </>
               )}
             </Button>
 
             <p className="mt-4 text-center text-sm text-muted-foreground">
-              Prefer email?{" "}
+              {t("preferEmail")}{" "}
               <a
                 href={`mailto:${siteEmail}`}
                 className="font-medium text-primary transition-colors hover:underline"

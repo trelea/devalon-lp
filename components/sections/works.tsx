@@ -6,6 +6,7 @@ import {
   type ProjectWithSrc,
 } from "@/components/sections/projects-grid";
 import { getCoverSrc, works, type Work } from "@/lib/works";
+import { getLocale, getTranslations } from "next-intl/server";
 
 type Shot = {
   src: string;
@@ -40,11 +41,16 @@ function getGallerySrcs(work: Work): string[] {
   return shots.map((s) => s.src).filter((src) => !src.endsWith("/cover.webp"));
 }
 
-export function Works() {
+export async function Works({ locale: localeProp }: { locale?: string }) {
+  const locale = localeProp ?? (await getLocale());
+  const t = await getTranslations({ locale, namespace: "Projects" });
+
   const projects: ProjectWithSrc[] = works.map((work) => ({
     num: work.num,
     slug: work.slug,
-    client: work.client,
+    client: t.has(`items.${work.slug}.client`)
+      ? t(`items.${work.slug}.client`)
+      : work.client,
     name: work.name,
     href: work.href,
     body: work.body,

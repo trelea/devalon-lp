@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import { useTranslations } from "next-intl"
 import {
   Blocks,
   CalendarDays,
@@ -26,19 +27,21 @@ import {
 } from "@/components/ui/sheet"
 
 const links = [
-  { title: "Services", href: "/#services", icon: Blocks },
-  { title: "Recommendations", href: "/#recommendations", icon: MessageSquareQuote },
-  { title: "FAQ", href: "/#faq", icon: CircleHelp },
-  { title: "Projects", href: "/#work", icon: FolderGit2 },
-]
+  { key: "services", href: "/#services", icon: Blocks },
+  { key: "recommendations", href: "/#recommendations", icon: MessageSquareQuote },
+  { key: "faq", href: "/#faq", icon: CircleHelp },
+  { key: "projects", href: "/#work", icon: FolderGit2 },
+] as const
 
 export default function Navbar() {
+  const t = useTranslations("Navbar")
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 translate-y-0 transform-gpu border-b border-border/60 bg-white/70 shadow-[0_6px_20px_-6px_rgba(15,23,42,0.18)] backdrop-blur-md will-change-transform [backface-visibility:hidden]">
       <div className="mx-auto flex h-[72px] w-full max-w-7xl items-center justify-between px-4 sm:px-5 xl:max-w-[88rem]">
         <NavLink
           href="/#top"
-          aria-label="Devalon — home"
+          aria-label={t("home")}
           className="inline-flex items-center"
         >
           <Image
@@ -59,16 +62,16 @@ export default function Navbar() {
               href={link.href}
               className="text-base font-normal tracking-wide text-foreground/80 transition-colors hover:text-foreground"
             >
-              {link.title}
+              {t(`links.${link.key}`)}
             </NavLink>
           ))}
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button asChild size="lg" className="hidden h-11 rounded-full border-0 bg-[#4e6cb8] px-6 font-nav text-base font-medium text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90 md:inline-flex">
+          <Button asChild size="lg" className="hidden h-11 min-w-fit rounded-full border-0 bg-[#4e6cb8] px-5 font-nav text-sm font-medium text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90 md:inline-flex sm:px-6 sm:text-base">
             <NavLink href="/#contact">
               <CalendarDays className="size-5" />
-              Get in touch
+              {t("getInTouch")}
             </NavLink>
           </Button>
 
@@ -79,16 +82,16 @@ export default function Navbar() {
                 variant="ghost"
                 size="icon"
                 className="md:hidden size-11"
-                aria-label="Open menu"
+                aria-label={t("openMenu")}
               >
                 <Menu className="size-7" strokeWidth={2} />
               </Button>
             </SheetTrigger>
           <SheetContent side="right" className="flex flex-col">
             <SheetHeader className="px-4 pb-2 pt-2 text-left">
-              <SheetTitle className="sr-only">Menu</SheetTitle>
+              <SheetTitle className="sr-only">{t("menu")}</SheetTitle>
               <SheetClose asChild>
-                <NavLink href="/#top" aria-label="Devalon — home" className="inline-flex items-center">
+                <NavLink href="/#top" aria-label={t("home")} className="inline-flex items-center">
                   <Image
                     src="/devalon-logos/dark-txt.svg"
                     alt="Devalon"
@@ -107,7 +110,7 @@ export default function Navbar() {
                     className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium text-foreground transition-colors hover:bg-muted"
                   >
                     <link.icon className="size-5 text-primary" />
-                    {link.title}
+                    {t(`links.${link.key}`)}
                   </NavLink>
                 </SheetClose>
               ))}
@@ -117,7 +120,7 @@ export default function Navbar() {
                   className="mt-2 flex items-center gap-3 rounded-lg bg-primary px-3 py-2.5 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                 >
                   <CalendarDays className="size-5" />
-                  Get in touch
+                  {t("getInTouch")}
                 </NavLink>
               </SheetClose>
             </nav>
@@ -141,7 +144,7 @@ export default function Navbar() {
               </div>
             </div>
           </SheetContent>
-        </Sheet>
+          </Sheet>
         </div>
       </div>
     </header>

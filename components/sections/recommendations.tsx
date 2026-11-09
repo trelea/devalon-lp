@@ -5,6 +5,7 @@ import { AnimationGate } from "@/components/ui/animation-gate";
 import { AuroraText } from "@/components/ui/aurora-text";
 import { Marquee } from "@/components/ui/marquee";
 import { cn } from "@/lib/utils";
+import { getLocale, getTranslations } from "next-intl/server";
 
 // TODO: Palazzo Aesthetics' quote is a Devalon-written draft — get the
 // client's sign-off (or their edited version) before deploying.
@@ -28,69 +29,47 @@ type Recommendation = {
   draft?: boolean;
 };
 
-const recommendations: Recommendation[] = [
+const recommendationMeta = [
   {
+    key: "dimitryBizga",
     kind: "person",
-    name: "Dimitry Bizga",
-    role: "Founder @ Synthax Codes",
-    quote:
-      "Having worked closely with Marius on multiple projects in the same group, I can confidently say he is an outstanding Software Engineer. He took full ownership of our core backend systems, built stable architectures from scratch, and resolved complex infrastructure bottlenecks with great efficiency. Marius stands out because he delivers exactly what the project requires, turning complex requirements into rock-solid, durable, and highly optimized software that runs flawlessly in production.",
     avatar: "/recommendations/dimitry-bizga.jpg",
     href: "https://www.linkedin.com/in/dimitry-bizga/",
   },
   {
+    key: "inesaDita",
     kind: "person",
-    name: "Inesa Dita",
-    role: "Real Estate Agent & Coach for Women · USA",
-    quote:
-      "Working with Marius was effortless from day one. He understood what I needed before I could fully explain it, kept me in the loop at every step, and delivered a result far more polished than I expected. I'd trust him with any project.",
     avatar: "/recommendations/inesa-dita.webp",
     href: "https://www.compass.com/agents/inesa-dita/",
   },
   {
+    key: "redCoreConcrete",
     kind: "company",
-    name: "Red Core Concrete",
-    role: "Concrete contractor · New England, USA",
-    quote:
-      "I've worked with Marius Trelea on multiple projects, and every experience has been excellent. He built our company website exactly the way we wanted and was always responsive, professional, and easy to communicate with throughout the process. Everything was completed on time, and the final result exceeded our expectations.",
     avatar: "/recommendations/redcore.jpg",
     href: "https://redcoreconcrete.com/",
   },
   {
+    key: "thomasBachPetersen",
     kind: "person",
-    name: "Thomas Bach Petersen",
-    role: "Co-Founder & CTO @ 2ai",
-    quote:
-      "Marius took full ownership of our Meta integration layer, the backbone of our publishing automation. He combines strong architectural judgment with a clear sense of business priorities, anticipating risks before they reach our customers. A dependable engineering partner for any company scaling a serious platform.",
     avatar: "/recommendations/thomas-bach-petersen.jpg",
     href: "https://www.linkedin.com/in/thomasbach/",
   },
   {
+    key: "marketingAi",
     kind: "company",
-    name: "2Marketing.ai",
-    role: "Marketing & AI SaaS · Denmark",
-    quote:
-      "Marius delivered the backend infrastructure behind our publishing and media services, supporting around 30 business customers. His scalable architecture lets us expand into new advertising channels quickly and cost-effectively. Professional, transparent, and consistently focused on results.",
     avatar: "/recommendations/2marketing.jpg",
     href: "https://2marketing.ai/",
   },
   {
+    key: "vasileBorogan",
     kind: "person",
-    name: "Vasile Borogan",
-    role: "CEO @ Premier Estate",
-    quote:
-      "I highly recommend Marius as a Software Engineer. We collaborated on our internal applications, and he successfully managed both front-end and back-end aspects, handling all engineering challenges with great efficiency. What makes Marius stand out is his strong technical expertise combined with a client-first mindset—he has a remarkable ability to understand exactly what the client wants and translate it into rock-solid, durable, and highly optimized software.",
     avatar: "/recommendations/vasile-borogan.jpg",
     href: "https://www.linkedin.com/in/vasile-borogan-bb1638114/",
   },
   {
+    key: "palazzoAesthetics",
     kind: "company",
-    name: "Palazzo Aesthetics",
-    role: "Phytoaesthetics & phytotherapy clinic · Chișinău, Moldova",
-    quote:
-      "I had a great experience working with Marius Trelea on our clinic’s website. From the beginning, he was easy to communicate with, understood what we were looking for, and brought our ideas to life better than we expected. He was reliable throughout the project, quick to make adjustments when needed, and kept everything moving without any unnecessary back and forth. The website turned out great, and we’ve been very happy with the result. I’d definitely recommend working with Marius.",
     avatar: "/recommendations/palazzo-aesthetics.svg",
-    // logo is dark green on a transparent background
     avatarClassName: "bg-[#f2eee4]",
     href: "https://palazzoaesthetics.md",
   },
@@ -167,23 +146,36 @@ function RecommendationCard({
   );
 }
 
-// only cards with real quotes render (mark an entry `draft: true` to hide it).
-// Columns are hand-arranged: left = Dimitry + Inesa, middle = Red Core (top) +
-// Thomas + 2Marketing, right = Vasile + Palazzo — adjust the slice bounds if
-// entries are added or reordered.
-const live = recommendations.filter((rec) => !rec.draft);
-const columns = [
-  { items: live.slice(0, 2), duration: "80s", reverse: false },
-  { items: live.slice(2, 5), duration: "100s", reverse: true },
-  { items: live.slice(5), duration: "90s", reverse: false },
-];
-const mobileOrdered = [
-  ...columns[1].items,
-  ...columns[2].items,
-  ...columns[0].items,
-];
+// (live/columns/mobileOrdered are computed inside the component from translated data)
 
-export function Recommendations() {
+export async function Recommendations({ locale: localeProp }: { locale?: string }) {
+  const locale = localeProp ?? (await getLocale());
+  const t = await getTranslations({ locale, namespace: "Recommendations" });
+
+  const recommendations = recommendationMeta.map((m) => ({
+    kind: m.kind as "person" | "company",
+    name: t(`items.${m.key}.name`),
+    role: t(`items.${m.key}.role`),
+    quote: t(`items.${m.key}.quote`),
+    avatar: m.avatar,
+    avatarClassName: m.avatarClassName,
+    href: m.href,
+    draft: false,
+  }));
+
+  // only cards with real quotes render (mark an entry `draft: true` to hide it).
+  const live = recommendations.filter((rec) => !rec.draft);
+  const columns = [
+    { items: live.slice(0, 2), duration: "80s", reverse: false },
+    { items: live.slice(2, 5), duration: "100s", reverse: true },
+    { items: live.slice(5), duration: "90s", reverse: false },
+  ];
+  const mobileOrdered = [
+    ...columns[1].items,
+    ...columns[2].items,
+    ...columns[0].items,
+  ];
+
   return (
     <section
       id="recommendations"
@@ -192,7 +184,7 @@ export function Recommendations() {
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-12 sm:gap-10 sm:px-8 sm:py-16 xl:max-w-[88rem]">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl">
-            Built on trust,
+            {t("titlePrefix")}
             <br className="sm:hidden" />
             <span className="sm:inline">
               {" "}
@@ -200,7 +192,7 @@ export function Recommendations() {
                 colors={["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"]}
                 speed={1}
               >
-                Shipped Worldwide
+                {t("titleHighlight")}
               </AuroraText>
             </span>
           </h2>

@@ -3,52 +3,22 @@ import Image from "next/image";
 
 import { AuroraText } from "@/components/ui/aurora-text";
 import { Tabs } from "@/components/ui/tabs";
+import { getLocale, getTranslations } from "next-intl/server";
 
-type Service = {
-  icon: typeof Code2;
-  title: string;
-  description: string;
-  /** background photo shown on the right half of the card */
-  image?: string;
-};
+export async function Services({ locale: localeProp }: { locale?: string }) {
+  const locale = localeProp ?? (await getLocale());
+  const t = await getTranslations({ locale, namespace: "Services" });
 
-// Order matters: index 0 is the default active tab (Tabs initialises
-// currentIndex to 0), so AI leads the section.
-const services: Service[] = [
-  {
-    icon: Sparkles,
-    title: "AI Agents & Automation",
-    description:
-      "AI agents that do real work inside your business: answering customers, extracting data from documents, enriching your CRM and automating repetitive workflows. Built on OpenAI and Anthropic models and plugged into the tools you already use, with evaluations, guardrails and monitoring so they're reliable in production, not just in demos.",
-    image: "/ai-automation.jpeg",
-  },
-  {
-    icon: Code2,
-    title: "Digital Solutions",
-    description:
-      "Custom CRMs, ERPs, admin panels, booking, inventory & client portals — built from scratch around your ops, not a template. We replace sheets and SaaS limits with your own system: pipelines, roles & permissions, finance & reporting, automations and clean APIs that scale and never lock you in.",
-    image: "/custom-dev.jpeg",
-  },
-  {
-    icon: LifeBuoy,
-    title: "Cloud Infrastructure",
-    description:
-      "AWS, Docker, CI/CD, backups, monitoring & uptime — we keep it alive and scaling. Proactive alerts, cost & performance tuning, and a direct engineer who knows your codebase answers when something breaks. Documented, handover-ready, no ticket hell.",
-    image: "/maintenance-support.jpeg",
-  },
-  {
-    icon: Smartphone,
-    title: "App Development",
-    description:
-      "iOS, Android, PWA and desktop apps that feel native and ship properly — offline, push, payments and store delivery handled. AI chat, search and automation inside the app, plus crash reporting, staged rollouts and continuous iteration post-launch.",
-    image: "/app-dev.jpeg",
-  },
-];
+  const services = [
+    { key: "aiAgents", icon: Sparkles, image: "/ai-automation.jpeg" },
+    { key: "digitalSolutions", icon: Code2, image: "/custom-dev.jpeg" },
+    { key: "cloudInfrastructure", icon: LifeBuoy, image: "/maintenance-support.jpeg" },
+    { key: "appDevelopment", icon: Smartphone, image: "/app-dev.jpeg" },
+  ];
 
-export function Services() {
   const tabs = services.map((service) => ({
-    title: service.title,
-    value: service.title,
+    title: t(`items.${service.key}.title`),
+    value: service.key,
     content: (
       <div className="relative flex min-h-[64svh] min-h-[64dvh] flex-col gap-6 overflow-hidden rounded-[1.5rem] bg-[oklch(0.32_0.09_262)] p-6 pb-48 sm:min-h-[65svh] sm:min-h-[65dvh] sm:gap-8 sm:rounded-[2rem] sm:p-8 sm:pb-56 md:pb-64 lg:h-[63svh] lg:h-[63dvh] lg:min-h-0 lg:gap-16 lg:rounded-[3.5rem] lg:p-12">
         {service.image && (
@@ -70,11 +40,11 @@ export function Services() {
             strokeWidth={2}
           />
           <h3 className="text-xl font-medium tracking-tight text-white sm:text-2xl lg:text-4xl">
-            {service.title}
+            {t(`items.${service.key}.title`)}
           </h3>
         </div>
         <p className="relative z-10 max-w-full text-lg leading-snug font-medium text-blue-100/80 sm:text-xl sm:leading-relaxed lg:max-w-[50%]">
-          {service.description}
+          {t(`items.${service.key}.description`)}
         </p>
       </div>
     ),
@@ -87,13 +57,14 @@ export function Services() {
     >
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-8 px-4 py-0 sm:gap-10 sm:px-5 lg:min-h-0 xl:max-w-[88rem] bg-transparent">
         <h2 className="mx-auto max-w-4xl text-center text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl">
-          AI &amp; Software Development{" "}
+          {t("titlePrefix")}
           <AuroraText
             colors={["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"]}
             speed={1}
           >
-            Services
+            {t("titleHighlight")}
           </AuroraText>
+          {t("titleSuffix")}
         </h2>
 
         <div className="flex w-full flex-col items-center">

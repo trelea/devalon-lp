@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const MotionImage = motion(Image);
+const MotionImage = motion.create(Image);
 
 export type LayoutGridCard = {
   id: string;

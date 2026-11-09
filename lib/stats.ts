@@ -2,6 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { Award, Globe2, Layers, Rocket } from "lucide-react";
 
 export type Stat = {
+  key: string;
   value: number;
   suffix: string;
   label: string;
@@ -19,6 +20,7 @@ export type Stat = {
 //   USA, Denmark, Moldova, Romania (+ EU-wide logistics/green-tech).
 export const stats: Stat[] = [
   {
+    key: "projectsShipped",
     value: 20,
     suffix: "+",
     label: "Projects shipped to production",
@@ -26,6 +28,7 @@ export const stats: Stat[] = [
     icon: Rocket,
   },
   {
+    key: "yearsBuilding",
     value: 5,
     suffix: "+",
     label: "Years building software",
@@ -33,6 +36,7 @@ export const stats: Stat[] = [
     icon: Award,
   },
   {
+    key: "countriesServed",
     value: 4,
     suffix: "+",
     label: "Countries served",
@@ -40,6 +44,7 @@ export const stats: Stat[] = [
     icon: Globe2,
   },
   {
+    key: "industries",
     value: 10,
     suffix: "+",
     label: "Industries & niches",

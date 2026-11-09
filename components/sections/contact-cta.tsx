@@ -5,6 +5,7 @@ import { AvatarCircles } from "@/components/ui/avatar-circles";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { AuroraText } from "@/components/ui/aurora-text";
 import { siteEmail } from "@/lib/site";
+import { getLocale, getTranslations } from "next-intl/server";
 
 const AURORA_COLORS = ["#3B4354", "#4e6cb8", "#7196E0", "#5b7fd4"];
 
@@ -47,7 +48,9 @@ const ctaAvatars = [
   },
 ];
 
-export function ContactCta() {
+export async function ContactCta({ locale: localeProp }: { locale?: string }) {
+  const locale = localeProp ?? (await getLocale());
+  const t = await getTranslations({ locale, namespace: "ContactCta" });
   return (
     <section
       id="contact"
@@ -80,11 +83,11 @@ export function ContactCta() {
         <div className="order-2 flex items-center px-4 py-6 sm:px-8 sm:py-8 md:order-1 lg:px-12">
           <div className="w-full max-w-xl rounded-[2rem] border border-border bg-card p-5 shadow-sm sm:rounded-[2.5rem] sm:p-8">
             <h3 className="text-center text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-              Tell us your idea
+              {t("formTitle")}
             </h3>
             <p className="mx-auto mt-2 max-w-md text-center text-sm leading-relaxed text-muted-foreground sm:text-base">
-              <span className="block">Tell us about your project.</span>
-              <span className="block">We reply honestly, usually within a day.</span>
+              <span className="block">{t("formSubtitle1")}</span>
+              <span className="block">{t("formSubtitle2")}</span>
             </p>
             <ContactForm className="mt-6" />
           </div>
@@ -104,16 +107,14 @@ export function ContactCta() {
             />
           </div>
           <h3 className="mx-auto mt-2 w-full max-w-4xl pb-1 text-center text-3xl font-bold leading-[1.1] tracking-tight text-foreground text-balance sm:text-4xl md:mx-0 md:mt-3 md:text-left">
-            Your{" "}
+            {t("ideaTitlePrefix")}{" "}
             <AuroraText colors={AURORA_COLORS} speed={1}>
-              project
+              {t("ideaTitleHighlight")}
             </AuroraText>
           </h3>
           <div className="mt-3 h-px w-16 bg-border md:mt-5" />
           <p className="mt-3 max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg md:mt-5 md:text-xl">
-            This is the space where your ideas that have not been revealed
-            yet live, whether good or crazy. Just tell us what you would
-            like to build, and we shall be frank about it.
+            {t("ideaBody")}
           </p>
           <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3 md:mt-8 md:gap-x-5">
             <AvatarCircles
@@ -123,7 +124,7 @@ export function ContactCta() {
             />
             <div
               className="flex items-center gap-1"
-              aria-label="Rated 5 out of 5 by our clients"
+              aria-label={t("ratedAria")}
             >
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star
@@ -136,7 +137,7 @@ export function ContactCta() {
             </div>
           </div>
           <p className="mt-3 text-sm text-muted-foreground">
-            Trusted by clients worldwide
+            {t("trustedBy")}
           </p>
           <div className="mt-6 space-y-4 md:mt-7">
             <a
