@@ -25,6 +25,7 @@ export type LayoutGridCard = {
   /** when set (and expand is disabled), the whole card is a plain link
       to an internal page — no modal, fully crawlable server HTML. */
   hrefInternal?: string;
+  dataTrack?: string;
 };
 
 export const LayoutGrid = ({
@@ -130,6 +131,9 @@ export const LayoutGrid = ({
               <Link
                 href={card.hrefInternal as string}
                 aria-label={`${card.alt ?? card.id} — read case study`}
+                data-track={card.dataTrack ?? "work_card"}
+                data-track-project={card.id}
+                data-track-location="works"
                 className="block h-full w-full"
               >
                 {tile}
@@ -140,6 +144,9 @@ export const LayoutGrid = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${card.alt ?? card.id} — visit project`}
+                data-track={card.dataTrack ?? "work_visit_project"}
+                data-track-project={card.id}
+                data-track-location="works"
                 className="block h-full w-full"
               >
                 {tile}

@@ -43,7 +43,7 @@ export async function Hero({ locale: localeProp }: { locale?: string }) {
                 size="lg"
                 className="h-auto min-h-11 w-full gap-1.5 rounded-full border-0 bg-[#4e6cb8] px-7 py-2.5 text-center text-base leading-tight text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90 max-[360px]:min-h-10 max-[360px]:px-6 max-[360px]:text-sm sm:w-auto sm:min-w-[10rem] sm:whitespace-nowrap"
               >
-                <NavLink href="#contact">
+                <NavLink href="#contact" data-track="hero_primary_cta" data-track-location="hero" data-track-section="hero">
                   {t("startProject")}
                   <ArrowUpRight className="size-4 max-[360px]:size-3.5" strokeWidth={1.75} />
                 </NavLink>
@@ -54,7 +54,7 @@ export async function Hero({ locale: localeProp }: { locale?: string }) {
                 variant="outline"
                 className="h-auto min-h-11 w-full gap-1.5 rounded-full border-0 px-7 py-2.5 text-center text-base leading-tight shadow-md shadow-black/10 max-[360px]:min-h-10 max-[360px]:px-6 max-[360px]:text-sm sm:w-auto sm:min-w-[10rem] sm:whitespace-nowrap"
               >
-                <NavLink href="#work">
+                <NavLink href="#work" data-track="hero_secondary_cta" data-track-location="hero" data-track-section="hero">
                   {t("seeWork")}
                   <ArrowDown className="size-4 max-[360px]:size-3.5" strokeWidth={1.75} />
                 </NavLink>

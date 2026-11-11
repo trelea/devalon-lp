@@ -64,6 +64,7 @@ function toProjectLayoutCard(
     thumbnail: project.src,
     alt: project.name,
     hrefInternal: `/work/${project.slug}`,
+    dataTrack: `work_card_${project.slug}`,
     content: null,
     overlay: (
       <>

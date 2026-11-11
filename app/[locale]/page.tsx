@@ -3,6 +3,8 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { ContactModal } from "@/components/contact-modal";
+import { SectionTrack } from "@/components/section-tracker";
+import { ScrollDepthTracker } from "@/components/scroll-depth-tracker";
 import { Hero } from "@/components/sections/hero";
 import { Stats } from "@/components/sections/stats";
 import { Services } from "@/components/sections/services";
@@ -190,27 +192,44 @@ export default async function Home({
         }}
       />
       <Navbar />
+      <ScrollDepthTracker />
       <main className="flex w-full flex-1 flex-col gap-12 sm:gap-16 md:gap-20 lg:gap-24 xl:gap-32">
-        <Hero locale={locale} />
-        <Stats locale={locale} />
-        <Services locale={locale} />
+        <SectionTrack name="hero">
+          <Hero locale={locale} />
+        </SectionTrack>
+        <SectionTrack name="stats">
+          <Stats locale={locale} />
+        </SectionTrack>
+        <SectionTrack name="services">
+          <Services locale={locale} />
+        </SectionTrack>
         <section>
-          <Recommendations locale={locale} />
+          <SectionTrack name="recommendations">
+            <Recommendations locale={locale} />
+          </SectionTrack>
           <section className="bg-[#a8c4f0] py-12 sm:py-16 lg:py-24 xl:py-32">
             <section className="flex flex-col gap-28 rounded-[2rem] bg-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.12)] py-12 sm:gap-0 sm:rounded-[3rem] sm:py-16 lg:rounded-[48px] lg:py-24 xl:rounded-[75px] xl:py-32">
-              <HowWeWork />
+              <SectionTrack name="how-we-work">
+                <HowWeWork />
+              </SectionTrack>
 
-              <Faq locale={locale} />
+              <SectionTrack name="faq">
+                <Faq locale={locale} />
+              </SectionTrack>
             </section>
           </section>
           <div
             aria-hidden
             className="h-32 w-full bg-gradient-to-b from-[#a8c4f0] via-[#e6eef9] to-background sm:h-48 lg:h-56"
           />
-          <Works locale={locale} />
+          <SectionTrack name="works">
+            <Works locale={locale} />
+          </SectionTrack>
         </section>
       </main>
-      <ContactCta locale={locale} />
+      <SectionTrack name="contact-cta">
+        <ContactCta locale={locale} />
+      </SectionTrack>
       <Footer locale={locale} />
       <ContactModal />
     </>

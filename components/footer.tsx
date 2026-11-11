@@ -68,6 +68,8 @@ export default async function Footer({
               href="#top"
               className="inline-flex items-center"
               aria-label="Devalon home"
+              data-track="footer_logo"
+              data-track-location="footer"
             >
               <Image
                 src="/devalon-logos/light-txt.svg"
@@ -130,6 +132,8 @@ export default async function Footer({
                 <li key={section.href}>
                   <NavLink
                     href={section.href}
+                    data-track={`footer_${section.key}`}
+                    data-track-location="footer"
                     className="flex items-center gap-2.5 text-base text-muted-foreground transition-colors hover:text-foreground"
                   >
                     <section.icon

@@ -42,6 +42,8 @@ export default function Navbar() {
         <NavLink
           href="/#top"
           aria-label={t("home")}
+          data-track="navbar_logo"
+          data-track-location="navbar"
           className="inline-flex items-center"
         >
           <Image
@@ -60,6 +62,8 @@ export default function Navbar() {
             <NavLink
               key={link.href}
               href={link.href}
+              data-track={`navbar_${link.key}`}
+              data-track-location="navbar"
               className="text-base font-normal tracking-wide text-foreground/80 transition-colors hover:text-foreground"
             >
               {t(`links.${link.key}`)}
@@ -69,7 +73,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <Button asChild size="lg" className="hidden h-11 min-w-fit rounded-full border-0 bg-[#4e6cb8] px-5 font-nav text-sm font-medium text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90 md:inline-flex sm:px-6 sm:text-base">
-            <NavLink href="/#contact">
+            <NavLink href="/#contact" data-track="navbar_contact" data-track-location="navbar">
               <CalendarDays className="size-5" />
               {t("getInTouch")}
             </NavLink>
@@ -91,7 +95,7 @@ export default function Navbar() {
             <SheetHeader className="px-4 pb-2 pt-2 text-left">
               <SheetTitle className="sr-only">{t("menu")}</SheetTitle>
               <SheetClose asChild>
-                <NavLink href="/#top" aria-label={t("home")} className="inline-flex items-center">
+                <NavLink href="/#top" aria-label={t("home")} data-track="navbar_logo" data-track-location="navbar" className="inline-flex items-center">
                   <Image
                     src="/devalon-logos/dark-txt.svg"
                     alt="Devalon"
@@ -107,6 +111,8 @@ export default function Navbar() {
                 <SheetClose key={link.href} asChild>
                   <NavLink
                     href={link.href}
+                    data-track={`navbar_${link.key}`}
+                    data-track-location="navbar"
                     className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium text-foreground transition-colors hover:bg-muted"
                   >
                     <link.icon className="size-5 text-primary" />
@@ -117,6 +123,8 @@ export default function Navbar() {
               <SheetClose asChild>
                 <NavLink
                   href="/#contact"
+                  data-track="navbar_contact"
+                  data-track-location="navbar"
                   className="mt-2 flex items-center gap-3 rounded-lg bg-primary px-3 py-2.5 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                 >
                   <CalendarDays className="size-5" />

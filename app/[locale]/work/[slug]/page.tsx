@@ -18,6 +18,9 @@ import {
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { ContactModal } from "@/components/contact-modal";
+import { SectionTrack } from "@/components/section-tracker";
+import { ScrollDepthTracker } from "@/components/scroll-depth-tracker";
+import { ViewContentTracker } from "@/components/view-content-tracker";
 import { ContactCta } from "@/components/sections/contact-cta";
 import { WorkStoryCards } from "@/components/sections/work-story-cards";
 import { AuroraText } from "@/components/ui/aurora-text";
@@ -260,7 +263,9 @@ export default async function WorkDetailPage({ params }: PageProps) {
         }}
       />
       <Navbar />
+      <ScrollDepthTracker />
       <main className="flex w-full flex-1 flex-col gap-12 sm:gap-16 md:gap-20 lg:gap-24">
+        <SectionTrack name="case-study-hero">
         <section className="relative flex min-h-svh min-h-dvh w-full max-w-full flex-col pt-[72px] sm:pt-20 lg:h-svh lg:h-dvh">
           <div className="mx-auto flex w-full max-w-7xl flex-1 items-center px-3 py-4 sm:px-4 sm:py-6 md:px-5 md:py-8 lg:px-5 lg:py-6 xl:max-w-[88rem] xl:px-4 xl:py-6">
             <div className="grid w-full overflow-hidden rounded-[1.75rem] bg-white shadow-[0_20px_45px_-20px_rgba(15,23,42,0.22)] sm:rounded-[2rem] lg:grid-cols-2 lg:rounded-[3rem] min-h-[calc(100svh-72px-2rem)] min-h-[calc(100dvh-72px-2rem)] sm:min-h-[calc(100svh-72px-3rem)] sm:min-h-[calc(100dvh-72px-3rem)] md:min-h-[calc(100svh-72px-4rem)] md:min-h-[calc(100dvh-72px-4rem)] lg:min-h-[calc(100svh-72px-7rem)] lg:min-h-[calc(100dvh-72px-7rem)] xl:min-h-[calc(100svh-16rem)] xl:min-h-[calc(100dvh-16rem)]">
@@ -282,6 +287,9 @@ export default async function WorkDetailPage({ params }: PageProps) {
                       href={work.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-track="work_visit_project"
+                      data-track-project={work.slug}
+                      data-track-location="work-detail"
                       className="inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-full border-0 bg-[#4e6cb8] px-7 text-base text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90 sm:w-auto"
                     >
                       {tWorks("visit")} {work.name}
@@ -303,8 +311,10 @@ export default async function WorkDetailPage({ params }: PageProps) {
             </div>
           </div>
         </section>
+        </SectionTrack>
 
         {(work.challenge || work.solution) && (
+          <SectionTrack name="case-study-story">
           <section
             id="story"
             aria-labelledby="story-heading"
@@ -327,9 +337,11 @@ export default async function WorkDetailPage({ params }: PageProps) {
               />
             </div>
           </section>
+          </SectionTrack>
         )}
 
         {work.metrics && work.metrics.length > 0 && (
+          <SectionTrack name="case-study-results">
           <section
             id="results"
             aria-labelledby="results-heading"
@@ -359,9 +371,11 @@ export default async function WorkDetailPage({ params }: PageProps) {
               </div>
             </div>
           </section>
+          </SectionTrack>
         )}
 
         {gallery.length > 0 && (
+          <SectionTrack name="case-study-gallery">
           <section aria-labelledby="gallery-heading" className="w-full">
             <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-8 px-4 sm:gap-10 sm:px-5 xl:max-w-[88rem]">
               <h2
@@ -407,12 +421,16 @@ export default async function WorkDetailPage({ params }: PageProps) {
               </div>
             </div>
           </section>
+          </SectionTrack>
         )}
 
+        <SectionTrack name="contact-cta">
         <ContactCta locale={locale} />
+        </SectionTrack>
       </main>
       <Footer locale={locale} />
       <ContactModal />
+      <ViewContentTracker slug={work.slug} />
     </>
   );
 }

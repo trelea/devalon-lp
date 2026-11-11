@@ -12,6 +12,8 @@ import {
 } from "lucide-react"
 
 import { sendContactIdea } from "@/app/actions/contact"
+import { track } from "@/lib/tracking"
+import { useFormTracking } from "@/lib/use-form-tracking"
 import { Button } from "@/components/ui/button"
 import { siteEmail } from "@/lib/site"
 import { Input } from "@/components/ui/input"
@@ -50,6 +52,7 @@ export function ContactForm({ className }: { className?: string }) {
   const t = useTranslations("ContactForm")
   const [status, setStatus] = React.useState<Status>("idle")
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null)
+  const formTracking = useFormTracking("contact_form")
   // unique per instance — the form renders both inline and inside the modal
   const uid = React.useId()
   const fieldId = (name: string) => `contact-${name}${uid}`
@@ -62,16 +65,28 @@ export function ContactForm({ className }: { className?: string }) {
     setErrorMessage(null)
     setStatus("sending")
 
+    formTracking.onSubmit()
     try {
       const result = await sendContactIdea(formData)
       if (!result.ok) {
+        formTracking.onError(result.error ?? "server_error")
         setErrorMessage(result.error)
         setStatus("idle")
         return
       }
+      const name = String(formData.get("name") ?? "")
+      const email = String(formData.get("email") ?? "")
+      const phone = String(formData.get("phone") ?? "")
+      track("lead", { content_name: "contact_form" }, {
+        email: email || undefined,
+        phone: phone || undefined,
+        firstName: name || undefined,
+      }).catch(() => {})
+      formTracking.onSuccess()
       form.reset()
       setStatus("sent")
     } catch {
+      formTracking.onError("exception")
       setErrorMessage(t("errorSend"))
       setStatus("idle")
     }
@@ -143,6 +158,8 @@ export function ContactForm({ className }: { className?: string }) {
                     placeholder={t("fullName")}
                     autoComplete="name"
                     required
+                    onFocus={() => formTracking.onFocus("name")}
+                    onChange={(e) => formTracking.onChange("name", e.target.value)}
                     className={fieldClasses}
                   />
                   <User className={fieldIconClasses} strokeWidth={1.75} aria-hidden />
@@ -160,6 +177,8 @@ export function ContactForm({ className }: { className?: string }) {
                     placeholder={t("email")}
                     autoComplete="email"
                     required
+                    onFocus={() => formTracking.onFocus("email")}
+                    onChange={(e) => formTracking.onChange("email", e.target.value)}
                     className={fieldClasses}
                   />
                   <Mail className={fieldIconClasses} strokeWidth={1.75} aria-hidden />
@@ -173,6 +192,8 @@ export function ContactForm({ className }: { className?: string }) {
               <PhoneNumberInput
                 id={fieldId("phone")}
                 inputClassName={cn(fieldClasses, "border-0 pl-2")}
+                onFocus={() => formTracking.onFocus("phone")}
+                onValueChange={(v) => formTracking.onChange("phone", v)}
               />
             </LabelInputContainer>
             <LabelInputContainer className="mt-7">
@@ -185,6 +206,8 @@ export function ContactForm({ className }: { className?: string }) {
                   name="idea"
                   placeholder={t("ideaPlaceholder")}
                   required
+                  onFocus={() => formTracking.onFocus("idea")}
+                  onChange={(e) => formTracking.onChange("idea", e.target.value)}
                   rows={6}
                   className={cn(fieldClasses, "h-auto min-h-40 py-3")}
                 />
@@ -208,6 +231,8 @@ export function ContactForm({ className }: { className?: string }) {
             <Button
               type="submit"
               size="lg"
+              data-track="contact_submit"
+              data-track-location="contact-form"
               disabled={status === "sending"}
               className="mt-8 h-11 w-full gap-1.5 rounded-full border-0 bg-[#4e6cb8] text-base text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90"
             >

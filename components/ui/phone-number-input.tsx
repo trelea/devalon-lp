@@ -91,12 +91,16 @@ export function PhoneNumberInput({
   defaultCountry = "US",
   className,
   inputClassName,
+  onFocus,
+  onValueChange,
 }: {
   id?: string
   name?: string
   defaultCountry?: Country
   className?: string
   inputClassName?: string
+  onFocus?: () => void
+  onValueChange?: (value: string) => void
 }) {
   const [country, setCountry] = React.useState<CountryOption>(
     () =>
@@ -204,7 +208,9 @@ export function PhoneNumberInput({
         onChange={(value) => {
           if (value) touchedRef.current = true
           setPhoneNumber(value)
+          onValueChange?.(value ?? "")
         }}
+        onFocus={onFocus}
         inputComponent={Input}
         id={id}
         name={name}
