@@ -2,7 +2,6 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { ContactModal } from "@/components/contact-modal";
 import { SectionTrack } from "@/components/section-tracker";
 import { ScrollDepthTracker } from "@/components/scroll-depth-tracker";
 import { Hero } from "@/components/sections/hero";
@@ -231,7 +230,6 @@ export default async function Home({
         <ContactCta locale={locale} />
       </SectionTrack>
       <Footer locale={locale} />
-      <ContactModal />
     </>
   );
 }

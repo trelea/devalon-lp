@@ -17,7 +17,6 @@ import {
 
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { ContactModal } from "@/components/contact-modal";
 import { SectionTrack } from "@/components/section-tracker";
 import { ScrollDepthTracker } from "@/components/scroll-depth-tracker";
 import { ViewContentTracker } from "@/components/view-content-tracker";
@@ -429,7 +428,6 @@ export default async function WorkDetailPage({ params }: PageProps) {
         </SectionTrack>
       </main>
       <Footer locale={locale} />
-      <ContactModal />
       <ViewContentTracker slug={work.slug} />
     </>
   );

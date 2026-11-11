@@ -73,7 +73,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <Button asChild size="lg" className="hidden h-11 min-w-fit rounded-full border-0 bg-[#4e6cb8] px-5 font-nav text-sm font-medium text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90 md:inline-flex sm:px-6 sm:text-base">
-            <NavLink href="/#contact" data-track="navbar_contact" data-track-location="navbar">
+            <NavLink href="#contact" data-track="navbar_contact" data-track-location="navbar">
               <CalendarDays className="size-5" />
               {t("getInTouch")}
             </NavLink>
@@ -122,7 +122,7 @@ export default function Navbar() {
               ))}
               <SheetClose asChild>
                 <NavLink
-                  href="/#contact"
+                  href="#contact"
                   data-track="navbar_contact"
                   data-track-location="navbar"
                   className="mt-2 flex items-center gap-3 rounded-lg bg-primary px-3 py-2.5 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
