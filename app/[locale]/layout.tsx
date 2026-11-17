@@ -21,6 +21,7 @@ import {
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { routing } from "@/i18n/routing";
 
 const appSans = Inter({
@@ -163,7 +164,9 @@ export default async function LocaleLayout({
       className={`${appSans.variable} ${appHeading.variable} ${geistMono.variable} ${appNav.variable} h-full antialiased`}
     >
       <head>
-        <script
+        <Script
+          id="device-locale"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `try{if(!document.cookie.match(/(?:^|; )device-locale=/)){var l=(navigator.language||'').split('-')[0];document.cookie='device-locale='+encodeURIComponent(l)+';path=/;max-age=31536000';}}catch(e){}`,
           }}

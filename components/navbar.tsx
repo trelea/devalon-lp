@@ -16,6 +16,7 @@ import {
 import { siteEmail } from "@/lib/site"
 
 import { Button } from "@/components/ui/button"
+import LanguageSwitcher from "@/components/language-switcher"
 import { NavLink } from "@/components/nav-link"
 import {
   Sheet,
@@ -71,7 +72,8 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <LanguageSwitcher />
           <Button asChild size="lg" className="hidden h-11 min-w-fit rounded-full border-0 bg-[#4e6cb8] px-5 font-nav text-sm font-medium text-white shadow-lg shadow-[#4e6cb8]/30 hover:bg-[#4e6cb8]/90 md:inline-flex sm:px-6 sm:text-base">
             <NavLink href="#contact" data-track="navbar_contact" data-track-location="navbar">
               <CalendarDays className="size-5" />

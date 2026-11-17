@@ -16,7 +16,9 @@
     "getInTouch": "Contáctanos",
     "openMenu": "Abrir menú",
     "menu": "Menú",
-    "home": "Devalon — inicio"
+    "home": "Devalon — inicio",
+    "language": "Idioma",
+    "chooseLanguage": "Elige el idioma"
   },
   "Footer": {
     "tagline": "Construimos, escalamos y mantenemos software de IA para startups y empresas.",

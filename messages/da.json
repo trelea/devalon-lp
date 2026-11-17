@@ -16,7 +16,9 @@
     "getInTouch": "Kontakt os",
     "openMenu": "Åbn menu",
     "menu": "Menu",
-    "home": "Devalon — hjem"
+    "home": "Devalon — hjem",
+    "language": "Sprog",
+    "chooseLanguage": "Vælg sprog"
   },
   "Footer": {
     "tagline": "Vi bygger, skalerer og vedligeholder AI-software for startups og virksomheder.",

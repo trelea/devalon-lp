@@ -16,7 +16,9 @@
     "getInTouch": "Contactează-ne",
     "openMenu": "Deschide meniul",
     "menu": "Meniu",
-    "home": "Devalon — acasă"
+    "home": "Devalon — acasă",
+    "language": "Limba",
+    "chooseLanguage": "Alege limba"
   },
   "Footer": {
     "tagline": "Construim, scalăm și întreținem software AI pentru startup-uri și companii.",

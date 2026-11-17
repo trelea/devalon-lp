@@ -16,7 +16,9 @@
     "getInTouch": "Get in touch",
     "openMenu": "Open menu",
     "menu": "Menu",
-    "home": "Devalon — home"
+    "home": "Devalon — home",
+    "language": "Language",
+    "chooseLanguage": "Choose language"
   },
   "Footer": {
     "tagline": "Building, scaling, and maintaining AI software for startups and enterprises.",

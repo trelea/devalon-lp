@@ -16,7 +16,9 @@
     "getInTouch": "Kontakt aufnehmen",
     "openMenu": "Menü öffnen",
     "menu": "Menü",
-    "home": "Devalon — Startseite"
+    "home": "Devalon — Startseite",
+    "language": "Sprache",
+    "chooseLanguage": "Sprache wählen"
   },
   "Footer": {
     "tagline": "Wir entwickeln, skalieren und betreiben KI-Software für Startups und Unternehmen.",

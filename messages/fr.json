@@ -16,7 +16,9 @@
     "getInTouch": "Nous contacter",
     "openMenu": "Ouvrir le menu",
     "menu": "Menu",
-    "home": "Devalon — accueil"
+    "home": "Devalon — accueil",
+    "language": "Langue",
+    "chooseLanguage": "Choisir la langue"
   },
   "Footer": {
     "tagline": "Nous concevons, mettons à l'échelle et maintenons des logiciels IA pour startups et entreprises.",

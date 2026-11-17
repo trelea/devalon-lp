@@ -16,7 +16,9 @@
     "getInTouch": "Связаться",
     "openMenu": "Открыть меню",
     "menu": "Меню",
-    "home": "Devalon — главная"
+    "home": "Devalon — главная",
+    "language": "Язык",
+    "chooseLanguage": "Выберите язык"
   },
   "Footer": {
     "tagline": "Создаём, масштабируем и поддерживаем AI-ПО для стартапов и компаний.",
