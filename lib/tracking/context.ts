@@ -16,8 +16,13 @@ function buildFbc(): string | undefined {
   if (cookie) return cookie;
 
   if (typeof window === "undefined") return undefined;
-  const fbclid = new URLSearchParams(window.location.search).get("fbclid");
-  if (!fbclid) return undefined;
+  let fbclid: string | null = null;
+  try {
+    fbclid = new URLSearchParams(window.location.search).get("fbclid");
+  } catch {
+    return undefined;
+  }
+  if (!fbclid || !/^[A-Za-z0-9_-]{1,200}$/.test(fbclid)) return undefined;
 
   const fbc = `fb.1.${Date.now()}.${fbclid}`;
   setCookie("_fbc", fbc);
