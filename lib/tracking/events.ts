@@ -38,6 +38,8 @@ export interface TrackingPayload {
   userAgent: string;
   fbp?: string;
   fbc?: string;
+  externalId?: string;
+  eventTime?: number;
 }
 
 export const META_EVENT: Record<EventName, string> = {

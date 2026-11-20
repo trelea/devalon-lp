@@ -74,13 +74,15 @@ export function ContactForm({ className }: { className?: string }) {
         setStatus("idle")
         return
       }
-      const name = String(formData.get("name") ?? "")
-      const email = String(formData.get("email") ?? "")
-      const phone = String(formData.get("phone") ?? "")
+      const name = String(formData.get("name") ?? "").trim()
+      const email = String(formData.get("email") ?? "").trim()
+      const phone = String(formData.get("phone") ?? "").trim()
+      const [firstName, ...rest] = name.split(/\s+/)
       track("lead", { content_name: "contact_form" }, {
         email: email || undefined,
         phone: phone || undefined,
-        firstName: name || undefined,
+        firstName: firstName || undefined,
+        lastName: rest.length ? rest.join(" ") : undefined,
       }).catch(() => {})
       formTracking.onSuccess()
       form.reset()

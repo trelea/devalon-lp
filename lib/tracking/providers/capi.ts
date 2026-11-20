@@ -18,6 +18,8 @@ export async function capiTrack(
       userAgent: ctx.userAgent,
       fbp: ctx.fbp,
       fbc: ctx.fbc,
+      externalId: ctx.externalId,
+      eventTime: ctx.eventTime,
     });
   } catch {
     // no-op

@@ -1,17 +1,27 @@
+import { getCookie, getExternalId, setCookie } from "./visitor";
+
 export interface TrackingContext {
   eventId: string;
   url: string;
   userAgent: string;
   fbp?: string;
   fbc?: string;
+  externalId?: string;
+  eventTime: number;
 }
 
-function getCookie(name: string): string | undefined {
-  if (typeof document === "undefined") return undefined;
-  const match = document.cookie.match(
-    new RegExp("(?:^|; )" + name.replace(/([.$?*+{}()[\]\\])/g, "\\$1") + "=([^;]*)")
-  );
-  return match ? decodeURIComponent(match[1]) : undefined;
+/** `_fbc` normally comes from the pixel, but can be rebuilt from `?fbclid=`. */
+function buildFbc(): string | undefined {
+  const cookie = getCookie("_fbc");
+  if (cookie) return cookie;
+
+  if (typeof window === "undefined") return undefined;
+  const fbclid = new URLSearchParams(window.location.search).get("fbclid");
+  if (!fbclid) return undefined;
+
+  const fbc = `fb.1.${Date.now()}.${fbclid}`;
+  setCookie("_fbc", fbc);
+  return fbc;
 }
 
 export function buildContext(): TrackingContext {
@@ -25,6 +35,8 @@ export function buildContext(): TrackingContext {
     url: typeof window !== "undefined" ? window.location.href : "",
     userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
     fbp: getCookie("_fbp"),
-    fbc: getCookie("_fbc"),
+    fbc: buildFbc(),
+    externalId: getExternalId(),
+    eventTime: Math.floor(Date.now() / 1000),
   };
 }

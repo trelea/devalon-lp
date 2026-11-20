@@ -33,16 +33,11 @@ export function TrackedClicks() {
 
       // 2. Phone / email clicks
       if (anchor.href.startsWith("tel:") || anchor.href.startsWith("mailto:")) {
-        track(
-          "contact_click",
-          {
-            type: anchor.href.startsWith("tel:") ? "phone" : "email",
-            value: anchor.href.replace(/^(tel:|mailto:)/, ""),
-            label: anchor.textContent?.trim().slice(0, 80),
-          },
-          undefined,
-          { server: false }
-        ).catch(() => {});
+        track("contact_click", {
+          type: anchor.href.startsWith("tel:") ? "phone" : "email",
+          value: anchor.href.replace(/^(tel:|mailto:)/, ""),
+          label: anchor.textContent?.trim().slice(0, 80),
+        }).catch(() => {});
         return;
       }
 
