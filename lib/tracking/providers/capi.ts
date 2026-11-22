@@ -16,8 +16,6 @@ export async function capiTrack(
       eventId: ctx.eventId,
       url: ctx.url,
       userAgent: ctx.userAgent,
-      fbp: ctx.fbp,
-      fbc: ctx.fbc,
       externalId: ctx.externalId,
       eventTime: ctx.eventTime,
     });

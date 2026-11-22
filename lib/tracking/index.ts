@@ -1,6 +1,7 @@
 "use client";
 
 import { buildContext } from "./context";
+import { ensureParamBuilder } from "./param-builder-client";
 import { META_EVENT, GTM_EVENT } from "./events";
 import type { EventName, EventParams, UserData } from "./events";
 import { metaTrack } from "./providers/meta-pixel";
@@ -20,6 +21,7 @@ export async function track(
   options?: TrackOptions
 ): Promise<void> {
   if (typeof window === "undefined") return;
+  await ensureParamBuilder();
   const ctx = buildContext();
 
   metaTrack(META_EVENT[name], params, ctx.eventId);

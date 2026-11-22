@@ -36,8 +36,6 @@ export interface TrackingPayload {
   eventId: string;
   url: string;
   userAgent: string;
-  fbp?: string;
-  fbc?: string;
   externalId?: string;
   eventTime?: number;
 }

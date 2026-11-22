@@ -4,6 +4,7 @@ import crypto from "node:crypto";
 import { headers } from "next/headers";
 import { META_EVENT } from "@/lib/tracking/events";
 import type { TrackingPayload } from "@/lib/tracking/events";
+import { buildCapiParams } from "@/lib/tracking/param-builder";
 import { siteUrl } from "@/lib/site";
 
 const MAX_EVENT_AGE_SECONDS = 60 * 60 * 24 * 7;
@@ -15,13 +16,6 @@ function text(value: string | null | undefined, max = 512): string | undefined {
   if (typeof value !== "string") return undefined;
   const clean = value.replace(/[\u0000-\u001f\u007f]/g, "").trim();
   return clean ? clean.slice(0, max) : undefined;
-}
-
-function sha256(value: string): string {
-  return crypto
-    .createHash("sha256")
-    .update(value.trim().toLowerCase())
-    .digest("hex");
 }
 
 function decode(value: string | null): string | undefined {
@@ -45,75 +39,6 @@ function countryCode(value: string | null): string | undefined {
 function regionCode(value: string | null): string | undefined {
   const code = text(value, 16)?.toLowerCase();
   return code && /^[a-z0-9]{1,3}$/.test(code) ? code : undefined;
-}
-
-/** Meta wants city lowercased, without diacritics, periods, commas or spaces. */
-function normalizeCity(value: string | null | undefined): string | undefined {
-  const raw = text(decode(value ?? null), 120);
-  if (!raw) return undefined;
-  const city = raw
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[.,'’]/g, "")
-    .replace(/\s+/g, "");
-  return city || undefined;
-}
-
-function normalizePhone(value: string): string | undefined {
-  const digits = value.replace(/\D/g, "").replace(/^00/, "");
-  return digits.length >= 7 ? digits : undefined;
-}
-
-function isIp(value: string): boolean {
-  if (/^\d{1,3}(?:\.\d{1,3}){3}$/.test(value)) {
-    return value.split(".").every((part) => Number(part) <= 255);
-  }
-  return /^[0-9a-f:]+$/i.test(value) && value.includes(":");
-}
-
-function isNonRoutable(value: string): boolean {
-  return (
-    value === "::1" ||
-    value === "0.0.0.0" ||
-    /^127\./.test(value) ||
-    /^10\./.test(value) ||
-    /^192\.168\./.test(value) ||
-    /^172\.(1[6-9]|2\d|3[01])\./.test(value) ||
-    /^169\.254\./.test(value) ||
-    /^f[cd][0-9a-f]{2}:/i.test(value) ||
-    /^fe80:/i.test(value)
-  );
-}
-
-/** Pick the first plausible public IP from the trusted proxy headers. */
-function clientIp(headerList: Headers): string | undefined {
-  const candidates = [
-    headerList.get("cf-connecting-ip"),
-    headerList.get("x-forwarded-for")?.split(",")[0],
-    headerList.get("x-vercel-forwarded-for")?.split(",")[0],
-    headerList.get("x-real-ip"),
-  ];
-
-  for (const candidate of candidates) {
-    const raw = text(candidate, 64);
-    if (!raw) continue;
-
-    let ip = raw;
-    if (ip.startsWith("[")) {
-      // Bracketed IPv6, optionally with a port: "[2001:db8::1]:443"
-      const end = ip.indexOf("]");
-      if (end === -1) continue;
-      ip = ip.slice(1, end);
-    } else if (/^\d{1,3}(?:\.\d{1,3}){3}:\d+$/.test(ip)) {
-      // IPv4 with a port — strip it. Never strip the last IPv6 hextet.
-      ip = ip.replace(/:\d+$/, "");
-    }
-
-    if (!isIp(ip) || isNonRoutable(ip)) continue;
-    return ip;
-  }
-  return undefined;
 }
 
 function absoluteUrl(value: string | undefined): string | undefined {
@@ -142,32 +67,6 @@ function safeEventTime(value: number | undefined): number {
   return now;
 }
 
-function hashUserData(userData?: TrackingPayload["userData"]) {
-  if (!userData) return {};
-  const out: Record<string, string> = {};
-
-  const email = text(userData.email, 320);
-  if (email) out.em = sha256(email);
-
-  const phone = text(userData.phone, 40);
-  const normalizedPhone = phone ? normalizePhone(phone) : undefined;
-  if (normalizedPhone) out.ph = sha256(normalizedPhone);
-
-  const firstName = text(userData.firstName, 120);
-  if (firstName) out.fn = sha256(firstName);
-
-  const lastName = text(userData.lastName, 120);
-  if (lastName) out.ln = sha256(lastName);
-
-  const city = normalizeCity(userData.city);
-  if (city) out.ct = sha256(city);
-
-  const country = countryCode(userData.country ?? null);
-  if (country) out.country = sha256(country);
-
-  return out;
-}
-
 export async function sendCapiEvent(payload: TrackingPayload) {
   const pixelId =
     text(process.env.META_PIXEL_ID, 64) ??
@@ -175,21 +74,22 @@ export async function sendCapiEvent(payload: TrackingPayload) {
   const accessToken = text(process.env.META_CAPI_ACCESS_TOKEN, 512);
   if (!pixelId || !accessToken) return;
 
+  // Meta's server-side SDK resolves fbc/fbp/IP/URLs from the incoming request
+  // and returns the first-party cookies it wants us to persist.
+  const capi = await buildCapiParams(payload.url);
+
   const headerList = await headers();
 
-  // Raw fields — never hashed, or Meta cannot match them.
-  const ip = clientIp(headerList);
   const userAgent =
     text(headerList.get("user-agent"), 4096) ?? text(payload.userAgent, 4096);
-  const fbp = text(payload.fbp, 255);
-  const fbc = text(payload.fbc, 255);
 
   // Geo — prefer Cloudflare, fall back to Vercel (DNS-only setups).
   const country =
     countryCode(headerList.get("cf-ipcountry")) ??
     countryCode(headerList.get("x-vercel-ip-country"));
-  const city = normalizeCity(
-    headerList.get("cf-ipcity") ?? headerList.get("x-vercel-ip-city")
+  const city = text(
+    decode(headerList.get("cf-ipcity") ?? headerList.get("x-vercel-ip-city")),
+    120
   );
   const region =
     regionCode(headerList.get("cf-region-code")) ??
@@ -198,17 +98,27 @@ export async function sendCapiEvent(payload: TrackingPayload) {
   const externalId = text(payload.externalId, 255);
   const testEventCode = text(process.env.META_TEST_EVENT_CODE, 64);
 
-  const userData: Record<string, string> = {
-    ...hashUserData(payload.userData),
-    ...(userAgent ? { client_user_agent: userAgent } : {}),
-    ...(ip ? { client_ip_address: ip } : {}),
-    ...(fbp ? { fbp } : {}),
-    ...(fbc ? { fbc } : {}),
-    ...(externalId ? { external_id: sha256(externalId) } : {}),
-    ...(country ? { country: sha256(country) } : {}),
-    ...(city ? { ct: sha256(city) } : {}),
-    ...(region ? { st: sha256(region) } : {}),
+  const userData: Record<string, string> = {};
+  if (userAgent) userData.client_user_agent = userAgent;
+  if (capi.clientIpAddress) userData.client_ip_address = capi.clientIpAddress;
+  if (capi.fbp) userData.fbp = capi.fbp;
+  if (capi.fbc) userData.fbc = capi.fbc;
+
+  // Normalize + hash exactly once, through the SDK, so Meta's appendix is kept.
+  const pii = payload.userData;
+  const hashed: Record<string, string | undefined> = {
+    em: capi.hash(pii?.email, "email"),
+    ph: capi.hash(pii?.phone, "phone"),
+    fn: capi.hash(pii?.firstName, "first_name"),
+    ln: capi.hash(pii?.lastName, "last_name"),
+    ct: capi.hash(pii?.city, "city") ?? capi.hash(city, "city"),
+    country: capi.hash(country, "country"),
+    st: capi.hash(region, "state"),
+    external_id: capi.hash(externalId, "external_id"),
   };
+  for (const [key, value] of Object.entries(hashed)) {
+    if (value) userData[key] = value;
+  }
 
   const eventName = META_EVENT[payload.name] ?? "CustomEvent";
 
@@ -219,7 +129,9 @@ export async function sendCapiEvent(payload: TrackingPayload) {
         event_time: safeEventTime(payload.eventTime),
         event_id: text(payload.eventId, 128) ?? crypto.randomUUID(),
         action_source: "website",
-        event_source_url: absoluteUrl(payload.url) ?? siteUrl,
+        event_source_url:
+          capi.eventSourceUrl ?? absoluteUrl(payload.url) ?? siteUrl,
+        ...(capi.referrerUrl ? { referrer_url: capi.referrerUrl } : {}),
         user_data: userData,
         custom_data: payload.params ?? {},
       },

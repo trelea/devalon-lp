@@ -8,6 +8,7 @@ import {
 import "../globals.css";
 
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { ParamBuilder } from "@/components/param-builder";
 import { TrackingProvider } from "@/components/tracking-provider";
 import { TrackedClicks } from "@/components/tracked-clicks";
 import {
@@ -181,6 +182,7 @@ export default async function LocaleLayout({
       <NextIntlClientProvider locale={locale} messages={messages}>
         <body className="min-h-full flex flex-col overflow-x-hidden bg-gray-100">
           <SmoothScroll>{children}</SmoothScroll>
+          <ParamBuilder />
           <TrackingProvider />
           <TrackedClicks />
         </body>
