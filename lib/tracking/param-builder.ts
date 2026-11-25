@@ -40,6 +40,13 @@ function safeReferer(value: string | null): string | null {
   }
 }
 
+/** Last-resort `fbc` when the `_fbc` cookie was not persisted by the SDK. */
+function fbcFromQuery(queryParams: Record<string, string>): string | undefined {
+  const fbclid = queryParams.fbclid;
+  if (!fbclid || !/^[A-Za-z0-9_-]{1,256}$/.test(fbclid)) return undefined;
+  return `fb.1.${Date.now()}.${fbclid}`;
+}
+
 export interface CapiParams {
   fbc?: string;
   fbp?: string;
@@ -101,7 +108,7 @@ export async function buildCapiParams(url: string | undefined): Promise<CapiPara
   }
 
   return {
-    fbc: builder.getFbc() ?? undefined,
+    fbc: builder.getFbc() ?? fbcFromQuery(queryParams) ?? undefined,
     fbp: builder.getFbp() ?? undefined,
     clientIpAddress: builder.getClientIpAddress() ?? undefined,
     eventSourceUrl: builder.getEventSourceUrl() ?? undefined,

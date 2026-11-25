@@ -172,6 +172,11 @@ export default async function LocaleLayout({
             __html: `try{if(!document.cookie.match(/(?:^|; )device-locale=/)){var l=(navigator.language||'').split('-')[0];document.cookie='device-locale='+encodeURIComponent(l)+';path=/;max-age=31536000';}}catch(e){}`,
           }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(!document.cookie.match(/(?:^|; )_fbc=/)){var m=location.search.match(/[?&]fbclid=([^&#]+)/);if(m){var id=decodeURIComponent(m[1]);if(/^[A-Za-z0-9_-]{1,256}$/.test(id)){document.cookie='_fbc='+encodeURIComponent('fb.1.'+Date.now()+'.'+id)+';path=/;max-age=7776000;SameSite=Lax'}}}}catch(e){}`,
+          }}
+        />
         <link
           rel="alternate"
           type="text/plain"

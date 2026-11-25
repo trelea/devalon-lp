@@ -7,6 +7,7 @@ import type { EventName, EventParams, UserData } from "./events";
 import { metaTrack } from "./providers/meta-pixel";
 import { gtmTrack } from "./providers/gtm";
 import { capiTrack } from "./providers/capi";
+import { getIdentifiedUser } from "./identified-user";
 
 export type { EventName, EventParams, UserData };
 
@@ -29,7 +30,10 @@ export async function track(
 
   const server = options?.server !== false;
   if (server) {
-    capiTrack(name, params, userData, ctx).catch(() => {});
+    // PII captured from an earlier form submit in this tab also enriches
+    // otherwise anonymous events such as ViewContent. Explicit data wins.
+    const merged: UserData = { ...(getIdentifiedUser() ?? {}), ...(userData ?? {}) };
+    capiTrack(name, params, merged, ctx).catch(() => {});
   }
 }
 

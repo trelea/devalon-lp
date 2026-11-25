@@ -5,6 +5,8 @@ import { headers } from "next/headers";
 import { META_EVENT } from "@/lib/tracking/events";
 import type { TrackingPayload } from "@/lib/tracking/events";
 import { buildCapiParams } from "@/lib/tracking/param-builder";
+import { lookupGeo } from "@/lib/tracking/geo";
+import { clientIpFromHeaders } from "@/lib/tracking/ip";
 import { siteUrl } from "@/lib/site";
 
 const MAX_EVENT_AGE_SECONDS = 60 * 60 * 24 * 7;
@@ -95,6 +97,12 @@ export async function sendCapiEvent(payload: TrackingPayload) {
     regionCode(headerList.get("cf-region-code")) ??
     regionCode(headerList.get("x-vercel-ip-country-region"));
 
+  // Edge headers stay authoritative for country/region/city. The IP APIs only
+  // fill gaps and are the sole source for the postal code.
+  const geo = await lookupGeo(
+    capi.clientIpAddress ?? clientIpFromHeaders(headerList)
+  );
+
   const externalId = text(payload.externalId, 255);
   const testEventCode = text(process.env.META_TEST_EVENT_CODE, 64);
 
@@ -111,9 +119,13 @@ export async function sendCapiEvent(payload: TrackingPayload) {
     ph: capi.hash(pii?.phone, "phone"),
     fn: capi.hash(pii?.firstName, "first_name"),
     ln: capi.hash(pii?.lastName, "last_name"),
-    ct: capi.hash(pii?.city, "city") ?? capi.hash(city, "city"),
-    country: capi.hash(country, "country"),
-    st: capi.hash(region, "state"),
+    ct:
+      capi.hash(pii?.city, "city") ??
+      capi.hash(city, "city") ??
+      capi.hash(geo?.city, "city"),
+    country: capi.hash(country, "country") ?? capi.hash(geo?.country, "country"),
+    st: capi.hash(region, "state") ?? capi.hash(geo?.state, "state"),
+    zp: capi.hash(geo?.postal, "zip_code"),
     external_id: capi.hash(externalId, "external_id"),
   };
   for (const [key, value] of Object.entries(hashed)) {

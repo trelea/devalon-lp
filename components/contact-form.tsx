@@ -13,6 +13,7 @@ import {
 
 import { sendContactIdea } from "@/app/actions/contact"
 import { track } from "@/lib/tracking"
+import { saveIdentifiedUser } from "@/lib/tracking/identified-user"
 import { useFormTracking } from "@/lib/use-form-tracking"
 import { Button } from "@/components/ui/button"
 import { siteEmail } from "@/lib/site"
@@ -78,12 +79,15 @@ export function ContactForm({ className }: { className?: string }) {
       const email = String(formData.get("email") ?? "").trim()
       const phone = String(formData.get("phone") ?? "").trim()
       const [firstName, ...rest] = name.split(/\s+/)
-      track("lead", { content_name: "contact_form" }, {
+      const pii = {
         email: email || undefined,
         phone: phone || undefined,
         firstName: firstName || undefined,
         lastName: rest.length ? rest.join(" ") : undefined,
-      }).catch(() => {})
+      }
+      // Reuse these details for later events (ViewContent, etc.) in this tab.
+      saveIdentifiedUser(pii)
+      track("lead", { content_name: "contact_form" }, pii).catch(() => {})
       formTracking.onSuccess()
       form.reset()
       setStatus("sent")
